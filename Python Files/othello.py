@@ -8,144 +8,230 @@ import math
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 800
 
+class Game:
 
-def generateBoard():
-    boardArray = []
 
-    for _ in range(8):
-        column = []
+    def __init__(self):
+        self.white_turn = True
+        self.board = self.generateBoard()
+
+
+    def generateBoard(self):
+        """Generates a new board array for the game object
+        
+        Returns:
+            new_board -- The generated new board
+        """
+        new_board = []
+
         for _ in range(8):
-            column.append('x')
+            column = []
+            for _ in range(8):
+                column.append('x')
+            
+            new_board.append(column)
         
-        boardArray.append(column)
-    
-    boardArray = createStartPosition(boardArray)
-    return boardArray
+        new_board = self.createStartPosition(new_board)
+        return new_board
 
 
-def createStartPosition(board):
-    board[3][3] = 'b'
-    board[4][4] = 'b'
-    board[3][4] = 'w'
-    board[4][3] = 'w'
-    return board
+    def createStartPosition(self, new_board):
+        """Places the starting pieces on the board
+        
+        Arguments:
+            new_board {[[Chr]]} -- The new (empty) board
+        
+        Returns:
+            new_board -- The new board with starting pieces placed
+        """
+        new_board[3][3] = 'b'
+        new_board[4][4] = 'b'
+        new_board[3][4] = 'w'
+        new_board[4][3] = 'w'
+        return new_board
 
 
-def drawBoard(board, game_window):
-    game_window.fill((0,157,0))
-    for i in range(8):
-        for j in range(8):
-            rect = pygame.Rect(i*100,j*100,100,100)
-            pygame.draw.rect(game_window, (0,0,0), rect, 5)
+    def run(self):
+        """The main function for running the game object
+        """
+        pygame.init()
 
-            pieceVal = board[i][j]
+        # Create a game window
+        game_window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+        pygame.display.set_caption("Othello")
+        
+        game_running = True
+        print("Starting game...")
+        
+        while game_running:
+            self.drawBoard(game_window)
 
-            if pieceVal == 'w':
-                pygame.draw.circle(game_window, (255,255,255), (i*100 + 50, j*100 + 50), 40, 0)
-            elif pieceVal == 'b':
-                pygame.draw.circle(game_window, (0,0,0), (i*100 + 50, j*100 + 50), 40, 0)
+            valid_moves = self.getValidMoves()
+            move = (-1,-1)
 
-    
-    pygame.display.update()
+            while (move not in valid_moves) & game_running:
+                move, game_running = self.getMove()
+            
+            self.makeMove(move)
+                                    
+        
+        pygame.quit()
 
-    
-def getValidMoves(board, white_turn):
+    def drawBoard(self, game_window):
+        """Draws the current game state to the screen
+        
+        Arguments:
+            game_window {pygame.window object (?)} -- The game window on the screen
+        """
+        game_window.fill((0,157,0))
+        for i in range(8):
+            for j in range(8):
+                rect = pygame.Rect(i*100,j*100,100,100)
+                pygame.draw.rect(game_window, (0,0,0), rect, 5)
 
-    if white_turn:
-        playerChar = 'w'
-    else:
-        playerChar = 'b'
-    
-    validMoves = []
-    adjacentSquares = []
+                pieceVal = self.board[i][j]
 
-    for i in range(8):
-        for j in range(8):
+                if pieceVal == 'w':
+                    pygame.draw.circle(game_window, (255,255,255), (i*100 + 50, j*100 + 50), 40, 0)
+                elif pieceVal == 'b':
+                    pygame.draw.circle(game_window, (0,0,0), (i*100 + 50, j*100 + 50), 40, 0)
 
+        
+        pygame.display.update()
 
-            for x in range(-1, 1):
-                for y in range(-1, 1):
-                    squareToCheck = (i+x, j+y)
-                    
+        
+    def getValidMoves(self):
+        """Returns a list of valid moves the current player can make
+        
+        Returns:
+            [(Integer,Integer)] -- The list of valid moves
+        """
+        valid_moves = []
 
-    
-    return validMoves
+        adjacent_squares_dict = self.getAdjacentSquares()
+        print(adjacent_squares_dict)                
 
-
-def getMove():
-
-    move = (-1,-1)
-    game_running = True
-
-    for event in pygame.event.get():
-
-        if event.type == pygame.QUIT:
-            game_running = False
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            mouseInput = event.pos
-            move = convertClickToMove(mouseInput)          
-    
-    return move, game_running
-
-
-def convertClickToMove(mouseInput):
-    move = (math.floor(mouseInput[0]/100), math.floor(mouseInput[1]/100))
-    return move
-
-
-def makeMove(board, move, white_turn):
-    
-    
-    if white_turn:
-        newPieceChar = 'w'
-    else:
-        newPieceChar = 'b'
-    
-    board[move[0]][move[1]] = newPieceChar
-    
-    white_turn = not white_turn
-
-    return board, white_turn
+        
+        return valid_moves
 
 
-def flipPieces(board, newMove):
-    return None
+    def getAdjacentSquares(self):
+        """Gets a list of all squares adjacent to an opponent's piece
+        
+        Returns:
+            [(Integer,Integer)] -- List of adjacent squares
+        """
+
+        adjacent_squares_dict = {}
+
+        player_char = self.getCurrentOpponent()
+        
+        for i in range(8):
+            for j in range(8):
+
+                if self.board[i][j] == 'x':
+                    for x in range(-1, 1):
+                        for y in range(-1, 1):
+                            
+                            square_to_check = (i+x, j+y)
+                            
+                            try:
+                                if self.board[square_to_check[0]][square_to_check[1]] == player_char:
+                                    adjacent_squares_dict[(i,j)] = (x,y)
+                            except:
+                                pass
 
 
-def isGameOver(board):
-    return False
+
+        return adjacent_squares_dict
 
 
-def getWinner(board):
-    return None
-
-
-def main():   
-
-    pygame.init()
-
-    # Create a game window
-    game_window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-    pygame.display.set_caption("Othello")
-    
-
-    board = generateBoard()
-    white_turn = True
-    game_running = True
-    print("Starting game...")
-    
-    while game_running:
-        drawBoard(board, game_window)
-        validMoves = getValidMoves(board, white_turn)
+    def getMove(self):
+        """Takes a user input of a move
+        
+        Returns:
+            (Integer,Integer), Bool -- The registered move, or whether the user has quit the game
+        """
         move = (-1,-1)
+        game_running = True
 
-        while (move not in validMoves) & game_running:
-            move, game_running = getMove()
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                game_running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_input = event.pos
+                move = self.convertClickToMove(mouse_input)          
         
-        board, white_turn = makeMove(board, move, white_turn)
-                                  
+        return move, game_running
+
+
+    def convertClickToMove(self, mouse_input):
+        """Converts the user input to a board coordinate
+        
+        Arguments:
+            mouse_input {Mouse input event position} -- The coordinates of the click on screen
+        
+        Returns:
+            [(Integer, Integer)] -- The coordinates of the square the user clicked
+        """
+        move = (math.floor(mouse_input[0]/100), math.floor(mouse_input[1]/100))
+        return move
+
+
+    def makeMove(self, move):
+        """Applies the user's move to the game
+        
+        Arguments:
+            move {(Integer,Integer)} -- The coordinates of the new piece
+        """
+        
+        if self.white_turn:
+            new_piece_char = 'w'
+        else:
+            new_piece_char = 'b'
+        
+        self.board[move[0]][move[1]] = new_piece_char
+        
+        self.white_turn = not white_turn
+
+
+    def getCurrentPlayer(self):
+        """Returns the character representation of the current player
+        
+        Returns:
+            Chr -- 'w' = white, 'b' = black
+        """
+        if self.white_turn:
+            return 'w'
+        else:
+            return 'b'
     
-    pygame.quit()
+
+    def getCurrentOpponent(self):
+        """Returns the character representation of the current opponent
+        
+        Returns:
+            Chr -- 'w' = white, 'b' = black
+        """
+        if self.white_turn:
+            return 'b'
+        else:
+            return 'w'
+
+    def flipPieces(self, newMove):
+        return None
+
+
+    def isGameOver(self):
+        return False
+
+
+    def getWinner(self):
+        return None
+
 
 if __name__ == "__main__":
-    main()
+    newGame = Game()
+
+    newGame.run()
