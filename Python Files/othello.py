@@ -51,10 +51,23 @@ def drawBoard(board, game_window):
     
 def getValidMoves(board, white_turn):
 
+    if white_turn:
+        playerChar = 'w'
+    else:
+        playerChar = 'b'
+    
     validMoves = []
+    adjacentSquares = []
+
     for i in range(8):
         for j in range(8):
-            validMoves.append((i,j))
+
+
+            for x in range(-1, 1):
+                for y in range(-1, 1):
+                    squareToCheck = (i+x, j+y)
+                    
+
     
     return validMoves
 
@@ -93,6 +106,18 @@ def makeMove(board, move, white_turn):
     white_turn = not white_turn
 
     return board, white_turn
+
+
+def flipPieces(board, newMove):
+    return None
+
+
+def isGameOver(board):
+    return False
+
+
+def getWinner(board):
+    return None
 
 
 def main():   
