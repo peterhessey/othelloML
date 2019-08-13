@@ -89,11 +89,11 @@ class Game:
                 rect = pygame.Rect(i*100,j*100,100,100)
                 pygame.draw.rect(game_window, (0,0,0), rect, 5)
 
-                pieceVal = self.board[i][j]
+                piece_val = self.board[i][j]
 
-                if pieceVal == 'w':
+                if piece_val == 'w':
                     pygame.draw.circle(game_window, (255,255,255), (i*100 + 50, j*100 + 50), 40, 0)
-                elif pieceVal == 'b':
+                elif piece_val == 'b':
                     pygame.draw.circle(game_window, (0,0,0), (i*100 + 50, j*100 + 50), 40, 0)
 
         
