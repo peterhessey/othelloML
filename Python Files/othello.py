@@ -150,7 +150,8 @@ class Game:
         """Takes a user input of a move
         
         Returns:
-            (Integer,Integer), Bool -- The registered move, or whether the user has quit the game
+            (Integer,Integer), Bool -- The registered move, or whether 
+                                       the user has quit the game
         """
         move = (-1,-1)
         game_running = True
