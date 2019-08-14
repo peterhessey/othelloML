@@ -64,9 +64,14 @@ class Game:
         print("Starting game...")
         
         while game_running:
-            self.drawBoard(game_window)
 
             valid_moves = self.getValidMoves()
+            print(valid_moves)
+            self.markValidMoves(valid_moves)
+            self.drawBoard(game_window)
+            self.unmarkValidMoves()
+
+                        
             move = (-1,-1)
 
             while (move not in valid_moves) & game_running:
@@ -77,8 +82,13 @@ class Game:
         
         pygame.quit()
 
+
     def drawBoard(self, game_window):
-        """Draws the current game state to the screen
+        """Draws the current game state to the screen:
+            - Fills screen with dark green (0,157,0)
+            - Draws the board squares
+            - Draws the pieces
+            - Draws the markers for possible moves
         
         Arguments:
             game_window {pygame.window object (?)} -- The game window on the screen
@@ -92,9 +102,11 @@ class Game:
                 piece_val = self.board[i][j]
 
                 if piece_val == 'w':
-                    pygame.draw.circle(game_window, (255,255,255), (i*100 + 50, j*100 + 50), 40, 0)
+                    pygame.draw.circle(game_window, (255,255,255), (i * 100 + 50, j * 100 + 50), 40, 0)
                 elif piece_val == 'b':
-                    pygame.draw.circle(game_window, (0,0,0), (i*100 + 50, j*100 + 50), 40, 0)
+                    pygame.draw.circle(game_window, (0,0,0), (i * 100 + 50, j * 100 + 50), 40, 0)
+                elif piece_val == 'v':
+                    pygame.draw.circle(game_window, (255,255,255), (i * 100 + 50, j * 100 + 50), 5, 0)
 
         
         pygame.display.update()
@@ -106,44 +118,92 @@ class Game:
         Returns:
             [(Integer,Integer)] -- The list of valid moves
         """
-        valid_moves = []
-
+        valid_moves = []        
         adjacent_squares_dict = self.getAdjacentSquares()
-        print(adjacent_squares_dict)                
 
+        print(adjacent_squares_dict)
         
-        return valid_moves
+        for square in adjacent_squares_dict.keys():
+            for direction in adjacent_squares_dict[square]:
+
+                if self.validateMove(square, direction):
+                    valid_moves.append(square)                
+        
+        #remove duplicates before returning
+        return list(set(valid_moves))
+    
+
+    def validateMove(self, square, direction):
+        move_valid = False
+        player_char  = self.getCurrentPlayer()
+        opponenet_char = self.getCurrentOpponent()
+        
+        square_scanner = [square[0] + direction[0] * 2, square[1] + direction[1] * 2]
+                
+        while (square_scanner[0] <= 7 & square_scanner[0] >= 0
+             & square_scanner[1] <= 7 & square_scanner[1] >= 0
+             & move_valid == False):
+
+            square_char = self.board[square_scanner[0]][square_scanner[1]]
+                     
+            if square_char == player_char:
+                move_valid = True
+                break
+            elif square_char == opponenet_char:
+                square_scanner[0] += direction[0]
+                square_scanner[1] += direction[1]
+            else:
+                break
+
+        return move_valid
 
 
     def getAdjacentSquares(self):
-        """Gets a list of all squares adjacent to an opponent's piece
+        """Returns a dictionary of all adjacent squares and the
+            directions in which the adjacent pieces lie
         
         Returns:
-            [(Integer,Integer)] -- List of adjacent squares
+            {} -- Dictionary, keys = squares, values = adjacent directions
         """
-
+        
         adjacent_squares_dict = {}
 
-        player_char = self.getCurrentOpponent()
+        opponent_char = self.getCurrentOpponent()
         
         for i in range(8):
             for j in range(8):
 
-                if self.board[i][j] == 'x':
-                    for x in range(-1, 1):
-                        for y in range(-1, 1):
-                            
-                            square_to_check = (i+x, j+y)
-                            
-                            try:
-                                if self.board[square_to_check[0]][square_to_check[1]] == player_char:
-                                    adjacent_squares_dict[(i,j)] = (x,y)
-                            except:
-                                pass
 
+                if self.board[i][j] == 'x':
+                    for x in range(-1, 2):
+                        for y in range(-1, 2):
+                            
+                            if ((i + x) < 8 and (i + x) >= 0 and (j + y) < 8 and (j + y) >= 0):
+                                
+                                square_scanner = self.board[i+x][j+y]
+                    
+
+                                if square_scanner == opponent_char:
+                                    if (i,j) in adjacent_squares_dict.keys():
+                                        adjacent_squares_dict[(i,j)].append((x,y))
+                                    else:
+                                        adjacent_squares_dict[(i,j)] = [(x,y)]
 
 
         return adjacent_squares_dict
+
+    
+    def markValidMoves(self, valid_moves):
+
+        for move in valid_moves:
+            self.board[move[0]][move[1]] = 'v'
+
+
+    def unmarkValidMoves(self):
+        for i in range(8):
+            for j in range(8):
+                if self.board[i][j] == 'v':
+                    self.board[i][j] = 'x'
 
 
     def getMove(self):
@@ -194,7 +254,7 @@ class Game:
         
         self.board[move[0]][move[1]] = new_piece_char
         
-        self.white_turn = not white_turn
+        self.white_turn = not self.white_turn
 
 
     def getCurrentPlayer(self):
@@ -219,6 +279,7 @@ class Game:
             return 'b'
         else:
             return 'w'
+
 
     def flipPieces(self, newMove):
         return None
