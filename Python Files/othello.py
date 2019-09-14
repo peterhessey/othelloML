@@ -5,13 +5,14 @@ import sys
 import math
 
 
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 800
+WINDOW_WIDTH = 640
+WINDOW_HEIGHT = 640
 
 class Game:
 
 
-    def __init__(self):
+    def __init__(self, verbose):
+        self.verbose = verbose
         self.white_turn = True
         self.board = self.generateBoard()
 
@@ -63,22 +64,38 @@ class Game:
         game_running = True
         print("Starting game...")
         
-        while game_running:
-
+        while game_running:   
+            
             valid_moves = self.getValidMoves()
-            print(valid_moves)
-            self.markValidMoves(valid_moves)
+
+            if len(valid_moves) == 0:
+                game_running = False
+                continue
+
+            if self.verbose:
+                print("Valid moves:" + str(valid_moves))
+            
+            self.markValidMoves(valid_moves.keys())
             self.drawBoard(game_window)
             self.unmarkValidMoves()
 
                         
             move = (-1,-1)
 
-            while (move not in valid_moves) & game_running:
+            while (move not in valid_moves.keys()) & game_running:
                 move, game_running = self.getMove()
             
+            self.flipPieces(move, valid_moves[move])
             self.makeMove(move)
-                                    
+
+        winning_player = self.getWinner()
+
+        if winning_player == 'w':
+            print("White wins!")
+        elif winning_player == 'b':
+            print("Black wins!")
+        else:
+            print("Draw")                          
         
         pygame.quit()
 
@@ -96,17 +113,17 @@ class Game:
         game_window.fill((0,157,0))
         for i in range(8):
             for j in range(8):
-                rect = pygame.Rect(i*100,j*100,100,100)
+                rect = pygame.Rect(i*80,j*80,80,80)
                 pygame.draw.rect(game_window, (0,0,0), rect, 5)
 
                 piece_val = self.board[i][j]
 
                 if piece_val == 'w':
-                    pygame.draw.circle(game_window, (255,255,255), (i * 100 + 50, j * 100 + 50), 40, 0)
+                    pygame.draw.circle(game_window, (255,255,255), (i * 80 + 40, j * 80 + 40), 30)
                 elif piece_val == 'b':
-                    pygame.draw.circle(game_window, (0,0,0), (i * 100 + 50, j * 100 + 50), 40, 0)
+                    pygame.draw.circle(game_window, (0,0,0), (i * 80 + 40, j * 80 + 40), 30)
                 elif piece_val == 'v':
-                    pygame.draw.circle(game_window, (255,255,255), (i * 100 + 50, j * 100 + 50), 5, 0)
+                    pygame.draw.circle(game_window, (255,255,255), (i * 80 + 40, j * 80 + 40), 5, 0)
 
         
         pygame.display.update()
@@ -116,24 +133,43 @@ class Game:
         """Returns a list of valid moves the current player can make
         
         Returns:
-            [(Integer,Integer)] -- The list of valid moves
+            {(Integer,Integer) : [(Integer, Integer)]} -- The list of valid
+            moves and the directions in which pieces need to be flipped if 
+            that move is played.
         """
-        valid_moves = []        
+        valid_moves = {}        
         adjacent_squares_dict = self.getAdjacentSquares()
 
-        print(adjacent_squares_dict)
+        if self.verbose:
+            print("Adjacent squares: " + str(adjacent_squares_dict))
         
         for square in adjacent_squares_dict.keys():
             for direction in adjacent_squares_dict[square]:
 
                 if self.validateMove(square, direction):
-                    valid_moves.append(square)                
+                    if square in valid_moves.keys():
+                        valid_moves[square].append(direction)
+                    else:
+                        valid_moves[square] = [direction]             
         
-        #remove duplicates before returning
-        return list(set(valid_moves))
+        
+        return valid_moves
     
 
     def validateMove(self, square, direction):
+        """For a given square and direction tuple, returns a boolean value
+        representing whether that move is a valid move or not.
+        
+        Arguments:
+            square {(Integer, Integer)} -- The square on which the move would
+            be played
+            direction {(Integer Integer)} -- A 2D normalised vector
+            representing the direction in which the move would connect with
+            a piece of the same colour.
+        
+        Returns:
+            Bool -- True if move is valid, false otherwise
+        """
         move_valid = False
         player_char  = self.getCurrentPlayer()
         opponenet_char = self.getCurrentOpponent()
@@ -144,8 +180,11 @@ class Game:
              & square_scanner[1] <= 7 & square_scanner[1] >= 0
              & move_valid == False):
 
-            square_char = self.board[square_scanner[0]][square_scanner[1]]
-                     
+            try:
+                square_char = self.board[square_scanner[0]][square_scanner[1]]
+            except:
+                print("Error with " + str(square_scanner))    
+
             if square_char == player_char:
                 move_valid = True
                 break
@@ -159,11 +198,12 @@ class Game:
 
 
     def getAdjacentSquares(self):
-        """Returns a dictionary of all adjacent squares and the
-            directions in which the adjacent pieces lie
+        """Returns a dictionary of all adjacent squares and the directions in 
+        which the adjacent pieces lie
         
         Returns:
-            {} -- Dictionary, keys = squares, values = adjacent directions
+            {(Integer, Integer):[(Integer, Integer)]} -- Dictionary that
+            represents the adjacent squares and their relative directions
         """
         
         adjacent_squares_dict = {}
@@ -193,13 +233,22 @@ class Game:
         return adjacent_squares_dict
 
     
-    def markValidMoves(self, valid_moves):
-
-        for move in valid_moves:
+    def markValidMoves(self, valid_move_squares):
+        """Marks squares that are valid moves with a 'v' character
+        
+        Arguments:
+            valid_moves_squares [(Integer, Integer)] -- List containing tuples representing the valid moves
+        
+        Returns:
+            None
+        """
+        for move in valid_move_squares:
             self.board[move[0]][move[1]] = 'v'
 
 
     def unmarkValidMoves(self):
+        """Simply replaces all the valid moves that weren't used with the character 'x'
+        """
         for i in range(8):
             for j in range(8):
                 if self.board[i][j] == 'v':
@@ -236,7 +285,7 @@ class Game:
         Returns:
             [(Integer, Integer)] -- The coordinates of the square the user clicked
         """
-        move = (math.floor(mouse_input[0]/100), math.floor(mouse_input[1]/100))
+        move = (math.floor(mouse_input[0]/80), math.floor(mouse_input[1]/80))
         return move
 
 
@@ -255,6 +304,43 @@ class Game:
         self.board[move[0]][move[1]] = new_piece_char
         
         self.white_turn = not self.white_turn
+
+
+    def flipPieces(self, move, directions):
+        """Function responsible for flipping pieces on the board when a valid
+        move is played by the current player.
+        
+        Arguments:
+            move {(Integer, Integer)} -- The move that's been played
+            directions {[(Integer, Integer)]} -- The directions in which pieces
+            need to flipped.
+        """
+
+        player_char = self.getCurrentPlayer()
+        opponenet_char = self.getCurrentOpponent()
+
+
+        for direction in directions:
+            line_flipped = False
+            square_to_flip = [move[0]+direction[0], move[1]+direction[1]]
+
+            if self.verbose:
+                print("Flipping pieces on square %s in direciton %s" % (move, direction))
+
+            while not line_flipped:
+                if self.verbose:
+                    print("Flipping %s" % (square_to_flip))
+
+                square_char = self.board[square_to_flip[0]][square_to_flip[1]]
+
+                if square_char == player_char:
+                    line_flipped = True
+                    continue
+
+                else:                        
+                    self.board[square_to_flip[0]][square_to_flip[1]] = player_char
+                    square_to_flip[0] += direction[0]
+                    square_to_flip[1] += direction[1]                
 
 
     def getCurrentPlayer(self):
@@ -281,19 +367,39 @@ class Game:
             return 'w'
 
 
-    def flipPieces(self, newMove):
-        return None
-
-
-    def isGameOver(self):
-        return False
-
-
     def getWinner(self):
-        return None
+        """Determines the winner of the game once it has finished
+        
+        Returns:
+            Chr -- Character representing whether white won, black won, or a 
+            draw has occured.
+        """
+        white_count = 0
+        black_count = 0
+
+        for i in range(8):
+            for j in range(8):
+                if self.board[i][j] == 'w':
+                    white_count += 1
+                elif self.board[i][j] == 'b':
+                    black_count += 1
+
+        if white_count > black_count:
+            return 'w'
+        elif black_count > white_count:
+            return 'b'
+        else:
+            return 'd'
 
 
 if __name__ == "__main__":
-    newGame = Game()
+
+    verbose = False
+
+    if len(sys.argv) > 1:
+        if sys.argv[1] == '-v':
+            verbose = True
+        
+    newGame = Game(verbose)
 
     newGame.run()
