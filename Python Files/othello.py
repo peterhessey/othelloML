@@ -82,7 +82,7 @@ class Game:
                         
             move = (-1,-1)
 
-            while (move not in valid_moves.keys()) & game_running:
+            while (move not in valid_moves.keys()) and game_running:
                 move, game_running = self.getMove()
             
             self.flipPieces(move, valid_moves[move])
@@ -176,9 +176,9 @@ class Game:
         
         square_scanner = [square[0] + direction[0] * 2, square[1] + direction[1] * 2]
                 
-        while (square_scanner[0] <= 7 & square_scanner[0] >= 0
-             & square_scanner[1] <= 7 & square_scanner[1] >= 0
-             & move_valid == False):
+        while (square_scanner[0] <= 7 and square_scanner[0] >= 0
+             and square_scanner[1] <= 7 and square_scanner[1] >= 0
+             and move_valid == False):
 
             try:
                 square_char = self.board[square_scanner[0]][square_scanner[1]]
