@@ -13,7 +13,7 @@ class Game:
 
     def __init__(self, verbose):
         self.verbose = verbose
-        self.white_turn = True
+        self.white_turn = False
         self.board = self.generateBoard()
 
 
@@ -213,7 +213,6 @@ class Game:
         for i in range(8):
             for j in range(8):
 
-
                 if self.board[i][j] == 'x':
                     for x in range(-1, 2):
                         for y in range(-1, 2):
@@ -341,6 +340,15 @@ class Game:
                     self.board[square_to_flip[0]][square_to_flip[1]] = player_char
                     square_to_flip[0] += direction[0]
                     square_to_flip[1] += direction[1]                
+
+
+    def getBoard(self):
+        """Returns a copy of the board state
+        
+        Returns:
+            [[Chr]] -- The board state
+        """
+        return self.board
 
 
     def getCurrentPlayer(self):
