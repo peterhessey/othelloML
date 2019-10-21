@@ -3,16 +3,15 @@
 import pygame
 import sys
 import math
+import argparse
 
-
-WINDOW_WIDTH = 640
-WINDOW_HEIGHT = 640
 
 class Game:
 
-    def __init__(self, verbose):
+    def __init__(self, verbose, board_size):
         self.verbose = verbose
         self.white_turn = False
+        self.board_size = board_size
         self.board = self.generateBoard()
 
 
@@ -24,9 +23,9 @@ class Game:
         """
         new_board = []
 
-        for _ in range(8):
+        for _ in range(self.board_size):
             column = []
-            for _ in range(8):
+            for _ in range(self.board_size):
                 column.append('x')
             
             new_board.append(column)
@@ -44,10 +43,13 @@ class Game:
         Returns:
             new_board -- The new board with starting pieces placed
         """
-        new_board[3][3] = 'b'
-        new_board[4][4] = 'b'
-        new_board[3][4] = 'w'
-        new_board[4][3] = 'w'
+
+        centre = int(self.board_size / 2)
+
+        new_board[centre-1][centre-1] = 'b'
+        new_board[centre][centre] = 'b'
+        new_board[centre-1][centre] = 'w'
+        new_board[centre][centre-1] = 'w'
         return new_board
 
 
@@ -57,7 +59,8 @@ class Game:
         pygame.init()
 
         # Create a game window
-        game_window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+        game_window = pygame.display.set_mode((self.board_size*80,
+                                                self.board_size*80))
         pygame.display.set_caption("Othello - Black's Turn")
         
         game_running = True
@@ -118,8 +121,8 @@ class Game:
             game_window {pygame.window object (?)} -- The game window on the screen
         """
         game_window.fill((0,157,0))
-        for i in range(8):
-            for j in range(8):
+        for i in range(self.board_size):
+            for j in range(self.board_size):
                 rect = pygame.Rect(i*80,j*80,80,80)
                 pygame.draw.rect(game_window, (0,0,0), rect, 5)
 
@@ -183,8 +186,8 @@ class Game:
         
         square_scanner = [square[0] + direction[0] * 2, square[1] + direction[1] * 2]
                 
-        while (square_scanner[0] <= 7 and square_scanner[0] >= 0
-             and square_scanner[1] <= 7 and square_scanner[1] >= 0
+        while (square_scanner[0] <= self.board_size - 1 and square_scanner[0] >= 0
+             and square_scanner[1] <= self.board_size -1 and square_scanner[1] >= 0
              and move_valid == False):
 
             try:
@@ -217,14 +220,17 @@ class Game:
 
         opponent_char = self.getCurrentOpponent()
         
-        for i in range(8):
-            for j in range(8):
+        for i in range(self.board_size):
+            for j in range(self.board_size):
 
                 if self.board[i][j] == 'x':
                     for x in range(-1, 2):
                         for y in range(-1, 2):
                             
-                            if ((i + x) < 8 and (i + x) >= 0 and (j + y) < 8 and (j + y) >= 0):
+                            if ((i + x) < self.board_size 
+                                and (i + x) >= 0
+                                and (j + y) < self.board_size 
+                                and (j + y) >= 0):
                                 
                                 square_scanner = self.board[i+x][j+y]
                     
@@ -255,8 +261,8 @@ class Game:
     def unmarkValidMoves(self):
         """Simply replaces all the valid moves that weren't used with the character 'x'
         """
-        for i in range(8):
-            for j in range(8):
+        for i in range(self.board_size):
+            for j in range(self.board_size):
                 if self.board[i][j] == 'v':
                     self.board[i][j] = 'x'
 
@@ -399,8 +405,8 @@ class Game:
         white_count = 0
         black_count = 0
 
-        for i in range(8):
-            for j in range(8):
+        for i in range(self.board_size):
+            for j in range(self.board_size):
                 if self.board[i][j] == 'w':
                     white_count += 1
                 elif self.board[i][j] == 'b':
@@ -416,12 +422,21 @@ class Game:
 
 if __name__ == "__main__":
 
-    verbose = False
+    parser = argparse.ArgumentParser(description='Run an othello game!')
+    parser.add_argument('-v', dest='verbose', action='store_const',
+                        const=True, default=False, help='Make the program \
+                        verbose.')
+    parser.add_argument('size', metavar='S', type =int, nargs=1, default =8,
+                        help = 'The size of the board, even and >= 4')
 
-    if len(sys.argv) > 1:
-        if sys.argv[1] == '-v':
-            verbose = True
-        
-    newGame = Game(verbose)
 
-    newGame.run()
+    args = parser.parse_args()
+
+    if args.size[0] % 2 == 0 and args.size >= 4:
+
+        newGame = Game(args.verbose, args.size[0])
+
+        newGame.run()
+
+    else:
+        print("Invalid board size, must be an even number >= 4.")
