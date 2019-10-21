@@ -328,8 +328,6 @@ class Game:
         """
 
         player_char = self.getCurrentPlayer()
-        opponenet_char = self.getCurrentOpponent()
-
 
         for direction in directions:
             line_flipped = False
@@ -432,7 +430,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    if args.size[0] % 2 == 0 and args.size >= 4:
+    if args.size[0] % 2 == 0 and args.size[0] >= 4:
 
         newGame = Game(args.verbose, args.size[0])
 
