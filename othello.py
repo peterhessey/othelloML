@@ -10,7 +10,6 @@ WINDOW_HEIGHT = 640
 
 class Game:
 
-
     def __init__(self, verbose):
         self.verbose = verbose
         self.white_turn = False
@@ -59,7 +58,7 @@ class Game:
 
         # Create a game window
         game_window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-        pygame.display.set_caption("Othello")
+        pygame.display.set_caption("Othello - Black's Turn")
         
         game_running = True
         print("Starting game...")
@@ -69,8 +68,15 @@ class Game:
             valid_moves = self.getValidMoves()
 
             if len(valid_moves) == 0:
-                game_running = False
-                continue
+                '''if there are no valid moves for one player,
+                 check if there are any for the other player'''
+
+                self.nextTurn()
+                valid_moves = self.getValidMoves()
+
+                if len(valid_moves) == 0:
+                    game_running = False
+                    continue
 
             if self.verbose:
                 print("Valid moves:" + str(valid_moves))
@@ -87,6 +93,7 @@ class Game:
             
             self.flipPieces(move, valid_moves[move])
             self.makeMove(move)
+            self.nextTurn()
 
         winning_player = self.getWinner()
 
@@ -301,8 +308,7 @@ class Game:
             new_piece_char = 'b'
         
         self.board[move[0]][move[1]] = new_piece_char
-        
-        self.white_turn = not self.white_turn
+
 
 
     def flipPieces(self, move, directions):
@@ -349,6 +355,14 @@ class Game:
             [[Chr]] -- The board state
         """
         return self.board
+
+    def nextTurn(self):
+        self.white_turn = not self.white_turn
+
+        if self.white_turn:
+            pygame.display.set_caption("Othello - White's Turn")
+        else:
+            pygame.display.set_caption("Othello - Black's Turn")
 
 
     def getCurrentPlayer(self):
