@@ -424,15 +424,16 @@ if __name__ == "__main__":
     parser.add_argument('-v', dest='verbose', action='store_const',
                         const=True, default=False, help='Make the program \
                         verbose.')
-    parser.add_argument('size', metavar='S', type =int, nargs=1, default =8,
+    parser.add_argument('-s', dest='size', action='store',
+                        nargs=1, default=8,
                         help = 'The size of the board, even and >= 4')
 
 
     args = parser.parse_args()
+    print(args)
+    if int(args.size[0]) % 2 == 0 and int(args.size[0]) >= 4:
 
-    if args.size[0] % 2 == 0 and args.size[0] >= 4:
-
-        newGame = Game(args.verbose, args.size[0])
+        newGame = Game(args.verbose, int(args.size[0]))
 
         newGame.run()
 
