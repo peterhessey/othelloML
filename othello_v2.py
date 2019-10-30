@@ -7,7 +7,8 @@ class Game:
     def __init__(self, args):
         self.verbose = args.verbose
         self.board_size = args.size
-        self.player_1, self.player_2 = self.setUpPlayers(args.players)
+        self.dark_turn = True
+        self.dark_player, self.white_player = self.setUpPlayers(args.players)
         self.board = self.generateBoard()
 
 
@@ -32,7 +33,6 @@ class Game:
             players.append(new_player)
 
         return players[0], players[1]
-
                 
 
     def generateBoard(self):
@@ -52,6 +52,13 @@ class Game:
             else:
                 board = np.append(board, [row], axis = 0)
 
+        #Set up initial centre pieces
+        centre = int(self.board_size / 2)
+
+        board[centre-1][centre-1] = 'b'
+        board[centre][centre] = 'b'
+        board[centre-1][centre] = 'w'
+        board[centre][centre-1] = 'w'
 
         if self.verbose:
             print("Initial board array:")
