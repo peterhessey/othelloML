@@ -94,6 +94,8 @@ if __name__ == "__main__":
             print('------------------------------')
 
         Othello = othello_v2.Game(args)
+
+        result = Othello.run()
     
 
         
