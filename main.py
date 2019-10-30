@@ -1,21 +1,67 @@
 import argparse
 
 def playerStringError(players_string):
+    """Simple error message displayed on invalid players input
+    
+    Arguments:
+        players_string {String} -- The input player string
+    """
     print("Invalid player string. Input string: %s" % players_string)
     print('Please only enter 2 characters. Valid players are:')
     print('Human player: h')
     print('Computer player: c')
+    print('------------------------------')
 
 def boardSizeError(board_size):
+    """Simple error message displayed on invalid board size input
+    
+    Arguments:
+        board_size {Int} -- Input board size
+    """
     print('Invalid board size.')
     print('Input board size: %d' % board_size)
     print('Size must be an even integer >= 4.')
+    print('------------------------------')
 
+def validateArgs(args):
+    """Validates input arguments
+    
+    Arguments:
+        args {Namspace} -- Stores the parsed input arguments
+    
+    Returns:
+        Bool -- Whether arguments are valid.
+    """
+
+    valid_arguments = True
+
+    board_size = args.size
+    players_string = args.players
+
+    if board_size < 4 or board_size % 2 != 0:
+        boardSizeError(board_size)
+        valid_arguments = False
+
+    if len(players_string) != 2:
+        valid_arguments = False
+        playerStringError(players_string)
+        
+    else:
+
+        valid_chars = 'hc'
+        for player_char in players_string:
+            if player_char not in valid_chars:
+                valid_arguments = False
+                playerStringError(players_string)
+    
+    return valid_arguments
 
 if __name__ == "__main__":
+    """Main startup, parses arguments and validates them before starting
+    the game.
+    """
 
     verbose = False
-    valid_arguments = True
 
     parser = argparse.ArgumentParser(description='Run an othello game!')
     parser.add_argument('-v', dest='verbose', action='store_const',
@@ -32,34 +78,20 @@ if __name__ == "__main__":
                         human vs human | Default = hc')
 
 
-
     args = parser.parse_args()
+    args.size = int(args.size[0])
+    args.players = args.players[0]
+
     if args.verbose:
         verbose = True
 
-    if verbose:
-        print('Running new othello game with the following:')
-        print('Board size: %s' % args.size[0])
-        print('Players: %s' % args.players[0])
-        print('------------------------------')
+    if validateArgs(args):
+        if verbose:
+            print('Running new othello game with the following:')
+            print('Board size: %s' % args.size[0])
+            print('Players: %s' % args.players[0])
+            print('------------------------------')
 
-    board_size = int(args.size[0])
-    players_string = args.players[0]
-
-    if board_size < 4 or board_size % 2 != 0:
-        boardSizeError(board_size)
-        valid_arguments = False
-
-    if len(players_string) != 2:
-        valid_arguments = False
-        playerStringError(players_string)
-        
-    else:
-        valid_chars = 'hc'
-        for each player_char in players_string:
-            if player_char not in valid_chars:
-                valid_arguments = False
-                playerStringError(players_string)
     
 
         
