@@ -1,4 +1,5 @@
 import argparse
+import othello_v2
 
 def playerStringError(players_string):
     """Simple error message displayed on invalid players input
@@ -88,10 +89,11 @@ if __name__ == "__main__":
     if validateArgs(args):
         if verbose:
             print('Running new othello game with the following:')
-            print('Board size: %s' % args.size[0])
-            print('Players: %s' % args.players[0])
+            print('Board size: %s' % args.size)
+            print('Players: %s' % args.players)
             print('------------------------------')
 
+        Othello = othello_v2.Game(args)
     
 
         
