@@ -361,6 +361,8 @@ class Game:
         return self.board
 
     def nextTurn(self):
+        """Changes the turn and displays the correct caption
+        """
         self.white_turn = not self.white_turn
 
         if self.white_turn:
