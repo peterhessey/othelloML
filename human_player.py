@@ -16,7 +16,7 @@ class Human:
 
         self.game_window = pygame.display.set_mode((board_size*80,
                                                 board_size*80))
-        pygame.display.set_caption("Othello - Dark's Turn")
+        pygame.display.set_caption("Othello")
             
 
     def getMove(self, board, dark_turn):
@@ -26,18 +26,14 @@ class Human:
         move = (-1,-1)
         game_running = True
 
-        for event in pygame.event.get():
+        while move == (-1,-1):
+            for event in pygame.event.get():
 
-            if event.type == pygame.QUIT:
-                game_running = False
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_input = event.pos
-                move = self.convertClickToMove(mouse_input)          
-        
-        if dark_turn:
-            pygame.display.set_caption("Othello - White's Turn")
-        else:
-            pygame.display.set_caption("Othello - Dark's Turn")
+                if event.type == pygame.QUIT:
+                    game_running = False
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_input = event.pos
+                    move = self.convertClickToMove(mouse_input)          
 
 
         return move, game_running
@@ -67,10 +63,6 @@ class Human:
                 game_window {pygame.window object (?)} -- The game window on the screen
             """
 
-            if dark_turn:
-                pygame.display.set_caption("Othello - Dark's Turn")
-            else:
-                pygame.display.set_caption("Othello - White's Turn")
             self.game_window.fill((0,157,0))
             for i in range(self.board_size):
                 for j in range(self.board_size):

@@ -24,14 +24,17 @@ class Game:
         """
         players = []
 
-        for player_char in player_string:
-            if player_char == 'h':
+        for i in range(2):
+            if player_string[i] == 'h':
                 new_player = human.Human(self.verbose, self.board_size)
-            elif player_char == 'c':
+            elif player_string[i] == 'c':
                 new_player = roxanne.Roxanne(self.verbose)
         
             players.append(new_player)
-
+        if players[0] == players[1]:
+            print("These are the same objcet")
+        else:
+            print("These are a different object")
         return players[0], players[1]
                 
 
@@ -89,7 +92,11 @@ class Game:
                 print("Valid moves are: ")
                 print(valid_moves)
 
-
+            '''
+            Valid moves are marked in order to be able to draw them
+            onto the board for human players. Maybe move this on the
+            human players object?
+            '''
             self.markValidMoves(valid_moves.keys())
 
             move = (-1,-1)
@@ -97,13 +104,13 @@ class Game:
             while (move not in valid_moves.keys()) and game_running:
                 
                 if self.dark_turn:
-                    move = self.dark_player.getMove(self.board, self.dark_turn)
+                    move, game_running = self.dark_player.getMove(self.board, self.dark_turn)
                     if self.verbose:
-                        print("Dark player picked move: %s" % move)
+                        print("Dark player picked move: %s" % str(move))
                 else:
-                    move = self.white_player.getMove(self.board, self.dark_turn)
+                    move, game_running = self.white_player.getMove(self.board, self.dark_turn)
                     if self.verbose:
-                        print("White player picked move: %s" % move)
+                        print("White player picked move: %s" % str(move))
 
             self.unmarkValidMoves()
             self.makeMove(move, valid_moves[move])
@@ -223,7 +230,7 @@ class Game:
     def nextTurn(self):
         """Changes the turn and displays the correct caption
         """
-        self.white_turn = not self.white_turn
+        self.dark_turn = not self.dark_turn
 
 
     def makeMove(self, move, directions):
