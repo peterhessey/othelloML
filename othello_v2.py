@@ -269,9 +269,7 @@ class Game:
                     print("Flipping pieces on square %s in direciton %s" % (move, direction))
 
                 while not line_flipped:
-                    if self.verbose:
-                        print("Flipping %s" % (square_to_flip))
-
+                    
                     square_char = self.board[square_to_flip[0]][square_to_flip[1]]
 
                     if square_char == player_char:
@@ -325,9 +323,9 @@ class Game:
             Chr -- 'w' = white, 'd' = black
         """
         if self.dark_turn:
-            return 'd'
-        else:
             return 'w'
+        else:
+            return 'd'
 
 
     def getWinner(self):
