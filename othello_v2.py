@@ -26,7 +26,7 @@ class Game:
 
         for player_char in player_string:
             if player_char == 'h':
-                new_player = human.Human(self.verbose)
+                new_player = human.Human(self.verbose, self.board_size)
             elif player_char == 'c':
                 new_player = roxanne.Roxanne(self.verbose)
         
@@ -90,30 +90,31 @@ class Game:
                 print(valid_moves)
 
 
+            self.markValidMoves(valid_moves.keys())
+
             move = (-1,-1)
 
             while (move not in valid_moves.keys()) and game_running:
                 
                 if self.dark_turn:
-                    move = self.dark_player.getMove()
+                    move = self.dark_player.getMove(self.board, self.dark_turn)
                     if self.verbose:
                         print("Dark player picked move: %s" % move)
                 else:
-                    move = self.white_player.getMove()
+                    move = self.white_player.getMove(self.board, self.dark_turn)
                     if self.verbose:
                         print("White player picked move: %s" % move)
 
+            self.unmarkValidMoves()
             self.makeMove(move, valid_moves[move])
             self.nextTurn()
         
         winning_player = self.getWinner()
 
-        if winning_player == 'w':
-            print("White wins!")
-        elif winning_player == 'd':
-            print("Dark wins!")
-        else:
-            print("Draw")   
+        self.white_player.quitGame()
+        self.dark_player.quitGame()
+
+        return winning_player
 
 
     def getValidMoves(self):
@@ -274,6 +275,28 @@ class Game:
                         self.board[square_to_flip[0]][square_to_flip[1]] = player_char
                         square_to_flip[0] += direction[0]
                         square_to_flip[1] += direction[1]                
+
+
+    def markValidMoves(self, valid_move_squares):
+        """Marks squares that are valid moves with a 'v' character
+        
+        Arguments:
+            valid_moves_squares [(Integer, Integer)] -- List containing tuples representing the valid moves
+        
+        Returns:
+            None
+        """
+        for move in valid_move_squares:
+            self.board[move[0]][move[1]] = 'v'
+
+
+    def unmarkValidMoves(self):
+        """Simply replaces all the valid moves that weren't used with the character 'x'
+        """
+        for i in range(self.board_size):
+            for j in range(self.board_size):
+                if self.board[i][j] == 'v':
+                    self.board[i][j] = 'x'
 
 
     def getCurrentPlayer(self):

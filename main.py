@@ -95,7 +95,14 @@ if __name__ == "__main__":
 
         Othello = othello_v2.Game(args)
 
-        result = Othello.run()
+        winning_player = Othello.run()
+
+        if winning_player == 'w':
+            print("White wins!")
+        elif winning_player == 'd':
+            print("Dark wins!")
+        else:
+            print("Draw")   
     
 
         
