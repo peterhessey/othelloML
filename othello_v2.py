@@ -63,10 +63,6 @@ class Game:
         board[centre-1][centre] = 'w'
         board[centre][centre-1] = 'w'
 
-        if self.verbose:
-            print("Initial board array:")
-            print(board)
-            
         return board
     
 
@@ -97,23 +93,24 @@ class Game:
             onto the board for human players. Maybe move this on the
             human players object?
             '''
-            self.markValidMoves(valid_moves.keys())
 
-            move = (-1,-1)
 
-            while (move not in valid_moves.keys()) and game_running:
                 
-                if self.dark_turn:
-                    move, game_running = self.dark_player.getMove(self.board, self.dark_turn)
-                    if self.verbose:
-                        print("Dark player picked move: %s" % str(move))
-                else:
-                    move, game_running = self.white_player.getMove(self.board, self.dark_turn)
-                    if self.verbose:
-                        print("White player picked move: %s" % str(move))
+            if self.dark_turn:
+                move, game_running = self.dark_player.getMove(self.board, self.dark_turn, valid_moves.keys())
+                if self.verbose:
+                    print("Dark player picked move: %s" % str(move))
+            else:
+                move, game_running = self.white_player.getMove(self.board, self.dark_turn, valid_moves.keys())
+                if self.verbose:
+                    print("White player picked move: %s" % str(move))
 
-            self.unmarkValidMoves()
+            if move == (-1,-1):
+                continue
+
             self.makeMove(move, valid_moves[move])
+            print("Board after move has been made:")
+            print(self.board)
             self.nextTurn()
         
         winning_player = self.getWinner()
@@ -280,28 +277,6 @@ class Game:
                         self.board[square_to_flip[0]][square_to_flip[1]] = player_char
                         square_to_flip[0] += direction[0]
                         square_to_flip[1] += direction[1]                
-
-
-    def markValidMoves(self, valid_move_squares):
-        """Marks squares that are valid moves with a 'v' character
-        
-        Arguments:
-            valid_moves_squares [(Integer, Integer)] -- List containing tuples representing the valid moves
-        
-        Returns:
-            None
-        """
-        for move in valid_move_squares:
-            self.board[move[0]][move[1]] = 'v'
-
-
-    def unmarkValidMoves(self):
-        """Simply replaces all the valid moves that weren't used with the character 'x'
-        """
-        for i in range(self.board_size):
-            for j in range(self.board_size):
-                if self.board[i][j] == 'v':
-                    self.board[i][j] = 'x'
 
 
     def getCurrentPlayer(self):

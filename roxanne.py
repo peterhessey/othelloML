@@ -18,6 +18,10 @@ class Roxanne:
             print(self.board_ranks)
             print('\n\n')
 
-    def getMove(self, board):
+    def getMove(self, board, dark_turn):
         move = (0,0)
         return move
+
+    def quitGame(self):
+        if self.verbose:
+            print("Roxanne quitting...")

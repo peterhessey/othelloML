@@ -19,14 +19,16 @@ class Human:
         pygame.display.set_caption("Othello")
             
 
-    def getMove(self, board, dark_turn):
+    def getMove(self, board, dark_turn, valid_moves):
 
+
+        board = self.markValidMoves(board, valid_moves)
         self.drawBoard(board, dark_turn)
 
         move = (-1,-1)
         game_running = True
 
-        while move == (-1,-1):
+        while move not in valid_moves and game_running:
             for event in pygame.event.get():
 
                 if event.type == pygame.QUIT:
@@ -50,6 +52,14 @@ class Human:
         """
         move = (math.floor(mouse_input[0]/80), math.floor(mouse_input[1]/80))
         return move
+
+
+    def markValidMoves(self, board, valid_move_squares):
+
+        for move in valid_move_squares:
+            board[move[0]][move[1]] = 'v'
+
+        return board
 
 
     def drawBoard(self, board, dark_turn):
