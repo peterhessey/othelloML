@@ -20,7 +20,8 @@ class Roxanne:
                                     [1,5,3,3,3,3,5,1]])
 
         if self.verbose:
-            print("Roxanne is using the following rankings:")
+            print('Initialised roxanne!')
+            print('Roxanne is using the following rankings:')
             print(self.board_ranks)
             print('\n\n')
 

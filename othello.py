@@ -3,9 +3,15 @@ Main othello playing module. Allows any 2 agents to play othello (human,
 random, roxanne, monte-carlo etc).
 '''
 
+
+# CONSINDER REPLACING DICTIONARY KEY SEARCHES WITH THE FOLLOWING:
+
+# https://stackoverflow.com/questions/4730993/python-key-in-dict-keys-performance-for-large-dictionaries
+
 import numpy as np
 import roxanne
 import human_player as human
+import random_player
 
 class Game:
 
@@ -38,6 +44,8 @@ class Game:
                 new_player = human.Human(self.verbose, self.board_size)
             elif player_string[i] == 'r':
                 new_player = roxanne.Roxanne(self.verbose)
+            elif player_string[i] == 'R':
+                new_player = random_player.random_player(self.verbose)
         
             players.append(new_player)
 
