@@ -114,6 +114,7 @@ class Game:
 
             if move == (-1,-1):
                 game_running = False
+                continue
             
             
             self.makeMove(move, valid_moves[move])

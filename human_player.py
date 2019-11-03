@@ -111,4 +111,6 @@ class Human:
     def quitGame(self):
         """Quits the game for the user
         """
+        if self.verbose:
+            print("Human player quitting...")
         pygame.quit()
