@@ -4,9 +4,10 @@ import math
 
 class Human:
 
-    def __init__(self, verbose, board_size):
+    def __init__(self, verbose, board):
         self.verbose = verbose
-        self.board_size = board_size
+        self.board_size = len(board)
+        self.board = board
 
         if self.verbose:
             print("Initialising human player...")
@@ -14,15 +15,15 @@ class Human:
 
         pygame.init()
 
-        self.game_window = pygame.display.set_mode((board_size*80,
-                                                board_size*80))
+        self.game_window = pygame.display.set_mode((self.board_size*80,
+                                                self.board_size*80))
         pygame.display.set_caption("Othello")
             
 
     def getMove(self, board, dark_turn, valid_moves):
 
-
-        board = self.markValidMoves(board, valid_moves)
+        self.board = board
+        self.markValidMoves(board, valid_moves)
         self.drawBoard(board, dark_turn)
 
         move = (-1,-1)
@@ -57,9 +58,10 @@ class Human:
     def markValidMoves(self, board, valid_move_squares):
 
         for move in valid_move_squares:
-            board[move[0]][move[1]] = 'v'
+            self.board[move[0]][move[1]] = 'v'
 
-        return board
+        print("board with valid moves marked")
+        print(board)
 
 
     def drawBoard(self, board, dark_turn):

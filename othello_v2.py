@@ -8,8 +8,8 @@ class Game:
         self.verbose = args.verbose
         self.board_size = args.size
         self.dark_turn = True
-        self.dark_player, self.white_player = self.setUpPlayers(args.players)
         self.board = self.generateBoard()
+        self.dark_player, self.white_player = self.setUpPlayers(args.players)        
 
 
     def setUpPlayers(self, player_string):
@@ -23,18 +23,14 @@ class Game:
             [Player] -- Array containing the two player objects
         """
         players = []
-
         for i in range(2):
             if player_string[i] == 'h':
-                new_player = human.Human(self.verbose, self.board_size)
+                new_player = human.Human(self.verbose, self.board)
             elif player_string[i] == 'c':
                 new_player = roxanne.Roxanne(self.verbose)
         
             players.append(new_player)
-        if players[0] == players[1]:
-            print("These are the same objcet")
-        else:
-            print("These are a different object")
+
         return players[0], players[1]
                 
 
@@ -107,7 +103,8 @@ class Game:
 
             if move == (-1,-1):
                 continue
-
+            
+            
             self.makeMove(move, valid_moves[move])
             print("Board after move has been made:")
             print(self.board)
