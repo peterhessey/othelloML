@@ -1,5 +1,5 @@
 import argparse
-import othello_v2
+import othello
 
 def playerStringError(players_string):
     """Simple error message displayed on invalid players input
@@ -93,7 +93,7 @@ if __name__ == "__main__":
             print('Players: %s' % args.players)
             print('------------------------------')
 
-        Othello = othello_v2.Game(args)
+        Othello = othello.Game(args)
 
         winning_player = Othello.run()
 
