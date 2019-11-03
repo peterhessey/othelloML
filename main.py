@@ -73,10 +73,10 @@ if __name__ == "__main__":
                         help='The size of the board, even and >= 4 | \
                         Default = 8')
     parser.add_argument('-p', dest='players', action='store', nargs = 1, 
-                        default='hc', help='The type of players, passed \
+                        default=['hh'], help='The type of players, passed \
                         as a 2 character string, e.g. "hc" for human v \
                         computer, "cc" for computer v computer or "hh" for \
-                        human vs human | Default = hc')
+                        human vs human | Default = "hh"')
 
 
     args = parser.parse_args()

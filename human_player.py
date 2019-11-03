@@ -4,10 +4,9 @@ import math
 
 class Human:
 
-    def __init__(self, verbose, board):
+    def __init__(self, verbose, board_size):
         self.verbose = verbose
-        self.board_size = len(board)
-        self.board = board
+        self.board_size = board_size
 
         if self.verbose:
             print("Initialising human player...")
@@ -20,11 +19,11 @@ class Human:
         pygame.display.set_caption("Othello")
             
 
-    def getMove(self, board, dark_turn, valid_moves):
+    def getMove(self, board, valid_moves):
 
-        self.board = board
-        self.markValidMoves(board, valid_moves)
-        self.drawBoard(board, dark_turn)
+        self.board = np.copy(board)
+        self.markValidMoves(valid_moves)
+        self.drawBoard()
 
         move = (-1,-1)
         game_running = True
@@ -55,25 +54,16 @@ class Human:
         return move
 
 
-    def markValidMoves(self, board, valid_move_squares):
+    def markValidMoves(self, valid_move_squares):
 
         for move in valid_move_squares:
             self.board[move[0]][move[1]] = 'v'
 
         print("board with valid moves marked")
-        print(board)
+        print(self.board)
 
 
-    def drawBoard(self, board, dark_turn):
-            """Draws the current game state to the screen:
-                - Fills screen with dark green (0,157,0)
-                - Draws the board squares
-                - Draws the pieces
-                - Draws the markers for possible moves
-            
-            Arguments:
-                game_window {pygame.window object (?)} -- The game window on the screen
-            """
+    def drawBoard(self):
 
             self.game_window.fill((0,157,0))
             for i in range(self.board_size):
@@ -81,7 +71,7 @@ class Human:
                     rect = pygame.Rect(i*80,j*80,80,80)
                     pygame.draw.rect(self.game_window, (0,0,0), rect, 5)
 
-                    piece_val = board[i][j]
+                    piece_val = self.board[i][j]
 
                     if piece_val == 'w':
                         pygame.draw.circle(self.game_window, (255,255,255), (i * 80 + 40, j * 80 + 40), 30)
