@@ -1,3 +1,7 @@
+'''
+Main python module. Parses arguments and initialises an othello game.
+'''
+
 import argparse
 import othello
 

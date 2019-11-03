@@ -1,3 +1,8 @@
+'''
+Main othello playing module. Allows any 2 agents to play othello (human, 
+random, roxanne, monte-carlo etc).
+'''
+
 import numpy as np
 import roxanne
 import human_player as human

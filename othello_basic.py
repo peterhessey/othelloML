@@ -1,4 +1,8 @@
-# Tutorial found on this website: https://ukdevguy.com/tutorial-on-how-to-draw-shapes-in-pygame/
+'''
+Basic othello game, allows for human v human play.
+Created in order to practice implementing othello rules before 
+creating othello.py on which any agent (inlcluding human) can play.
+'''
 
 import pygame
 import sys

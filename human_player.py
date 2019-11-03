@@ -1,3 +1,8 @@
+'''
+Human agent for playing othello. Capable of drawing the board, taking user
+input and feeding it back to main othello engine.
+'''
+
 import numpy as np
 import pygame
 import math
