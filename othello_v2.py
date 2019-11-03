@@ -96,21 +96,19 @@ class Game:
 
                 
             if self.dark_turn:
-                move, game_running = self.dark_player.getMove(self.board, valid_moves.keys())
+                move = self.dark_player.getMove(self.board, valid_moves.keys())
                 if self.verbose:
                     print("Dark player picked move: %s" % str(move))
             else:
-                move, game_running = self.white_player.getMove(self.board, valid_moves.keys())
+                move = self.white_player.getMove(self.board, valid_moves.keys())
                 if self.verbose:
                     print("White player picked move: %s" % str(move))
 
             if move == (-1,-1):
-                continue
+                game_running = False
             
             
             self.makeMove(move, valid_moves[move])
-            print("Board after move has been made:")
-            print(self.board)
             self.nextTurn()
         
         winning_player = self.getWinner()
