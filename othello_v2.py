@@ -5,6 +5,11 @@ import human_player as human
 class Game:
 
     def __init__(self, args):
+        """Initialise Othello game object
+        
+        Arguments:
+            args {Namespace} -- Contains user-input arguments
+        """
         self.verbose = args.verbose
         self.board_size = args.size
         self.dark_turn = True
@@ -66,6 +71,11 @@ class Game:
     
 
     def run(self):
+        """Main function for running the game, loops until game ends.
+        
+        Returns:
+            Chr -- Character representation of winning player / draw
+        """
 
         game_running = True
 
@@ -86,13 +96,6 @@ class Game:
             if self.verbose:
                 print("Valid moves are: ")
                 print(valid_moves)
-
-            '''
-            Valid moves are marked in order to be able to draw them
-            onto the board for human players. Maybe move this on the
-            human players object?
-            '''
-
 
                 
             if self.dark_turn:
@@ -223,7 +226,7 @@ class Game:
 
 
     def nextTurn(self):
-        """Changes the turn and displays the correct caption
+        """Simply switches player turns by changing the boolean variable
         """
         self.dark_turn = not self.dark_turn
 

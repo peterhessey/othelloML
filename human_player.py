@@ -13,7 +13,6 @@ class Human:
         """
         self.verbose = verbose
         self.board_size = board_size
-        print('Human board size: %s' % board_size)
 
         if self.verbose:
             print("Initialising human player...")
