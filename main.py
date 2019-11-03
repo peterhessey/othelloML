@@ -49,7 +49,7 @@ def validateArgs(args):
         
     else:
 
-        valid_chars = 'hc'
+        valid_chars = 'hr'
         for player_char in players_string:
             if player_char not in valid_chars:
                 valid_arguments = False
@@ -74,8 +74,8 @@ if __name__ == "__main__":
                         Default = 8')
     parser.add_argument('-p', dest='players', action='store', nargs = 1, 
                         default=['hh'], help='The type of players, passed \
-                        as a 2 character string, e.g. "hc" for human v \
-                        computer, "cc" for computer v computer or "hh" for \
+                        as a 2 character string, e.g. "hr" for human v \
+                        roxanne, "rr" for roxanne v roxanne or "hh" for \
                         human vs human | Default = "hh"')
 
 

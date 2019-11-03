@@ -7,6 +7,7 @@ class Human:
     def __init__(self, verbose, board_size):
         self.verbose = verbose
         self.board_size = board_size
+        print('Human board size: %s' % board_size)
 
         if self.verbose:
             print("Initialising human player...")
@@ -58,9 +59,6 @@ class Human:
 
         for move in valid_move_squares:
             self.board[move[0]][move[1]] = 'v'
-
-        print("board with valid moves marked")
-        print(self.board)
 
 
     def drawBoard(self):

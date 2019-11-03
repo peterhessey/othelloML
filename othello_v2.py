@@ -22,24 +22,19 @@ class Game:
         Returns:
             [Player] -- Array containing the two player objects
         """
-        # players = []
-        # for i in range(2):
-        #     if player_string[i] == 'h':
-        #         new_player = human.Human(self.verbose, self.board)
-        #     elif player_string[i] == 'c':
-        #         new_player = roxanne.Roxanne(self.verbose)
+        players = []
+        for i in range(2):
+            if player_string[i] == 'h':
+                new_player = human.Human(self.verbose, self.board_size)
+            elif player_string[i] == 'r':
+                new_player = roxanne.Roxanne(self.verbose)
         
-        #     players.append(new_player)
+            players.append(new_player)
 
 
 
-        # return players[0], players[1]
+        return players[0], players[1]
 
-        if player_string == 'hh':
-            player_1 = human.Human(self.verbose, self.board_size)
-            player_2 = human.Human(self.verbose, self.board_size)
-
-        return player_1, player_2
                 
 
     def generateBoard(self):
