@@ -10,8 +10,8 @@ random, roxanne, monte-carlo etc).
 
 import numpy as np
 import roxanne
-import human_player as human
-import random_player
+import newHumanPlayer as human
+import randomPlayer
 
 class Game:
 
@@ -23,6 +23,7 @@ class Game:
         """
         self.verbose = args.verbose
         self.board_size = args.size
+        self.demo_mode = args.demo
         self.dark_turn = True
         self.board = self.generateBoard()
         self.dark_player, self.white_player = self.setUpPlayers(args.players)        

@@ -72,6 +72,9 @@ if __name__ == "__main__":
     parser.add_argument('-v', dest='verbose', action='store_const',
                         const=True, default=False, help='Make the program \
                         verbose.')
+    parser.add_argument('-d', dest='demo', action='store_const',
+                        const=True, default=False, help='Demo mode, displays \
+                        the board using pygame even without a human player.')
     parser.add_argument('-s', dest='size', action='store',
                         nargs=1, default=['8'],
                         help='The size of the board, even and >= 4 | \
