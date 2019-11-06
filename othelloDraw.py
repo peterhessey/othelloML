@@ -40,7 +40,7 @@ class othelloDrawer:
                 pygame.display.update()
 
             if self.demo:
-                pygame.time.delay(1000)
+                pygame.time.delay(50)
 
     def getUserInput(self):
         move = (-1,-1)
