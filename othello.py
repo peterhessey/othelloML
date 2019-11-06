@@ -10,8 +10,10 @@ random, roxanne, monte-carlo etc).
 
 import numpy as np
 import roxanne
-import newHumanPlayer as human
+import humanPlayer as human
 import randomPlayer
+import othelloDraw
+import time
 
 class Game:
 
@@ -28,7 +30,14 @@ class Game:
         self.board = self.generateBoard()
         self.dark_player, self.white_player = self.setUpPlayers(args.players)        
 
-
+        #checks if demo mode is on, not needed if already a human playing!
+        if self.demo_mode and ('h' not in args.players):
+            
+            print('Setting up pygame for machine players...')
+            self.drawer = othelloDraw.othelloDrawer(self.board_size, True)
+        else:
+            self.demo_mode = False
+            
     def setUpPlayers(self, player_string):
         """Sets up player objects
         
@@ -46,15 +55,14 @@ class Game:
             elif player_string[i] == 'r':
                 new_player = roxanne.Roxanne(self.verbose)
             elif player_string[i] == 'R':
-                new_player = random_player.random_player(self.verbose)
+                new_player = randomPlayer.randomPlayer(self.verbose)
         
             players.append(new_player)
 
 
 
         return players[0], players[1]
-
-                
+      
 
     def generateBoard(self):
         """Generates the initial othello board array
@@ -94,6 +102,10 @@ class Game:
         game_running = True
 
         while game_running:
+
+            if self.demo_mode:
+                self.drawer.drawBoard(self.board)
+
             valid_moves = self.getValidMoves()
 
             if len(valid_moves) == 0:

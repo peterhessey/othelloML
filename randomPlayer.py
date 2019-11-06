@@ -1,7 +1,7 @@
 import numpy as np 
 import random as rand 
 
-class random_player:
+class randomPlayer:
     def __init__(self, verbose):
         """Initialises random player
         

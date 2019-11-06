@@ -4,9 +4,10 @@ import math
 
 class othelloDrawer:
 
-    def __init__(self, board_size):
+    def __init__(self, board_size, demo_mode):
 
         self.board_size = board_size
+        self.demo = demo_mode
         pygame.init()
 
         self.game_window = pygame.display.set_mode((self.board_size*80,
@@ -37,6 +38,9 @@ class othelloDrawer:
 
                 
                 pygame.display.update()
+
+            if self.demo:
+                pygame.time.delay(1000)
 
     def getUserInput(self):
         move = (-1,-1)
