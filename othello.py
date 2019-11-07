@@ -125,11 +125,11 @@ class Game:
 
                 
             if self.dark_turn:
-                move = self.dark_player.getMove(self.board, valid_moves.keys())
+                move = self.dark_player.getMove(self.board, valid_moves)
                 if self.verbose:
                     print("Dark player picked move: %s" % str(move))
             else:
-                move = self.white_player.getMove(self.board, valid_moves.keys())
+                move = self.white_player.getMove(self.board, valid_moves)
                 if self.verbose:
                     print("White player picked move: %s" % str(move))
 
@@ -162,11 +162,11 @@ class Game:
         valid_moves = {}        
         adjacent_squares_dict = self.getAdjacentSquares()
 
-        for square in adjacent_squares_dict.keys():
+        for square in adjacent_squares_dict:
             for direction in adjacent_squares_dict[square]:
 
                 if self.validateMove(square, direction):
-                    if square in valid_moves.keys():
+                    if square in valid_moves:
                         valid_moves[square].append(direction)
                     else:
                         valid_moves[square] = [direction]             
@@ -204,7 +204,7 @@ class Game:
                         
 
                                     if square_scanner == opponent_char:
-                                        if (i,j) in adjacent_squares_dict.keys():
+                                        if (i,j) in adjacent_squares_dict:
                                             adjacent_squares_dict[(i,j)].append((x,y))
                                         else:
                                             adjacent_squares_dict[(i,j)] = [(x,y)]
