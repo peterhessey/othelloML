@@ -3,7 +3,9 @@ Main python module. Parses arguments and initialises an othello game.
 '''
 
 import argparse
+import time
 import othello
+
 
 def playerStringError(players_string):
     """Simple error message displayed on invalid players input
@@ -79,6 +81,9 @@ if __name__ == "__main__":
                         nargs=1, default=['8'],
                         help='The size of the board, even and >= 4 | \
                         Default = 8')
+    parser.add_argument('-n', dest='number_of_games', action='store',
+                        nargs=1, default=['1'], help='The number of games to \
+                        run, used for analysis.')
     parser.add_argument('-p', dest='players', action='store', nargs = 1, 
                         default=['hh'], help='The type of players, passed \
                         as a 2 character string, e.g. "hr" for human v \
@@ -101,18 +106,31 @@ if __name__ == "__main__":
             print('Players: %s' % args.players)
             print('------------------------------')
 
-        Othello = othello.Game(args)
+        dark_wins = 0
+        white_wins = 0
+        draws = 0
 
-        winning_player = Othello.run()
+        start_time = time.time()
 
-        if winning_player == 'w':
-            print("White wins!")
-        elif winning_player == 'd':
-            print("Dark wins!")
-        else:
-            print("Draw")   
-    
+        for _ in range(int(args.number_of_games[0])):
 
+            Othello = othello.Game(args)
+
+            winning_player = Othello.run()
+
+            if winning_player == 'w':
+                white_wins += 1
+            elif winning_player == 'd':
+                dark_wins += 1
+            else:
+                draws += 1
+        
+        end_time = time.time()
+        time_taken = end_time - start_time
+
+        print('Dark - %d | White - %d | Draws - %d' % (dark_wins, white_wins, 
+                                                       draws))
+        print('Time taken: %s seconds' % round(time_taken, 3))
         
 
 
