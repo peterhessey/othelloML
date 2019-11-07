@@ -143,11 +143,6 @@ class Game:
         
         winning_player = self.getWinner()
 
-        self.white_player.quitGame()
-        self.dark_player.quitGame()
-        if self.demo_mode:
-            self.drawer.quitGame()
-
         return winning_player
 
 

@@ -76,9 +76,3 @@ class Roxanne:
                 continue
 
         return move
-                
-    def quitGame(self):
-        """Quits roxanne
-        """
-        if self.verbose:
-            print("Roxanne quitting...")

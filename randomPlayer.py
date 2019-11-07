@@ -28,9 +28,3 @@ class randomPlayer:
         move = list(valid_moves)[move_selected]
 
         return move
-
-    def quitGame(self):
-        """Quits game for random player
-        """
-        if self.verbose:
-            print("Random player quitting...")

@@ -65,6 +65,7 @@ class othelloDrawer:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     move = (-2,-2)
+                    pygame.quit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_input = event.pos
                     move = self.convertClickToMove(mouse_input) 
@@ -84,8 +85,3 @@ class othelloDrawer:
         """
         move = (math.floor(mouse_input[0]/80), math.floor(mouse_input[1]/80))
         return move
-
-    def quitGame(self):
-        """Closes the pygame instance
-        """
-        pygame.quit()

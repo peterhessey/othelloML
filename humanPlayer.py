@@ -63,11 +63,3 @@ class Human:
         """
         for move in valid_move_squares:
             self.board[move[0]][move[1]] = 'v'
-
-
-    def quitGame(self):
-        """Quits the game for the user
-        """
-        if self.verbose:
-            print("Human player quitting...")
-        self.drawer.quitGame()
