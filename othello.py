@@ -37,7 +37,7 @@ class Game:
             self.drawer = othelloDraw.othelloDrawer(self.board_size, True)
         else:
             self.demo_mode = False
-            
+
     def setUpPlayers(self, player_string):
         """Sets up player objects
         
@@ -145,6 +145,8 @@ class Game:
 
         self.white_player.quitGame()
         self.dark_player.quitGame()
+        if self.demo_mode:
+            self.drawer.quitGame()
 
         return winning_player
 

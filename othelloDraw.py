@@ -5,7 +5,13 @@ import math
 class othelloDrawer:
 
     def __init__(self, board_size, demo_mode):
-
+        """Initalises the board drawing class
+        
+        Arguments:
+            board_size {int} -- The dimension of the board
+            demo_mode {bool} -- Determines if the game is being run in demo
+            mode or is being play by a human player.
+        """
         self.board_size = board_size
         self.demo = demo_mode
         pygame.init()
@@ -16,7 +22,10 @@ class othelloDrawer:
     pygame.display.set_caption("Othello")
 
     def drawBoard(self, board):
-            """Use pygame library functions to display the board visually.
+            """Draws the Othello game board using pygame
+            
+            Arguments:
+                board {[[char]]} -- Array representing the current board state
             """
             self.game_window.fill((0,157,0))
             for i in range(self.board_size):
@@ -39,18 +48,29 @@ class othelloDrawer:
                 
                 pygame.display.update()
 
+            # If in demo mode, pause in order to properly visualise play
             if self.demo:
                 pygame.time.delay(50)
 
     def getUserInput(self):
+        """Gets user input, either clicking on the board or exiting the game
+        
+        Returns:
+            (int,int)) -- The coordinates of the input move. (-2,-2) if they
+            select to quit.
+        """
         move = (-1,-1)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                move = (-2,-2)
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_input = event.pos
-                move = self.convertClickToMove(mouse_input) 
+        pause = False
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    move = (-2,-2)
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_input = event.pos
+                    move = self.convertClickToMove(mouse_input) 
 
+            if pause == False:
+                break
         return move 
 
     def convertClickToMove(self, mouse_input):
@@ -66,4 +86,6 @@ class othelloDrawer:
         return move
 
     def quitGame(self):
+        """Closes the pygame instance
+        """
         pygame.quit()
