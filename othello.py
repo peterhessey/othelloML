@@ -128,21 +128,6 @@ class Game:
 
         new_board = self.players[player_num].getNextBoardState(self.board)
         self.nextTurn()
-        # if new_board.ndim != 1:
-        #     self.nextTurn()
-        #     if new_board[0] == 0:   
-        #         if previous_passed: 
-        #             return False
-        #         else:                                      
-        #             player_num = (player_num + 1) % 2
-        #             return self.playNextMove(player_num, True)
-
-        #     else:
-        #         self.board = new_board
-        #         return True
-        # else:
-        #     return False
-
         if new_board.ndim == 2:
             self.board = new_board            
             return True

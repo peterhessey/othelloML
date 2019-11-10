@@ -13,7 +13,18 @@ class randomPlayer(Player):
             print("Initialised random player!")
 
     def getNextBoardState(self, board_state):
-
+        """Gets the random player's next move and returns the resulting board
+         state
+        
+        Arguments:
+            board_state {[[chr]]} -- A 2-D Numpy array representing the current
+            board state
+        
+        Returns:
+            [[chr]] -- The new board state after the random player makes their 
+            move. Will only be a 1-D array containing an error code if a valid
+            move has not been made / is not available
+        """
         board = othelloBoard.OthelloBoard(board_state, self.dark_player)
         valid_moves = board.getValidMoves()
 

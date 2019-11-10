@@ -12,7 +12,14 @@ from Player import Player
 class Human(Player):
 
     def __init__(self, verbose, dark_player, board_size):
+        """Constructor method for human player agent
         
+        Arguments:
+            verbose {bool} -- Determines whether the agent is verbose
+            dark_player {bool} -- True if the human is dark pieces, false 
+            otherwise
+            board_size {int} -- The size of the board, used for drawing
+        """
         self.verbose = verbose
         self.dark_player = dark_player
         if self.verbose:
@@ -20,11 +27,20 @@ class Human(Player):
             print('\n\n')
 
         self.drawer = othelloDraw.othelloDrawer(board_size, False)
-        
-            
+               
 
     def getNextBoardState(self, board_state):
+        """Gets the human's next move and returns the resulting board state
         
+        Arguments:
+            board_state {[[chr]]} -- A 2-D Numpy array representing the current
+            board state
+        
+        Returns:
+            [[chr]] -- The new board state after the human player makes their 
+            move. Will only be a 1-D array containing an error code if a valid
+            move has not been made / is not available
+        """
         board = othelloBoard.OthelloBoard(board_state, 
                                           self.dark_player)
 
@@ -57,7 +73,13 @@ class Human(Player):
 
 
     def drawBoard(self, valid_move_squares, board_to_draw):
+        """Uses the drawer object to draw the board with valid moves marked
         
+        Arguments:
+            valid_move_squares {(int, int)} -- The valid moves available to the
+            player
+            board_to_draw {[[chr]]} -- The array representing the current board
+        """
         for move in valid_move_squares:
             board_to_draw[move[0]][move[1]] = 'v'
 

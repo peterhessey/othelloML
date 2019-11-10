@@ -6,7 +6,14 @@ from Player import Player
 class Roxanne(Player):
 
     def __init__(self, verbose, dark_player):
-
+        """Constructor method for Roxanne Class. This class uses a 
+        deterministic algorithm to select the next move using a 0-ply search.  
+        
+        Arguments:
+            verbose {bool} -- Whether the agent is verbose
+            dark_player {bool} -- Whether the agent is playing using the dark
+            pieces.
+        """
         self.verbose = verbose
         self.dark_player = dark_player
         self.board_ranks = np.array([[1,5,3,3,3,3,5,1],
@@ -25,7 +32,18 @@ class Roxanne(Player):
             print('\n\n')
 
     def getNextBoardState(self, board_state):
+        """Gets the roxanne agent's next move and returns the resulting board
+         state
         
+        Arguments:
+            board_state {[[chr]]} -- A 2-D Numpy array representing the current
+            board state
+        
+        Returns:
+            [[chr]] -- The new board state after the roxanne agent makes its 
+            move. Will only be a 1-D array containing an error code if a valid
+            move has not been made / is not available
+        """
         
         if len(board_state) != 8:
             print("Roxanne agent can only play on 8x8 Othello boards.")

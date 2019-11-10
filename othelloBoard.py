@@ -3,6 +3,16 @@ import numpy as np
 class OthelloBoard:
     
     def __init__(self, board_state, dark_turn):
+        """Constructor method for the OthelloBoard class. This class is used to
+        represent a single board state. It can be queried to return a list of 
+        valid moves available at that board state, or can be used to retrieve 
+        the next board state as a result of making one of the valid moves.
+        
+        Arguments:
+            board_state {[chr]} -- The current board state.
+            dark_turn {bool} -- Whether or not it's dark's turn in this current
+            board position.
+        """
         self.board_state = board_state
         self.dark_turn = dark_turn
         self.board_size = len(board_state)
@@ -112,10 +122,15 @@ class OthelloBoard:
 
 
     def makeMove(self, move, directions):
-        """Applies the user's move to the game
+        """Makes the selected move and returns the new board state
         
         Arguments:
-            move {(Integer,Integer)} -- The coordinates of the new piece
+            move {(int, int)} -- The move selected
+            directions {[(int, int)]} -- Directions in which pieces need to be
+            flipped as a result of the selected move
+        
+        Returns:
+            [[chr]] -- The new board state as a result of the move
         """
 
         new_board_state = np.copy(self.board_state)
@@ -129,35 +144,36 @@ class OthelloBoard:
 
 
     def flipPieces(self, new_board_state, move, directions):
-            """Function responsible for flipping pieces on the board when a valid
-            move is played by the current player.
+        """Function responsible for flipping pieces on the board when a valid
+         move is played by the current player.
             
-            Arguments:
-                move {(Integer, Integer)} -- The move that's been played
-                directions {[(Integer, Integer)]} -- The directions in which pieces
-                need to flipped.
-            """
+        Arguments:
+            new_board_state {[[chr]]} -- The board state to be changed
+            move {(int, int)} -- The move selected
+            directions {[(int,int)]} -- The directions in which pieces need
+            to be flipped as a result of the selected move
+        """
 
-            player_char = self.getCurrentPlayer()
+        player_char = self.getCurrentPlayer()
 
-            for direction in directions:
-                line_flipped = False
-                square_to_flip = [move[0]+direction[0], move[1]+direction[1]]
+        for direction in directions:
+            line_flipped = False
+            square_to_flip = [move[0]+direction[0], move[1]+direction[1]]
 
                 
 
-                while not line_flipped:
+            while not line_flipped:
                     
-                    square_char = new_board_state[square_to_flip[0]][square_to_flip[1]]
+                square_char = new_board_state[square_to_flip[0]][square_to_flip[1]]
 
-                    if square_char == player_char:
-                        line_flipped = True
-                        continue
+                if square_char == player_char:
+                    line_flipped = True
+                    continue
 
-                    else:                        
-                        new_board_state[square_to_flip[0]][square_to_flip[1]] = player_char
-                        square_to_flip[0] += direction[0]
-                        square_to_flip[1] += direction[1]
+                else:                        
+                    new_board_state[square_to_flip[0]][square_to_flip[1]] = player_char
+                    square_to_flip[0] += direction[0]
+                    square_to_flip[1] += direction[1]
 
 
     def getCurrentPlayer(self):
