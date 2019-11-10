@@ -6,18 +6,14 @@ input and feeding it back to main othello engine.
 import numpy as np
 import math
 import othelloDraw
+import othelloBoard
 
-class Human:
+class Human(Player):
 
-    def __init__(self, verbose, board_size):
-        """Initialises human object
+    def __init__(self, verbose, dark_player, board_size):
         
-        Arguments:
-            verbose {boolean} -- Verbosity of human object
-            board_size {int} -- Size of game board
-        """
         self.verbose = verbose
-
+        self.dark_player = dark_player
         if self.verbose:
             print("Initialising human player...")
             print('\n\n')
@@ -26,19 +22,14 @@ class Human:
         
             
 
-    def getMove(self, board, valid_moves):
-        """Gets a move from a human player
+    def getMove(self, board_state, valid_moves):
         
-        Arguments:
-            board {[[chr]]} -- The current board state. Numpy array
-            valid_moves {(int, int)} -- Tuples containing valid moves
-        
-        Returns:
-            (int, int) -- Returns selected move, (-1,-1) if player quits
-        """
-        self.board = np.copy(board)
-        self.markValidMoves(valid_moves)
-        self.drawer.drawBoard(self.board)
+        self.board = othelloBoard.OthelloBoard(np.copy(board_state), 
+                                               self.dark_turn)
+
+
+        board_to_draw = np.copy(self.board.getBoard())
+        self.drawBoard(self.board.getValidMoves(), board_to_draw)
 
         move = (-1,-1)
         game_quit = False
@@ -55,11 +46,9 @@ class Human:
         return move
 
 
-    def markValidMoves(self, valid_move_squares):
-        """Simply marks the board array with the valid moves, used for drawing the board with valid moves disiplayed.
+    def drawBoard(self, valid_move_squares, board_to_draw):
         
-        Arguments:
-            valid_move_squares {[(int,int)]} -- Array of valid move tuples
-        """
         for move in valid_move_squares:
             self.board[move[0]][move[1]] = 'v'
+
+        self.drawer.drawBoard()
