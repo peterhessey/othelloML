@@ -19,6 +19,7 @@ def playerStringError(players_string):
     print('Computer player: c')
     print('------------------------------')
 
+
 def boardSizeError(board_size):
     """Simple error message displayed on invalid board size input
     
@@ -29,6 +30,7 @@ def boardSizeError(board_size):
     print('Input board size: %d' % board_size)
     print('Size must be an even integer >= 4.')
     print('------------------------------')
+
 
 def validateArgs(args):
     """Validates input arguments

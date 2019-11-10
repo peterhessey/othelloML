@@ -19,7 +19,7 @@ class othelloDrawer:
         self.game_window = pygame.display.set_mode((self.board_size*80,
                                                     self.board_size*80))
 
-    pygame.display.set_caption("Othello")
+        pygame.display.set_caption("Othello")
 
     def drawBoard(self, board):
             """Draws the Othello game board using pygame

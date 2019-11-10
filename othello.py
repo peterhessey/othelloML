@@ -4,10 +4,6 @@ random, roxanne, monte-carlo etc).
 '''
 
 
-# CONSINDER REPLACING DICTIONARY KEY SEARCHES WITH THE FOLLOWING:
-
-# https://stackoverflow.com/questions/4730993/python-key-in-dict-keys-performance-for-large-dictionaries
-
 import numpy as np
 import roxanne
 import humanPlayer as human
