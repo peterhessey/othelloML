@@ -1,30 +1,28 @@
 import numpy as np 
 import random as rand 
+import othelloBoard
+from Player import Player
 
-class randomPlayer:
-    def __init__(self, verbose):
-        """Initialises random player
-        
-        Arguments:
-            verbose {Bool} -- Determines if random player is verbose
-        """
+class randomPlayer(Player):
+    def __init__(self, verbose, dark_player):
+
         self.verbose = verbose
+        self.dark_player = dark_player
 
         if self.verbose:
             print("Initialised random player!")
 
-    def getMove(self, board, valid_moves):
-        """Randomly selects a move from a list of valid moves
-        
-        Arguments:
-            board {numpy.array([[chr]])} -- Array representation of the game board
-            valid_moves {[(int,int)]} -- List of all valid moves   
-        
-        Returns:
-            (int, int) -- Move selected
-        """
-        number_of_moves = len(valid_moves)
-        move_selected = rand.randint(1, number_of_moves) - 1
-        move = list(valid_moves)[move_selected]
+    def getNextBoardState(self, board_state):
 
-        return move
+        board = othelloBoard.OthelloBoard(board_state, self.dark_player)
+        valid_moves = board.getValidMoves()
+
+        if bool(valid_moves):
+                
+            number_of_moves = len(valid_moves)
+            move_selected = rand.randint(1, number_of_moves) - 1
+            move = list(valid_moves)[move_selected]
+
+            return board.makeMove(move, valid_moves[move])
+        else:
+            return np.array([0])

@@ -56,8 +56,10 @@ class Game:
                                          self.board_size)
             elif player_string[i] == 'r':
                 new_player = roxanne.Roxanne(self.verbose, dark_player)
-            # elif player_string[i] == 'R':
-            #     new_player = randomPlayer.randomPlayer(self.verbose)
+            elif player_string[i] == 'R':
+                
+                new_player = randomPlayer.randomPlayer(self.verbose,
+                                                       dark_player)
         
             players.append(new_player)
 
