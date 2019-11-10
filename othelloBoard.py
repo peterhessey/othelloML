@@ -3,8 +3,9 @@ import numpy as np
 class OthelloBoard:
     
     def __init__(self, board_state, dark_turn):
-        self.board = board_state
+        self.board_state = board_state
         self.dark_turn = dark_turn
+        self.board_size = len(board_state)
 
 
     def getValidMoves(self):
@@ -47,7 +48,7 @@ class OthelloBoard:
             for i in range(self.board_size):
                 for j in range(self.board_size):
 
-                    if self.board[i][j] == 'x':
+                    if self.board_state[i][j] == 'x':
                         for x in range(-1, 2):
                             for y in range(-1, 2):
                                 
@@ -56,7 +57,7 @@ class OthelloBoard:
                                     and (j + y) < self.board_size 
                                     and (j + y) >= 0):
                                     
-                                    square_scanner = self.board[i+x][j+y]
+                                    square_scanner = self.board_state[i+x][j+y]
                         
 
                                     if square_scanner == opponent_char:
@@ -94,7 +95,7 @@ class OthelloBoard:
              and move_valid == False):
 
             try:
-                square_char = self.board[square_scanner[0]][square_scanner[1]]
+                square_char = self.board_state[square_scanner[0]][square_scanner[1]]
             except:
                 print("Error with " + str(square_scanner))    
 
@@ -108,6 +109,55 @@ class OthelloBoard:
                 break
 
         return move_valid
+
+
+    def makeMove(self, move, directions):
+        """Applies the user's move to the game
+        
+        Arguments:
+            move {(Integer,Integer)} -- The coordinates of the new piece
+        """
+
+        new_board_state = np.copy(self.board_state)
+        self.flipPieces(new_board_state, move, directions)
+
+        new_piece_char = self.getCurrentPlayer()
+        
+        new_board_state[move[0]][move[1]] = new_piece_char
+
+        return new_board_state
+
+
+    def flipPieces(self, new_board_state, move, directions):
+            """Function responsible for flipping pieces on the board when a valid
+            move is played by the current player.
+            
+            Arguments:
+                move {(Integer, Integer)} -- The move that's been played
+                directions {[(Integer, Integer)]} -- The directions in which pieces
+                need to flipped.
+            """
+
+            player_char = self.getCurrentPlayer()
+
+            for direction in directions:
+                line_flipped = False
+                square_to_flip = [move[0]+direction[0], move[1]+direction[1]]
+
+                
+
+                while not line_flipped:
+                    
+                    square_char = new_board_state[square_to_flip[0]][square_to_flip[1]]
+
+                    if square_char == player_char:
+                        line_flipped = True
+                        continue
+
+                    else:                        
+                        new_board_state[square_to_flip[0]][square_to_flip[1]] = player_char
+                        square_to_flip[0] += direction[0]
+                        square_to_flip[1] += direction[1]
 
 
     def getCurrentPlayer(self):
@@ -132,7 +182,3 @@ class OthelloBoard:
             return 'w'
         else:
             return 'd'
-
-
-    def getBoard(self):
-        return self.board

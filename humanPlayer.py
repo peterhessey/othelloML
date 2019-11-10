@@ -7,6 +7,7 @@ import numpy as np
 import math
 import othelloDraw
 import othelloBoard
+from Player import Player
 
 class Human(Player):
 
@@ -22,33 +23,42 @@ class Human(Player):
         
             
 
-    def getMove(self, board_state, valid_moves):
+    def getNextBoardState(self, board_state):
         
-        self.board = othelloBoard.OthelloBoard(np.copy(board_state), 
-                                               self.dark_turn)
+        board = othelloBoard.OthelloBoard(board_state, 
+                                               self.dark_player)
 
 
-        board_to_draw = np.copy(self.board.getBoard())
-        self.drawBoard(self.board.getValidMoves(), board_to_draw)
-
-        move = (-1,-1)
+        board_to_draw = np.copy(board_state)
+        valid_moves = board.getValidMoves()
+        self.drawBoard(valid_moves, board_to_draw)        
+        no_valid_moves = True
         game_quit = False
 
-        while move not in valid_moves and not game_quit:
-            
-
-            move = self.drawer.getUserInput()
-            if move == (-2,-2):
-                move = (-1,-1)
-                game_quit = True          
-
-
-        return move
+        #check if the game is over
+        if bool(valid_moves):
+            no_valid_moves = False
+        
+        if not no_valid_moves:
+            move = (-1,-1)
+            while move not in valid_moves and not game_quit:
+                
+                move = self.drawer.getUserInput()
+                if move == (-2,-2):
+                    move = (-1,-1)
+                    game_quit = True          
+        
+        if no_valid_moves:
+            return np.array([0])
+        elif game_quit:
+            return np.array([1])
+        else:
+            return board.makeMove(move, valid_moves[move])
 
 
     def drawBoard(self, valid_move_squares, board_to_draw):
         
         for move in valid_move_squares:
-            self.board[move[0]][move[1]] = 'v'
+            board_to_draw[move[0]][move[1]] = 'v'
 
-        self.drawer.drawBoard()
+        self.drawer.drawBoard(board_to_draw)

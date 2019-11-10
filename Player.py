@@ -6,5 +6,5 @@ class Player(ABC):
         self.dark_player = dark_player
 
     @abstractmethod
-    def getMove(self):
+    def getNextBoardState(self):
         pass
