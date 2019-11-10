@@ -26,7 +26,7 @@ class Human(Player):
     def getNextBoardState(self, board_state):
         
         board = othelloBoard.OthelloBoard(board_state, 
-                                               self.dark_player)
+                                          self.dark_player)
 
 
         board_to_draw = np.copy(board_state)

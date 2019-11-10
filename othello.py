@@ -50,11 +50,12 @@ class Game:
                 dark_player = True
             else:
                 dark_player = False
+
             if player_string[i] == 'h':
                 new_player = human.Human(self.verbose, dark_player, 
                                          self.board_size)
-            # elif player_string[i] == 'r':
-            #     new_player = roxanne.Roxanne(self.verbose)
+            elif player_string[i] == 'r':
+                new_player = roxanne.Roxanne(self.verbose, dark_player)
             # elif player_string[i] == 'R':
             #     new_player = randomPlayer.randomPlayer(self.verbose)
         
@@ -124,9 +125,26 @@ class Game:
     def playNextMove(self, player_num, previous_passed):
 
         new_board = self.players[player_num].getNextBoardState(self.board)
+        self.nextTurn()
+        # if new_board.ndim != 1:
+        #     self.nextTurn()
+        #     if new_board[0] == 0:   
+        #         if previous_passed: 
+        #             return False
+        #         else:                                      
+        #             player_num = (player_num + 1) % 2
+        #             return self.playNextMove(player_num, True)
 
-        if new_board[0] != 1:
-            self.nextTurn()
+        #     else:
+        #         self.board = new_board
+        #         return True
+        # else:
+        #     return False
+
+        if new_board.ndim == 2:
+            self.board = new_board            
+            return True
+        else:            
             if new_board[0] == 0:   
                 if previous_passed: 
                     return False
@@ -135,10 +153,7 @@ class Game:
                     return self.playNextMove(player_num, True)
 
             else:
-                self.board = new_board
-                return True
-        else:
-            return False
+                return False
 
 
     def nextTurn(self):
