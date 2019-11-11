@@ -33,6 +33,7 @@ class OthelloBoard:
         
         return childrenBoardStates
 
+
     def getValidMoves(self):
         """Returns a list of valid moves the current player can make
         
@@ -191,6 +192,15 @@ class OthelloBoard:
                     square_to_flip[1] += direction[1]
 
 
+    def getBoardState(self):
+        """Returns the board state being represented by the object
+        
+        Returns:
+            [[chr]] -- The array representation of the current game posittion
+        """
+        return self.board_state
+
+
     def getCurrentPlayerChar(self):
         """Returns the character representation of the current player
         
@@ -213,6 +223,7 @@ class OthelloBoard:
             return 'w'
         else:
             return 'd'
+
 
     def getDarkTurn(self):
         """Return whether it's dark or white's turn

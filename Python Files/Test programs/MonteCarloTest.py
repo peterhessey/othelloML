@@ -9,7 +9,7 @@ if __name__ == "__main__":
                           ['x', 'w', 'd', 'x'],
                           ['x', 'x', 'x', 'x']])
 
-    mcPlayer = mc.monteCarloPlayer(new_board, True)
+    mcPlayer = mc.MCAgent(True)
     
-    for child in board.getChildren():
-        print(child.board)
+    for board in mcPlayer.getNextBoardState(new_board, True):
+        print(board.getBoardState())

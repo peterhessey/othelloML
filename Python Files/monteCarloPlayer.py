@@ -9,47 +9,68 @@ import othelloBoard
 # 5 seconds per move
 MAX_TIME = 5
 
-class MC_agent:
+class MCAgent:
     def __init__(self, verbose):
         self.verbose = verbose
-        self.nodes = {}
+        self.game_tree = nx.DiGraph()
 
-    def getNextBoardState(root_board_state, dark_turn):
+    def getNextBoardState(self, root_board_state, dark_turn):
         start_time = time.time()
-        """The MCTS algortihm goes here
-
-        structure:
-        while resourcesLeft():
-            leaf = traverse(root(boardState?))
-            simulation_result = rollout(leaf)
-            backpropogate(leaf, simulation_result)
-        return best_child(root)
-        """
-        game_tree = nx.Graph()
         
-        #creating and adding root node to graph
-        node = Node(othelloBoard.OthelloBoard(root_board_state,
-                                                         dark_turn))
-        game_tree.add_node(node)
+        
+        #game tree set up
+        self.game_tree = nx.DiGraph()    
+        root = Node(othelloBoard.OthelloBoard(root_board_state, dark_turn))
+        self.game_tree.add_node(root)
+
 
         #while the time for making each move has not been maxed out
         while (time.time() - start_time) > MAX_TIME:
-            
+            leaf = traverse(root)
+            simulation_result = rollout(leaf)
         return None
 
-    def traverseNode(self, node):
-        return None
+    def traverse(self, node):
+        while node.fullyExpanded:
+            node = bestChildUCT(node)
+        
+        if node.children == []:
+            node.generateChildren()
+
+        for i in range(len(node.children)):
+            if node.children[i].visits == 0:
+                self.game_tree.add_node(node.children[i])
+                self.game_tree.add_edge(node, node.children[i])
+                
+                if i == len(node.children) - 1:
+                    node.fullyExpanded = True
+
+                return node.children[i]
+        
+
+    def bestChildUCT(self, node):
+        c = 1
+         
+
 
     def rollout(node):
         return None
-        
+
 class Node:
-    def __init__(self, board, dark_turn):
+    def __init__(self, board):
         #board is an OthelloBoard object
         self.board = board
         self.reward = 0
         self.visits = 0
         self.fullyExpanded = False
+        self.children = []
+
+
+    def generateChildren(self):
+        for child_board_state in self.board.getChildren():
+            child_node_board = othelloBoard.OthelloBoard(child_board_state,
+                                                not self.board.getDarkTurn())
+            self.children.append(Node(child_node_board))
 
     def getReward(self):
         return self.reward
@@ -58,4 +79,4 @@ class Node:
         return self.vists
 
     def getChildren(self):
-        return [othelloBoard.OthelloBoard(child_board_state, not self.board.getDarkTurn()) for child_board stateself.board.getChildren()]
+        return self.children
