@@ -32,6 +32,7 @@ class OthelloBoard:
             childrenBoardStates.append(self.makeMove(move, moves[move]))
         
         return childrenBoardStates
+
     def getValidMoves(self):
         """Returns a list of valid moves the current player can make
         
@@ -67,7 +68,7 @@ class OthelloBoard:
             
             adjacent_squares_dict = {}
 
-            opponent_char = self.getCurrentOpponent()
+            opponent_char = self.getCurrentOpponentChar()
             
             for i in range(self.board_size):
                 for j in range(self.board_size):
@@ -109,8 +110,8 @@ class OthelloBoard:
             Bool -- True if move is valid, false otherwise
         """
         move_valid = False
-        player_char  = self.getCurrentPlayer()
-        opponenet_char = self.getCurrentOpponent()
+        player_char  = self.getCurrentPlayerChar()
+        opponenet_char = self.getCurrentOpponentChar()
         
         square_scanner = [square[0] + direction[0] * 2, square[1] + direction[1] * 2]
                 
@@ -150,7 +151,7 @@ class OthelloBoard:
         new_board_state = np.copy(self.board_state)
         self.flipPieces(new_board_state, move, directions)
 
-        new_piece_char = self.getCurrentPlayer()
+        new_piece_char = self.getCurrentPlayerChar()
         
         new_board_state[move[0]][move[1]] = new_piece_char
 
@@ -168,7 +169,7 @@ class OthelloBoard:
             to be flipped as a result of the selected move
         """
 
-        player_char = self.getCurrentPlayer()
+        player_char = self.getCurrentPlayerChar()
 
         for direction in directions:
             line_flipped = False
@@ -190,7 +191,7 @@ class OthelloBoard:
                     square_to_flip[1] += direction[1]
 
 
-    def getCurrentPlayer(self):
+    def getCurrentPlayerChar(self):
         """Returns the character representation of the current player
         
         Returns:
@@ -202,7 +203,7 @@ class OthelloBoard:
             return 'w'
     
 
-    def getCurrentOpponent(self):
+    def getCurrentOpponentChar(self):
         """Returns the character representation of the current opponent
         
         Returns:
@@ -212,3 +213,11 @@ class OthelloBoard:
             return 'w'
         else:
             return 'd'
+
+    def getDarkTurn(self):
+        """Return whether it's dark or white's turn
+        
+        Returns:
+            bool -- True if dark's turn, False otherwise
+        """
+        return self.dark_turn
