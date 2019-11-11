@@ -18,6 +18,20 @@ class OthelloBoard:
         self.board_size = len(board_state)
 
 
+    def getChildren(self):
+        """Returns all board states possible by making a valid move at this 
+        position.
+        
+        Returns:
+            [[[chr]]] -- An array of 2-D arrays that store character 
+            representations of the board.
+        """
+        childrenBoardStates = []
+        moves = self.getValidMoves()
+        for move in moves:
+            childrenBoardStates.append(self.makeMove(move, moves[move]))
+        
+        return childrenBoardStates
     def getValidMoves(self):
         """Returns a list of valid moves the current player can make
         

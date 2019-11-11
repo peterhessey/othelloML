@@ -34,6 +34,7 @@ class Game:
         else:
             self.demo_mode = False
 
+
     def setUpPlayers(self, player_string):
         """Sets up player objects
         
