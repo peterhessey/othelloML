@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, '../')
 import numpy as np 
-import othelloBoard
+import monteCarloPlayer as mc
 
 if __name__ == "__main__":
     new_board = np.array([['x', 'x', 'x', 'x'],
@@ -9,7 +9,7 @@ if __name__ == "__main__":
                           ['x', 'w', 'd', 'x'],
                           ['x', 'x', 'x', 'x']])
 
-    board = othelloBoard.OthelloBoard(new_board, True)
+    mcPlayer = mc.monteCarloPlayer(new_board, True)
     
     for child in board.getChildren():
         print(child.board)

@@ -38,10 +38,11 @@ class MC_agent:
         return None
 
     def traverseNode(self, node):
-        
+        return None
 
     def rollout(node):
-
+        return None
+        
 class Node:
     def __init__(self, board, dark_turn):
         #board is an OthelloBoard object
@@ -57,4 +58,4 @@ class Node:
         return self.vists
 
     def getChildren(self):
-        return self.board.getChildren()
+        return [othelloBoard.OthelloBoard(child_board_state, not self.board.getDarkTurn()) for child_board stateself.board.getChildren()]
