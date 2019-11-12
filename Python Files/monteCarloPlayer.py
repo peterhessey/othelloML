@@ -4,10 +4,11 @@ import random
 import math
 import time
 import othelloBoard
-
+import roxanne
 
 # 5 seconds per move
-MAX_TIME = 5
+MAX_TIME = 10
+C_VAL = 1
 
 class MCAgent:
     def __init__(self, verbose):
@@ -27,7 +28,7 @@ class MCAgent:
         #while the time for making each move has not been maxed out
         while (time.time() - start_time) > MAX_TIME:
             leaf = traverse(root)
-            simulation_result = rollout(leaf)
+            simulation_result = rollout(leaf)#####################
         return None
 
     def traverse(self, node):
@@ -49,12 +50,25 @@ class MCAgent:
         
 
     def bestChildUCT(self, node):
-        c = 1
-         
+        
+        max_UCT_value = float('-inf')
+        max_node = None
+
+        for child in node.children:
+            child_UCT = child.getUCT(node.visits)
+            if child_UCT > max_UCT_value:
+                max_node = child
+                max_UCT_value = child_UCT
+
+        return max_node
 
 
-    def rollout(node):
-        return None
+    def rollout(self, node):
+        game_not_over = True
+        rollout_policy = roxanne.Roxanne()
+        while game_not_over:
+###############################################
+
 
 class Node:
     def __init__(self, board):
@@ -72,11 +86,6 @@ class Node:
                                                 not self.board.getDarkTurn())
             self.children.append(Node(child_node_board))
 
-    def getReward(self):
-        return self.reward
-
-    def getVisits(self):
-        return self.vists
-
-    def getChildren(self):
-        return self.children
+    def getUCT(self, parent_node_visits):
+        return (self.reward / self.visits) + C_VAL * \
+                math.sqrt(math.log(parent_node_visits)/self.visits)
