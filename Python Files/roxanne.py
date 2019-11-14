@@ -65,7 +65,10 @@ class Roxanne(Player):
 
                 board_to_return = board.makeMove(move, valid_moves[move])
             else:
-                board_to_return = np.array([0])
+                if board.boardFull:
+                    board_to_return = np.array([1])
+                else:
+                    board_to_return = np.array([0])
 
         return board_to_return
 

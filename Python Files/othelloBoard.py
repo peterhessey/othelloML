@@ -26,12 +26,13 @@ class OthelloBoard:
             [[[chr]]] -- An array of 2-D arrays that store character 
             representations of the board.
         """
-        childrenBoardStates = []
+        children_board_states = np.array([])
         moves = self.getValidMoves()
         for move in moves:
-            childrenBoardStates.append(self.makeMove(move, moves[move]))
+            children_board_states = np.append(children_board_states,
+                                              self.makeMove(move, moves[move]))
         
-        return childrenBoardStates
+        return children_board_states
 
 
     def getValidMoves(self):
@@ -201,6 +202,17 @@ class OthelloBoard:
         return self.board_state
 
 
+    def boardFull(self):
+        boardFull = True
+        for i in range(self.board_size):
+            for j in range(self.board_size):
+                if self.board_state[i,j] == 'x':
+                    boardFull = False
+                    return boardFull
+
+        return boardFull
+
+        
     def getCurrentPlayerChar(self):
         """Returns the character representation of the current player
         
@@ -223,12 +235,3 @@ class OthelloBoard:
             return 'w'
         else:
             return 'd'
-
-
-    def getDarkTurn(self):
-        """Return whether it's dark or white's turn
-        
-        Returns:
-            bool -- True if dark's turn, False otherwise
-        """
-        return self.dark_turn

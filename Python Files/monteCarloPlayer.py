@@ -10,6 +10,24 @@ import roxanne
 MAX_TIME = 10
 C_VAL = 1
 
+def getWinner(board_state):
+    dark_count = 0
+    white_count = 0
+
+    for i in range(len(board_state)):
+        for j in range(len(board_state)):
+            if board_state == 'd':
+                dark_count += 1
+            else:
+                dark_count += 1
+
+    if dark_count > white_count:
+        return 'd'
+    elif white_count > dark_count:
+        return 'w'
+    else:
+        return 't'
+        
 class MCAgent:
     def __init__(self, verbose):
         self.verbose = verbose
@@ -47,6 +65,9 @@ class MCAgent:
                     node.fullyExpanded = True
 
                 return node.children[i]
+
+        ##if no children found 
+        return node 
         
 
     def bestChildUCT(self, node):
@@ -64,11 +85,41 @@ class MCAgent:
 
 
     def rollout(self, node):
+        no_moves_found_prev = False
         game_not_over = True
-        rollout_policy = roxanne.Roxanne()
-        while game_not_over:
-###############################################
+        rollout_policy = roxanne.Roxanne(self.verbose, node.board.dark_turn)
+        current_board_state = node.board
 
+        while game_not_over:
+            next_board_state = rollout_policy.getNextBoardState(current_board_state)
+            if next_board_state.ndim == 2:
+                no_moves_found_prev = False
+                current_board_state = next_board_state
+                rollout_policy.dark_player = not rollout_policy.dark_player
+
+            else:
+                if next_board_state[0] == 1:
+                    #if the board is full
+                    game_not_over = False
+                else:
+                    #if not valid moves found but board not ufll
+                    if no_moves_found_prev:
+                        game_not_over = False
+                    else:
+                        no_moves_found_prev = True
+                        rollout_policy.dark_player = not rollout_policy.dark_player
+
+
+        winner = getWinner(current_board_state)
+        dark_turn = node.board.dark_turn
+
+        if winner == 'd':
+            return 1 if dark_turn else -1
+        elif winner == 'w':
+            return -1 if dark_turn else 1
+        else:
+            return 0
+            
 
 class Node:
     def __init__(self, board):
@@ -83,7 +134,7 @@ class Node:
     def generateChildren(self):
         for child_board_state in self.board.getChildren():
             child_node_board = othelloBoard.OthelloBoard(child_board_state,
-                                                not self.board.getDarkTurn())
+                                                not self.board.dark_turn)
             self.children.append(Node(child_node_board))
 
     def getUCT(self, parent_node_visits):
