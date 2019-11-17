@@ -5,7 +5,7 @@ import time
 import othelloBoard
 import roxanne
 
-MAX_TIME_PER_MOVE = 15
+MAX_TIME_PER_MOVE = 10
 C_VAL = 1
 
 def getWinner(board_state):
@@ -126,7 +126,7 @@ class MCAgent:
 
 
     def backpropogate(self, node, dark_turn, result):
-        
+        node.visits += 1
         if node.parent == None:
             return
 
@@ -137,7 +137,6 @@ class MCAgent:
         elif result == 'w':
             result_score = -1 if dark_turn else 1
 
-        node.visits += 1
         node.reward += result_score
         
         self.backpropogate(node.parent, dark_turn, result)
