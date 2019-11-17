@@ -27,17 +27,22 @@ def getWinner(board_state):
         return 't'
         
 class MCAgent:
-    def __init__(self, verbose):
+    def __init__(self, verbose, dark_turn):
         self.verbose = verbose
+        self.dark_turn = dark_turn
 
-    def getNextBoardState(self, root_board_state, dark_turn):
+    def getNextBoardState(self, root_board_state):
         start_time = time.time()  
-        root = Node(othelloBoard.OthelloBoard(root_board_state, dark_turn), 
+        root = Node(othelloBoard.OthelloBoard(root_board_state, self.dark_turn), 
                     None)
 
         #while the time for making each move has not been maxed out
         while (time.time() - start_time) < MAX_TIME_PER_MOVE:
             leaf = self.traverse(root)
+
+            if self.verbose:
+                print('Leaf node has following board state:')
+                print(leaf.board.board_state)
 
             simulation_result = self.rollout(leaf)
 
@@ -45,13 +50,16 @@ class MCAgent:
                 print('Simulation complete')
                 print('Simulation result: %s' % simulation_result)
 
-            self.backpropogate(leaf, root.board.dark_turn, simulation_result)
+            self.backpropogate(leaf, simulation_result)
 
         
         best_node_score = float('-inf')
         best_node = root
 
         for node in root.children:
+            if True:#self.verbose:
+                print('Node has %s visits and a score of %s' % \
+                      (node.visits, node.reward))
             node_score = float(node.reward / node.visits)
             if node_score > best_node_score:
                 best_node = node
@@ -125,7 +133,7 @@ class MCAgent:
         return getWinner(current_board_state)
 
 
-    def backpropogate(self, node, dark_turn, result):
+    def backpropogate(self, node, result):
         node.visits += 1
         if node.parent == None:
             return
@@ -133,13 +141,13 @@ class MCAgent:
         result_score = 0
 
         if result == 'd':
-            result_score = 1 if dark_turn else -1
+            result_score = 1 if self.dark_turn else -1
         elif result == 'w':
-            result_score = -1 if dark_turn else 1
+            result_score = -1 if self.dark_turn else 1
 
         node.reward += result_score
         
-        self.backpropogate(node.parent, dark_turn, result)
+        self.backpropogate(node.parent, result)
 
 
 
