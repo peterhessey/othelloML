@@ -26,13 +26,12 @@ class OthelloBoard:
             [[[chr]]] -- An array of 2-D arrays that store character 
             representations of the board.
         """
-        children_board_states = np.array([])
+        children_board_states = []
         moves = self.getValidMoves()
         for move in moves:
-            children_board_states = np.append(children_board_states,
-                                              self.makeMove(move, moves[move]))
+            children_board_states.append(self.makeMove(move, moves[move]))
         
-        return children_board_states
+        return np.array(children_board_states)
 
 
     def getValidMoves(self):

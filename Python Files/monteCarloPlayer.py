@@ -6,8 +6,7 @@ import time
 import othelloBoard
 import roxanne
 
-# 5 seconds per move
-MAX_TIME = 10
+MAX_TIME_PER_MOVE = 15
 C_VAL = 1
 
 def getWinner(board_state):
@@ -16,10 +15,10 @@ def getWinner(board_state):
 
     for i in range(len(board_state)):
         for j in range(len(board_state)):
-            if board_state == 'd':
+            if board_state[i, j] == 'd':
                 dark_count += 1
-            else:
-                dark_count += 1
+            elif board_state[i,j] == 'w':
+                white_count += 1
 
     if dark_count > white_count:
         return 'd'
@@ -35,18 +34,25 @@ class MCAgent:
 
     def getNextBoardState(self, root_board_state, dark_turn):
         start_time = time.time()
-        
-        
         #game tree set up
         self.game_tree = nx.DiGraph()    
         root = Node(othelloBoard.OthelloBoard(root_board_state, dark_turn))
         self.game_tree.add_node(root)
 
-
         #while the time for making each move has not been maxed out
-        while (time.time() - start_time) > MAX_TIME:
-            leaf = traverse(root)
-            simulation_result = rollout(leaf)#####################
+        while True:#(time.time() - start_time) > MAX_TIME_PER_MOVE:
+            leaf = self.traverse(root)
+
+            if self.verbose:
+                print('Simulating on this board state:')
+                print(leaf.board.board_state)
+
+            simulation_result = self.rollout(leaf)
+
+            if self.verbose:
+                print('Simulation complete')
+                print('Simulation result: %s' % simulation_result)
+                break
         return None
 
     def traverse(self, node):
@@ -88,7 +94,7 @@ class MCAgent:
         no_moves_found_prev = False
         game_not_over = True
         rollout_policy = roxanne.Roxanne(self.verbose, node.board.dark_turn)
-        current_board_state = node.board
+        current_board_state = node.board.board_state
 
         while game_not_over:
             next_board_state = rollout_policy.getNextBoardState(current_board_state)
@@ -109,7 +115,9 @@ class MCAgent:
                         no_moves_found_prev = True
                         rollout_policy.dark_player = not rollout_policy.dark_player
 
-
+        if self.verbose:
+            print('Simulation complete on the following board state:')
+            print(current_board_state)
         winner = getWinner(current_board_state)
         dark_turn = node.board.dark_turn
 
@@ -119,7 +127,7 @@ class MCAgent:
             return -1 if dark_turn else 1
         else:
             return 0
-            
+
 
 class Node:
     def __init__(self, board):
