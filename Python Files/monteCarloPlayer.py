@@ -118,15 +118,9 @@ class MCAgent:
         if self.verbose:
             print('Simulation complete on the following board state:')
             print(current_board_state)
-        winner = getWinner(current_board_state)
-        dark_turn = node.board.dark_turn
-
-        if winner == 'd':
-            return 1 if dark_turn else -1
-        elif winner == 'w':
-            return -1 if dark_turn else 1
-        else:
-            return 0
+        
+        return getWinner(current_board_state)
+        
 
 
 class Node:
