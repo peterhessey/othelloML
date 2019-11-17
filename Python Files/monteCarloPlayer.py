@@ -5,10 +5,18 @@ import time
 import othelloBoard
 import roxanne
 
-MAX_TIME_PER_MOVE = 10
+MAX_TIME_PER_MOVE = 1
 C_VAL = 1
 
 def getWinner(board_state):
+    """Function used for determining the winner in an final board state
+    
+    Arguments:
+        board_state {[[chr]]} -- Array representation of the board state
+    
+    Returns:
+        chr -- Returns 'd' if dark wins, 'w' if white and 't' if it's a tie
+    """
     dark_count = 0
     white_count = 0
 
@@ -25,21 +33,51 @@ def getWinner(board_state):
         return 'w'
     else:
         return 't'
+    
         
 class MCAgent:
+    """An agent capable of performing monte carlo tree search on a given 
+    Othello board state.
+    
+    Returns:
+        MCAgent
+    """
     def __init__(self, verbose, dark_turn):
+        """Constructor function for the monte carlo othello agent.
+        
+        Arguments:
+            verbose {bool} -- Determines verbosity of the agent
+            dark_turn {bool} -- True if the MC player is using the dark pieces,
+            false otherwise.
+        """
         self.verbose = verbose
         self.dark_turn = dark_turn
 
+
     def getNextBoardState(self, root_board_state):
-        start_time = time.time()  
+        """The main MCTS function. Takes an input board state and returns the 
+        board state determined by the algorithm to be the best.
+        
+        Arguments:
+            root_board_state {[[chr]]} -- Array representation of the current 
+            board state.
+        
+        Returns:
+            [[chr]] -- The returned board state. Returns [0] if no moves are 
+            possible.
+        """
+
+        start_time = time.time()
+        # root node object  
         root = Node(othelloBoard.OthelloBoard(root_board_state, self.dark_turn), 
                     None)
 
         #while the time for making each move has not been maxed out
         while (time.time() - start_time) < MAX_TIME_PER_MOVE:
+            #select the next leaf node to explore
             leaf = self.traverse(root)
 
+            #if there are no valid moves from the root node
             if leaf == root:
                 return np.array([0])
 
@@ -47,15 +85,18 @@ class MCAgent:
                 print('Leaf node has following board state:')
                 print(leaf.board.board_state)
 
+            #perform simulation on the leaf
             simulation_result = self.rollout(leaf)
 
             if self.verbose:
                 print('Simulation complete')
                 print('Simulation result: %s' % simulation_result)
 
+            #backpropogate the simulation result
             self.backpropogate(leaf, simulation_result)
 
-        
+        #select the best node of all the root node's children
+
         best_node_score = float('-inf')
         best_node = root
 
@@ -72,31 +113,54 @@ class MCAgent:
 
 
     def traverse(self, node):
+        """Given an input node, traverse the tree from that node to the next
+        leaf node that is the best candidate for simulation.
+        
+        Arguments:
+            node {Node} -- The node from which to traverse
+        
+        Returns:
+            Node -- The leaf node selected as the best candidate for 
+            simulation.
+        """
+
         while node.fullyExpanded:
             node = self.bestChildUCT(node)
         
+        #if node has not been expanded yet
         if node.children == []:
             node.generateChildren()
 
+        #check for any unvisited children
         for i in range(len(node.children)):
             if node.children[i].visits == 0:
                 
+                '''if the child is the final child of that node, mark it as 
+                fully expanded'''
                 if i == len(node.children) - 1:
                     node.fullyExpanded = True
 
                 return node.children[i]
 
-        ##if no children found 
+        ##if no children found (i.e. root node is a terminal board state)
         return node 
         
 
     def bestChildUCT(self, node):
+        """Uses upper confidence bounds applied to trees to select which child
+        node is the best to explore.
         
+        Arguments:
+            node {Node} -- The node whose children are to be explored
+        
+        Returns:
+            Node -- The best child node to explore based on UCT
+        """
         max_UCT_value = float('-inf')
         max_node = None
 
         for child in node.children:
-            child_UCT = child.getUCT(node.visits)
+            child_UCT = child.getUCT()
             if child_UCT > max_UCT_value:
                 max_node = child
                 max_UCT_value = child_UCT
@@ -105,29 +169,49 @@ class MCAgent:
 
 
     def rollout(self, node):
+        """The simulation function. Uses a simple agent to select moves until a
+        terminal board state is reached. When complete, returns which player is
+        the winner in the terminal board state.
+        
+        Arguments:
+            node {Node} -- The node which is to be simulated.
+        
+        Returns:
+            chr -- The character representation of the winning player. 
+            'd' for dark, 'w' for white and 't' in the case of a tie.
+        """
+        #boolean values used for iteration control
         no_moves_found_prev = False
         game_not_over = True
+
+        #the policy used to select moves (e.g. random, roxanne, etc.)
         rollout_policy = roxanne.Roxanne(self.verbose, node.board.dark_turn)
         current_board_state = node.board.board_state
 
+        #loop until terminal board state found
         while game_not_over:
-            next_board_state = rollout_policy.getNextBoardState(current_board_state)
+            next_board_state = rollout_policy.getNextBoardState(
+                                                current_board_state)
             if next_board_state.ndim == 2:
                 no_moves_found_prev = False
                 current_board_state = next_board_state
                 rollout_policy.dark_player = not rollout_policy.dark_player
 
+            #if no valid moves returned
             else:
+                #if the board is full
                 if next_board_state[0] == 1:
-                    #if the board is full
                     game_not_over = False
+                
+                #if no valid moves found but board not full
                 else:
-                    #if not valid moves found but board not ufll
+                    #if the other player also has no valid moves
                     if no_moves_found_prev:
                         game_not_over = False
                     else:
                         no_moves_found_prev = True
-                        rollout_policy.dark_player = not rollout_policy.dark_player
+                        rollout_policy.dark_player = not \
+                                                     rollout_policy.dark_player
 
         if self.verbose:
             print('Simulation complete on the following board state:')
@@ -137,7 +221,17 @@ class MCAgent:
 
 
     def backpropogate(self, node, result):
+        """Function responsible for backpropogating the simulation result up 
+        the game tree.
+        
+        Arguments:
+            node {Node} -- Node from which the result is to be backpropogated.
+            result {chr} -- The simulation result as defined in the rollout 
+            function.
+        """
+
         node.visits += 1
+        #if at the root node
         if node.parent == None:
             return
 
@@ -153,9 +247,23 @@ class MCAgent:
         self.backpropogate(node.parent, result)
 
 
-
 class Node:
+    """Node class used to perform tree behaviour for the MCTS. Each node stores
+    an OthelloBoard object, as well as values needed for the node, such as
+    pointers to its parent and children nodes, number of visits and the score
+    associated with it.
+    
+    Returns:
+        Node 
+    """
     def __init__(self, board, parent):
+        """Constructor function for the node object.
+        
+        Arguments:
+            board {OthelloBoard} -- The othelloBoard object that the node
+            represent.
+            parent {Node} -- The parent node of this node.
+        """
         #board is an OthelloBoard object
         self.board = board
         self.parent = parent
@@ -166,10 +274,20 @@ class Node:
 
 
     def generateChildren(self):
+        """Creates the node objects for each of the children and assigns 
+        pointers to them in this node object.
+        """
         for child_board_state in self.board.getChildren():
             child_node_board = othelloBoard.OthelloBoard(child_board_state,
                                                 not self.board.dark_turn)
             self.children.append(Node(child_node_board, self))
 
-    def getUCT(self, parent_node_visits):
-        return (self.reward / self.visits) + C_VAL * math.sqrt(math.log(parent_node_visits)/self.visits)
+    def getUCT(self):
+        """Returns the UCT value of this node based on it's parent's node 
+        visits.
+        
+        Returns:
+            float -- The calculated UCT value for the node.
+        """
+        return (self.reward / self.visits) + C_VAL * \
+                    math.sqrt(math.log(self.parent.visits)/self.visits)
