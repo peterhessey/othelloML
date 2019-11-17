@@ -15,6 +15,9 @@ if __name__ == "__main__":
 
     mcPlayer = mc.MCAgent(True)
 
-    mcPlayer.getNextBoardState(new_board, True)
+    next_board = mcPlayer.getNextBoardState(new_board, True)
+
+    print('New board state:')
+    print(next_board)
     
     

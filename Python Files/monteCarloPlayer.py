@@ -1,5 +1,4 @@
 import numpy as np  
-import networkx as nx
 import random
 import math
 import time
@@ -30,42 +29,46 @@ def getWinner(board_state):
 class MCAgent:
     def __init__(self, verbose):
         self.verbose = verbose
-        self.game_tree = nx.DiGraph()
 
     def getNextBoardState(self, root_board_state, dark_turn):
-        start_time = time.time()
-        #game tree set up
-        self.game_tree = nx.DiGraph()    
-        root = Node(othelloBoard.OthelloBoard(root_board_state, dark_turn))
-        self.game_tree.add_node(root)
+        start_time = time.time()  
+        root = Node(othelloBoard.OthelloBoard(root_board_state, dark_turn), 
+                    None)
 
         #while the time for making each move has not been maxed out
-        while True:#(time.time() - start_time) > MAX_TIME_PER_MOVE:
+        while (time.time() - start_time) < MAX_TIME_PER_MOVE:
             leaf = self.traverse(root)
-
-            if self.verbose:
-                print('Simulating on this board state:')
-                print(leaf.board.board_state)
 
             simulation_result = self.rollout(leaf)
 
             if self.verbose:
                 print('Simulation complete')
                 print('Simulation result: %s' % simulation_result)
-                break
-        return None
+
+            self.backpropogate(leaf, root.board.dark_turn, simulation_result)
+
+        
+        best_node_score = float('-inf')
+        best_node = root
+
+        for node in root.children:
+            node_score = float(node.reward / node.visits)
+            if node_score > best_node_score:
+                best_node = node
+                best_node_score = node_score
+
+        return best_node.board.board_state
+
 
     def traverse(self, node):
         while node.fullyExpanded:
-            node = bestChildUCT(node)
+            node = self.bestChildUCT(node)
         
         if node.children == []:
             node.generateChildren()
 
         for i in range(len(node.children)):
             if node.children[i].visits == 0:
-                self.game_tree.add_node(node.children[i])
-                self.game_tree.add_edge(node, node.children[i])
                 
                 if i == len(node.children) - 1:
                     node.fullyExpanded = True
@@ -120,13 +123,32 @@ class MCAgent:
             print(current_board_state)
         
         return getWinner(current_board_state)
+
+
+    def backpropogate(self, node, dark_turn, result):
         
+        if node.parent == None:
+            return
+
+        result_score = 0
+
+        if result == 'd':
+            result_score = 1 if dark_turn else -1
+        elif result == 'w':
+            result_score = -1 if dark_turn else 1
+
+        node.visits += 1
+        node.reward += result_score
+        
+        self.backpropogate(node.parent, dark_turn, result)
+
 
 
 class Node:
-    def __init__(self, board):
+    def __init__(self, board, parent):
         #board is an OthelloBoard object
         self.board = board
+        self.parent = parent
         self.reward = 0
         self.visits = 0
         self.fullyExpanded = False
@@ -137,8 +159,7 @@ class Node:
         for child_board_state in self.board.getChildren():
             child_node_board = othelloBoard.OthelloBoard(child_board_state,
                                                 not self.board.dark_turn)
-            self.children.append(Node(child_node_board))
+            self.children.append(Node(child_node_board, self))
 
     def getUCT(self, parent_node_visits):
-        return (self.reward / self.visits) + C_VAL * \
-                math.sqrt(math.log(parent_node_visits)/self.visits)
+        return (self.reward / self.visits) + C_VAL * math.sqrt(math.log(parent_node_visits)/self.visits)
