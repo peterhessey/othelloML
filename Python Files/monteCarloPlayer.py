@@ -40,6 +40,9 @@ class MCAgent:
         while (time.time() - start_time) < MAX_TIME_PER_MOVE:
             leaf = self.traverse(root)
 
+            if leaf == root:
+                return np.array([0])
+
             if self.verbose:
                 print('Leaf node has following board state:')
                 print(leaf.board.board_state)
