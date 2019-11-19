@@ -131,6 +131,11 @@ class MCAgent:
         if node.children == []:
             node.generateChildren()
 
+############################################################
+        ''' 
+        add funcitonality for random selection of children rather than determinisitc
+        '''
+
         #check for any unvisited children
         for i in range(len(node.children)):
             if node.children[i].visits == 0:
