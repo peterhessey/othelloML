@@ -1,5 +1,11 @@
 import numpy as np 
 
+'''
+This class is used for managing the Othello board. Each object represents a single
+board position as opposed to a single board. This is as both MCTS and the NNs 
+need to maintain a number of states simultaenously for evaluation purposes
+'''
+
 class OthelloBoard:
     
     def __init__(self, board_state, dark_turn):
