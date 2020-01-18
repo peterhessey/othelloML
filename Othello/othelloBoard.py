@@ -155,6 +155,8 @@ class OthelloBoard:
             [[chr]] -- The new board state as a result of the move
         """
 
+        
+
         new_board_state = np.copy(self.board_state)
         self.flipPieces(new_board_state, move, directions)
 

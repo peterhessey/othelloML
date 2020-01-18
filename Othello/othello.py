@@ -92,10 +92,10 @@ class Game:
         #Set up initial centre pieces
         centre = int(self.board_size / 2)
 
-        board[centre-1][centre-1] = 'd'
-        board[centre][centre] = 'd'
-        board[centre-1][centre] = 'w'
-        board[centre][centre-1] = 'w'
+        board[centre-1][centre-1] = 'w'
+        board[centre][centre] = 'w'
+        board[centre-1][centre] = 'd'
+        board[centre][centre-1] = 'd'
 
         return board
     
