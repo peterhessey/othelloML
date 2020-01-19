@@ -72,7 +72,7 @@ def getBoardStatesFromMoves(games):
     start_board_state[4,3] = 'd'
 
     game_counter = 0
-    number_of_games = 0
+    number_of_games = len(games)
     for game in games:
         dark_turn = True
         current_board_state = np.copy(start_board_state)
