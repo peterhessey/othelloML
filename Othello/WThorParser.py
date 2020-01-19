@@ -3,7 +3,7 @@ import numpy as np
 import torch
 import othelloBoard as board
 
-MASTER_PATH = '../Data/'
+MASTER_PATH = './../Data/'
 
 def extractBoardStates(filename):
     """Extracts and saves to an output file the NN data from the WTHOR files

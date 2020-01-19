@@ -67,12 +67,12 @@ def getNumberCorrectGuesses(predictions, moves):
 lr = 0.01
 sgd_momentum = 0.95
 batch_size = 100
-num_epochs = 2
+num_epochs = 10
 
 ## set up devices, NN and optimiser
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-network = OthelloCNN()#.to(device)
+network = OthelloCNN().to(device)
 optimiser = optim.SGD(network.parameters(), lr=lr, momentum=sgd_momentum)
 
 ## prepare data
@@ -98,8 +98,8 @@ for epoch in range(num_epochs):
     start_time = time.time()
 
     for batch in training_loader:
-        boards = batch[0]#.to(device)
-        moves = batch[1]#.to(device)
+        boards = batch[0].to(device)
+        moves = batch[1].to(device)
 
         predictions = network(boards)
 
