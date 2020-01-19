@@ -158,5 +158,5 @@ with torch.no_grad():
     print(
         'Testing results:\n',
         'Number of correctly guessed moves:', total_correct, '\n',
-        'Percentage correct:', math.round(total_correct / number_boards_to_test * 100, 4)
+        'Percentage correct:', round(total_correct / number_boards_to_test * 100, 4)
     )
