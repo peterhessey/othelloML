@@ -5,46 +5,49 @@ import othelloBoard as board
 
 MASTER_PATH = './../Data/'
 
-def extractBoardStates(filename):
+def extractBoardStates(filenames):
     """Extracts and saves to an output file the NN data from the WTHOR files
     
     Arguments:
         filename {str} -- Filename of the WTHOR file to parse
     """
-    file_path = MASTER_PATH + filename + '.wtb'
 
     games = []
-    with open(file_path, 'rb') as games_file:
-        game_data = games_file.read()
+    for filename in filenames:
+        file_path = MASTER_PATH + filename + '.wtb'
 
-        number_of_games = int.from_bytes(game_data[4:8], 'little')
-        # number_of_games = 5
-        print('Number of games in file:', number_of_games)
+        with open(file_path, 'rb') as games_file:
+            game_data = games_file.read()
 
-        for game_num in range(number_of_games):
-            start_byte = 24 + game_num * 68 # 16 bytes for header, 8 bytes for record data
-            move_list_bytes = game_data[start_byte:start_byte+60]
-            move_list = []
+            number_of_games = int.from_bytes(game_data[4:8], 'little')
+            # number_of_games = 5
+            print('Number of games in file:', number_of_games)
 
-            for byte in move_list_bytes:
-                move_num = int(byte)
-                
-                if move_num > 0:
-                    move_row = move_num // 10 - 1
-                    move_col = move_num % 10 - 1
+            for game_num in range(number_of_games):
+                start_byte = 24 + game_num * 68 # 16 bytes for header, 8 bytes for record data
+                move_list_bytes = game_data[start_byte:start_byte+60]
+                move_list = []
 
-                    move_list.append((move_row, move_col))
+                for byte in move_list_bytes:
+                    move_num = int(byte)
+                    
+                    if move_num > 0:
+                        move_row = move_num // 10 - 1
+                        move_col = move_num % 10 - 1
 
-            games.append(move_list)
+                        move_list.append((move_row, move_col))
 
-        
+                games.append(move_list)
+
+        print('Processed', filename)
+
     board_state_triples = getBoardStatesFromMoves(games)
     print('All games succesfully processed!')
 
     board_data, moves = processTriples(board_state_triples)
 
-    np.save(MASTER_PATH + filename + 'boards', board_data)
-    np.save(MASTER_PATH + filename + 'moves', moves)
+    np.save(MASTER_PATH + 'boardsData')
+    np.save(MASTER_PATH + 'movesData')
 
 
 def getBoardStatesFromMoves(games):
@@ -66,7 +69,7 @@ def getBoardStatesFromMoves(games):
     start_board_state[3,4] = 'd'
     start_board_state[4,3] = 'd'
 
-    game_counter = 0
+
     for game in games:
         dark_turn = True
         current_board_state = np.copy(start_board_state)
@@ -93,9 +96,7 @@ def getBoardStatesFromMoves(games):
                 print('Invalid move input :(, move was:', move)
                 print('Game:', game)
 
-        game_counter += 1
-        if game_counter % 100 == 0:
-            print('Processed game', game_counter)
+        
 
     return board_state_triples
 
@@ -149,18 +150,19 @@ def generateMoveToIntMap():
                 move_num += 1
 
     return move_map 
-def loadTrainingData(filename):
-    boards_data = np.load(MASTER_PATH + filename + 'boards.npy')
-    moves = np.load(MASTER_PATH + filename + 'moves.npy')
+def loadTrainingData():
+    boards_data = np.load(MASTER_PATH + 'boardsData.npy')
+    moves = np.load(MASTER_PATH + 'movesData.npy')
 
 
     return boards_data, moves
 
 
 if __name__ == "__main__":
-    filename = 'WTH_2018'
-    extractBoardStates(filename)
-    network_input, moves = loadTrainingData(filename)
+    filenames = ['WTH_2013.wtb', 'WTH_2014.wtb', 'WTH_2015.wtb', \
+        'WTH_2016.wtb', 'WTH_2017.wtb', 'WTH_2018.wtb']
+    extractBoardStates(filenames)
+    network_input, moves = loadTrainingData(filenames)
     print(network_input.shape)
     print(moves.shape)
     
