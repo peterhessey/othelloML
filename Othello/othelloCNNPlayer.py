@@ -18,7 +18,7 @@ class CNNPlayer(Player):
         self.move_map = self.generateMoveMap()
         self.cnn = OthelloCNN().to(self.device)
 
-        self.cnn.load_state_dict(torch.load('./models/' + MODEL_NUM))
+        self.cnn.load_state_dict(torch.load('./models/' + MODEL_NUM, map_location=self.device))
         self.cnn.eval()
     
 
@@ -71,7 +71,7 @@ class CNNPlayer(Player):
             for j in range(8):
                 board_char = board_state[i,j]
 
-                if self.dark_turn:
+                if self.dark_player:
                     if board_char == 'd':
                         network_input[0][i][j] = 1
                     elif board_char == 'w':
@@ -83,8 +83,6 @@ class CNNPlayer(Player):
                     elif board_char == 'w':
                         network_input[0][i][j] = 1
 
-        network_tensor = torch.as_tensor(network_input).unsqueeze(dim=0)
-        
-        print(network_tensor.shape)
+        network_tensor = torch.as_tensor(np.array(network_input, dtype=np.float32)).unsqueeze(dim=0)
 
         return network_tensor

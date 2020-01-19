@@ -57,7 +57,7 @@ def validateArgs(args):
         
     else:
 
-        valid_chars = 'hrRM'
+        valid_chars = 'hrRMC'
         for player_char in players_string:
             if player_char not in valid_chars:
                 valid_arguments = False
@@ -90,7 +90,7 @@ if __name__ == "__main__":
                         default=['hh'], help='The type of players, passed \
                         as a 2 character string, e.g. "hr" for human v \
                         roxanne, "rr" for roxanne v roxanne or "hh" for \
-                        human vs human | Valid players: h, r, R, M \
+                        human vs human | Valid players: h, r, R, M, C \
                          | Default = "hh"')
 
 

@@ -59,105 +59,107 @@ def getNumberCorrectGuesses(predictions, moves):
     return predictions.argmax(dim=1).eq(moves).sum().item()
 
 
-print('Initilaising variables...')
+if __name__=='__main__':
 
-## hyperparamters
+    print('Initilaising variables...')
 
-lr = 0.01
-sgd_momentum = 0.95
-batch_size = 100
-num_epochs = 25
+    ## hyperparamters
 
-## set up devices, NN and optimiser
+    lr = 0.01
+    sgd_momentum = 0.95
+    batch_size = 100
+    num_epochs = 25
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-network = OthelloCNN().to(device)
-optimiser = optim.SGD(network.parameters(), lr=lr, momentum=sgd_momentum)
+    ## set up devices, NN and optimiser
 
-## prepare data
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    network = OthelloCNN().to(device)
+    optimiser = optim.SGD(network.parameters(), lr=lr, momentum=sgd_momentum)
 
-boards_data, moves = WThorParser.loadTrainingData()
+    ## prepare data
 
-
-train_data = []
-test_data = []
-
-test_percentile = 0.95
-
-number_boards_to_train = math.floor(len(boards_data)*test_percentile)
-
-for i in range(number_boards_to_train):
-    train_data.append([boards_data[i], moves[i]])
-
-for i in range(number_boards_to_train, len(boards_data)):
-    test_data.append([boards_data[i], moves[i]])
+    boards_data, moves = WThorParser.loadTrainingData()
 
 
-training_loader = torch.utils.data.DataLoader(
-    train_data,
-    batch_size=batch_size,
-    shuffle=True
-)
+    train_data = []
+    test_data = []
 
-testing_loader = torch.utils.data.DataLoader(
-    test_data,
-    batch_size=batch_size,
-    shuffle=True
-)
+    test_percentile = 0.95
+
+    number_boards_to_train = math.floor(len(boards_data)*test_percentile)
+
+    for i in range(number_boards_to_train):
+        train_data.append([boards_data[i], moves[i]])
+
+    for i in range(number_boards_to_train, len(boards_data)):
+        test_data.append([boards_data[i], moves[i]])
 
 
-## training
-
-print('Length of training data:', len(train_data))
-
-for epoch in range(num_epochs):
-    total_loss = 0
-    total_correct = 0
-    start_time = time.time()
-
-    for batch in training_loader:
-        boards = batch[0].to(device)
-        moves = batch[1].to(device)
-
-        predictions = network(boards)
-
-        loss = F.cross_entropy(predictions, moves)
-
-        optimiser.zero_grad()
-        loss.backward()
-        optimiser.step()
-
-        total_loss += loss.item()
-        total_correct += getNumberCorrectGuesses(predictions, moves)
-
-    finish_time = time.time()
-    total_time = round(finish_time - start_time, 5)
-
-    print(
-        'Epoch:', epoch, '|',
-        'Percentage correct:', round(total_correct/len(train_data) * 100, 4), '%', '|',
-        'Total loss:', total_loss, '|',
-        'Time taken:', total_time, '|'
+    training_loader = torch.utils.data.DataLoader(
+        train_data,
+        batch_size=batch_size,
+        shuffle=True
     )
 
-## testing
-
-with torch.no_grad():
-    total_correct = 0
-    for batch in testing_loader:
-        boards = batch[0].to(device)
-        moves = batch[1].to(device)
-
-        predictions = network(boards)
-
-        total_correct += getNumberCorrectGuesses(predictions, moves)
-    percentage_correct = round(total_correct / len(test_data) * 100, 2)
-    print(
-        'Testing results:\n',
-        'Number of correctly guessed moves:', total_correct, '\n',
-        'Percentage correct:', percentage_correct
+    testing_loader = torch.utils.data.DataLoader(
+        test_data,
+        batch_size=batch_size,
+        shuffle=True
     )
 
-## saving model 
-print('Saving model...')
-torch.save(network.state_dict(), './models/' + str(int(percentage_correct)))
+
+    ## training
+
+    print('Length of training data:', len(train_data))
+
+    for epoch in range(num_epochs):
+        total_loss = 0
+        total_correct = 0
+        start_time = time.time()
+
+        for batch in training_loader:
+            boards = batch[0].to(device)
+            moves = batch[1].to(device)
+
+            predictions = network(boards)
+
+            loss = F.cross_entropy(predictions, moves)
+
+            optimiser.zero_grad()
+            loss.backward()
+            optimiser.step()
+
+            total_loss += loss.item()
+            total_correct += getNumberCorrectGuesses(predictions, moves)
+
+        finish_time = time.time()
+        total_time = round(finish_time - start_time, 5)
+
+        print(
+            'Epoch:', epoch, '|',
+            'Percentage correct:', round(total_correct/len(train_data) * 100, 4), '%', '|',
+            'Total loss:', total_loss, '|',
+            'Time taken:', total_time, '|'
+        )
+
+    ## testing
+
+    with torch.no_grad():
+        total_correct = 0
+        for batch in testing_loader:
+            boards = batch[0].to(device)
+            moves = batch[1].to(device)
+
+            predictions = network(boards)
+
+            total_correct += getNumberCorrectGuesses(predictions, moves)
+        percentage_correct = round(total_correct / len(test_data) * 100, 2)
+        print(
+            'Testing results:\n',
+            'Number of correctly guessed moves:', total_correct, '\n',
+            'Percentage correct:', percentage_correct
+        )
+
+    ## saving model 
+    print('Saving model...')
+    torch.save(network.state_dict(), './models/' + str(int(percentage_correct)))

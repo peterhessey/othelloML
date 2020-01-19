@@ -101,7 +101,7 @@ class MCAgent:
         best_node = root
 
         for node in root.children:
-            if True:#self.verbose:
+            if self.verbose:
                 print('Node has %s visits and a score of %s' % \
                       (node.visits, node.reward))
             node_score = float(node.reward / node.visits)

@@ -9,6 +9,7 @@ import roxanne
 import humanPlayer as human
 import randomPlayer
 import monteCarloPlayer as monteCarlo
+from othelloCNNPlayer import CNNPlayer
 import othelloDraw
 import time
 
@@ -63,6 +64,8 @@ class Game:
                                                        dark_player)
             elif player_string[i] == 'M':
                 new_player = monteCarlo.MCAgent(self.verbose, dark_player)
+            elif player_string[i] == 'C':
+                new_player = CNNPlayer(self.verbose, dark_player)
 
         
             players.append(new_player)
