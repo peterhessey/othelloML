@@ -6,6 +6,11 @@ import othelloBoard as board
 MASTER_PATH = 'C:/Users/Peter/Documents/UNIVERSITY/Year_3/Individual_Project/othelloML/Data/'
 
 def extractBoardStates(filename):
+    """Extracts and saves to an output file the NN data from the WTHOR files
+    
+    Arguments:
+        filename {str} -- Filename of the WTHOR file to parse
+    """
     file_path = MASTER_PATH + filename + '.wtb'
 
     games = []
@@ -43,7 +48,16 @@ def extractBoardStates(filename):
 
 
 def getBoardStatesFromMoves(games):
-
+    """Gets the character board states from the lists of moves
+    
+    Arguments:
+        games {[[(int, int)]]} -- A list of games, each game is a list of move
+        tuples.
+    
+    Returns:
+        [[[char], bool, (int,int)]] -- List of triples, where each triple is 
+        the board state, whose turn it is and the move about to be played.
+    """
     board_state_triples = []
 
     start_board_state = np.full((8,8), 'x')
@@ -87,7 +101,15 @@ def getBoardStatesFromMoves(games):
 
 
 def processTriples(board_state_triples):
+    """Converts the triple touples from the previous function into binary 
+    arrays suitable for inputting into a NN.
     
+    Arguments:
+        board_state_triples {[[[chr], bool, (int,int)]]} -- Triples
+    
+    Returns:
+        [np.array, np.array] -- The board states and the corresponding moves
+    """
     move_map = generateMoveToIntMap()
 
     all_boards_data = []
@@ -127,20 +149,18 @@ def generateMoveToIntMap():
                 move_num += 1
 
     return move_map 
-def loadTensorData(filename):
-    board_data = np.load(MASTER_PATH + filename + 'boards.npy')
+def loadTrainingData(filename):
+    boards_data = np.load(MASTER_PATH + filename + 'boards.npy')
     moves = np.load(MASTER_PATH + filename + 'moves.npy')
 
-    boards_tensor = torch.as_tensor(board_data)
-    moves_tensor = torch.as_tensor(moves)
 
-    return boards_tensor, moves_tensor
+    return boards_data, moves
 
 
 if __name__ == "__main__":
     filename = 'WTH_2018'
     extractBoardStates(filename)
-    network_input, moves = loadTensorData(filename)
+    network_input, moves = loadTrainingData(filename)
     print(network_input.shape)
     print(moves.shape)
     
