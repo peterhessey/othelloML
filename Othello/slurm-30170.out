@@ -1,0 +1,30 @@
+Initilaising variables...
+Length of training data: 740501
+Epoch: 0 | Percentage correct: 36.2263 % | Total loss: 15449.170903801918 | Time taken: 18.69821 |
+Epoch: 1 | Percentage correct: 49.2465 % | Total loss: 10899.075062334538 | Time taken: 18.69541 |
+Epoch: 2 | Percentage correct: 52.4723 % | Total loss: 10077.255285561085 | Time taken: 18.67495 |
+Epoch: 3 | Percentage correct: 54.3637 % | Total loss: 9635.14943420887 | Time taken: 18.68156 |
+Epoch: 4 | Percentage correct: 56.0859 % | Total loss: 9242.424273371696 | Time taken: 18.70883 |
+Epoch: 5 | Percentage correct: 57.5117 % | Total loss: 8928.786849677563 | Time taken: 18.66221 |
+Epoch: 6 | Percentage correct: 58.7169 % | Total loss: 8660.685333907604 | Time taken: 18.73356 |
+Epoch: 7 | Percentage correct: 59.8704 % | Total loss: 8420.127507448196 | Time taken: 18.69664 |
+Epoch: 8 | Percentage correct: 60.7057 % | Total loss: 8231.809223175049 | Time taken: 18.70088 |
+Epoch: 9 | Percentage correct: 61.828 % | Total loss: 7984.663556098938 | Time taken: 18.70676 |
+Epoch: 10 | Percentage correct: 62.6492 % | Total loss: 7809.450091063976 | Time taken: 18.72108 |
+Epoch: 11 | Percentage correct: 63.586 % | Total loss: 7607.101500868797 | Time taken: 18.69329 |
+Epoch: 12 | Percentage correct: 64.2281 % | Total loss: 7491.003285706043 | Time taken: 18.70182 |
+Epoch: 13 | Percentage correct: 65.0164 % | Total loss: 7306.526865124702 | Time taken: 18.69849 |
+Epoch: 14 | Percentage correct: 65.2681 % | Total loss: 7282.389663994312 | Time taken: 18.66427 |
+Epoch: 15 | Percentage correct: 66.2474 % | Total loss: 7060.086130023003 | Time taken: 18.71719 |
+Epoch: 16 | Percentage correct: 66.8095 % | Total loss: 6945.623859941959 | Time taken: 18.67624 |
+Epoch: 17 | Percentage correct: 67.1312 % | Total loss: 6880.224201023579 | Time taken: 18.69621 |
+Epoch: 18 | Percentage correct: 67.7717 % | Total loss: 6755.870378255844 | Time taken: 18.70905 |
+Epoch: 19 | Percentage correct: 68.2018 % | Total loss: 6657.676364064217 | Time taken: 18.69118 |
+Epoch: 20 | Percentage correct: 67.9818 % | Total loss: 6739.404317736626 | Time taken: 18.69158 |
+Epoch: 21 | Percentage correct: 68.5174 % | Total loss: 6599.406718283892 | Time taken: 18.6537 |
+Epoch: 22 | Percentage correct: 69.1337 % | Total loss: 6471.450185269117 | Time taken: 18.71536 |
+Epoch: 23 | Percentage correct: 69.3714 % | Total loss: 6408.563562572002 | Time taken: 18.69477 |
+Epoch: 24 | Percentage correct: 69.8312 % | Total loss: 6322.992018848658 | Time taken: 18.70383 |
+Testing results:
+ Number of correctly guessed moves: 19585 
+ Percentage correct: 50.25
