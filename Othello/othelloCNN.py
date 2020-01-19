@@ -117,7 +117,7 @@ for epoch in range(num_epochs):
 
     print(
         'Epoch:', epoch, '|',
-        'Percentage correct:', round(total_correct/len(train_data), 4), '%', '|',
+        'Percentage correct:', round(total_correct/len(train_data) * 100, 4), '%', '|',
         'Total loss:', total_loss, '|',
         'Time taken:', total_time, '|'
     )
