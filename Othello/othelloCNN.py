@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 
 import time
+import math
 import WThorParser
 
 DATA_FILENAME = 'WTH_2018'
@@ -78,10 +79,21 @@ optimiser = optim.SGD(network.parameters(), lr=lr, momentum=sgd_momentum)
 ## prepare data
 
 boards_data, moves = WThorParser.loadTrainingData(DATA_FILENAME)
-train_data = []
 
-for i in range(len(boards_data)):
+
+train_data = []
+test_data = []
+
+test_percentile = 0.9
+
+number_boards_to_train = math.floor(len(boards_data)*test_percentile)
+number_boards_to_test = len(boards_data) - number_boards_to_train
+
+for i in range(number_boards_to_test):
     train_data.append([boards_data[i], moves[i]])
+
+for i in range(number_boards_to_test, len(boards_data)):
+    test_data.append([boards_data[i], moves[i]])
 
 
 training_loader = torch.utils.data.DataLoader(
@@ -89,6 +101,15 @@ training_loader = torch.utils.data.DataLoader(
     batch_size=batch_size,
     shuffle=True
 )
+
+testing_loader = torch.utils.data.DataLoader(
+    test_data,
+    batch_size=batch_size,
+    shuffle=True
+)
+
+
+## training
 
 print('Length of training data:', len(train_data))
 
@@ -120,4 +141,22 @@ for epoch in range(num_epochs):
         'Percentage correct:', round(total_correct/len(train_data) * 100, 4), '%', '|',
         'Total loss:', total_loss, '|',
         'Time taken:', total_time, '|'
+    )
+
+## testing
+
+with torch.no_grad():
+    total_correct = 0
+    for batch in testing_loader:
+        boards = batch[0].to(device)
+        moves = batch[1].to(device)
+
+        predictions = network(boards)
+
+        total_correct += getNumberCorrectGuesses(predictions, moves)
+
+    print(
+        'Testing results:\n',
+        'Number of correctly guessed moves:', total_correct, '\n',
+        'Percentage correct:', math.round(total_correct / number_boards_to_test * 100, 4)
     )
