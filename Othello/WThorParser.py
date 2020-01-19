@@ -14,7 +14,7 @@ def extractBoardStates(filenames):
 
     games = []
     for filename in filenames:
-        file_path = MASTER_PATH + filename + '.wtb'
+        file_path = MASTER_PATH + filename
 
         with open(file_path, 'rb') as games_file:
             game_data = games_file.read()
