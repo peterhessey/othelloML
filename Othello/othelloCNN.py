@@ -60,6 +60,8 @@ def getNumberCorrectGuesses(predictions, moves):
     return predictions.argmax(dim=1).eq(moves).sum().item()
 
 
+print('Initilaising variables...')
+
 ## hyperparamters
 
 lr = 0.01
