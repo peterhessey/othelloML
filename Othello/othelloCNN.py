@@ -67,7 +67,7 @@ print('Initilaising variables...')
 lr = 0.01
 sgd_momentum = 0.95
 batch_size = 100
-num_epochs = 10
+num_epochs = 25
 
 ## set up devices, NN and optimiser
 
