@@ -169,7 +169,7 @@ if __name__ == "__main__":
         'WTH_2016.wtb', 'WTH_2017.wtb', 'WTH_2018.wtb']
     extractBoardStates(filenames)
     print('Testing data loading...')
-    network_input, moves = loadTrainingData(filenames)
+    network_input, moves = loadTrainingData()
     print(network_input.shape)
     print(moves.shape)
     
