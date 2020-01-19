@@ -3,4 +3,5 @@
 venv
 __pycache__
 __pycache__/othello.cpython-37.pyc
-data/
+*.npy
+
