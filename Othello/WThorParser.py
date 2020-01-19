@@ -146,7 +146,12 @@ def processTriples(board_state_triples):
     return np.array(all_boards_data, dtype=np.float32), np.array(moves, dtype=np.int64)
 
 def generateMoveToIntMap():
-
+    """Generates a dictionary that maps move coordinates to an integer from 0
+    to 59
+    
+    Returns:
+        [type] -- [description]
+    """
     move_map = {}
     move_num = 0
     for i in range(8):

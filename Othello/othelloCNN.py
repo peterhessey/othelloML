@@ -151,9 +151,13 @@ with torch.no_grad():
         predictions = network(boards)
 
         total_correct += getNumberCorrectGuesses(predictions, moves)
-
+    percentage_correct = round(total_correct / len(test_data) * 100, 2)
     print(
         'Testing results:\n',
         'Number of correctly guessed moves:', total_correct, '\n',
-        'Percentage correct:', round(total_correct / len(test_data) * 100, 2)
+        'Percentage correct:', percentage_correct
     )
+
+## saving model 
+print('Saving model...')
+torch.save(network.state_dict(), ./models/str(int(percentage_correct)))
