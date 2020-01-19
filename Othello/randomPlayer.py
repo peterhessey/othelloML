@@ -12,6 +12,7 @@ class randomPlayer(Player):
         if self.verbose:
             print("Initialised random player!")
 
+
     def getNextBoardState(self, board_state):
         """Gets the random player's next move and returns the resulting board
          state
