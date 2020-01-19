@@ -42,13 +42,15 @@ def extractBoardStates(filenames):
         print('Processed', filename)
 
     board_state_triples = getBoardStatesFromMoves(games)
-    print('All games succesfully processed!')
+    print('All board states processed!')
 
     board_data, moves = processTriples(board_state_triples)
+    print('Board data generated, saving...')
 
-    np.save(MASTER_PATH + 'boardsData')
-    np.save(MASTER_PATH + 'movesData')
+    np.save(MASTER_PATH + 'boardsData', board_data)
+    np.save(MASTER_PATH + 'movesData', moves)
 
+    print('Saved!')
 
 def getBoardStatesFromMoves(games):
     """Gets the character board states from the lists of moves
@@ -69,7 +71,8 @@ def getBoardStatesFromMoves(games):
     start_board_state[3,4] = 'd'
     start_board_state[4,3] = 'd'
 
-
+    game_counter = 0
+    number_of_games = 0
     for game in games:
         dark_turn = True
         current_board_state = np.copy(start_board_state)
@@ -96,7 +99,10 @@ def getBoardStatesFromMoves(games):
                 print('Invalid move input :(, move was:', move)
                 print('Game:', game)
 
-        
+        game_counter += 1
+
+        if game_counter % 250 == 0:
+            print('Processed %s/%s games' % (game_counter, number_of_games))
 
     return board_state_triples
 
@@ -162,6 +168,7 @@ if __name__ == "__main__":
     filenames = ['WTH_2013.wtb', 'WTH_2014.wtb', 'WTH_2015.wtb', \
         'WTH_2016.wtb', 'WTH_2017.wtb', 'WTH_2018.wtb']
     extractBoardStates(filenames)
+    print('Testing data loading...')
     network_input, moves = loadTrainingData(filenames)
     print(network_input.shape)
     print(moves.shape)

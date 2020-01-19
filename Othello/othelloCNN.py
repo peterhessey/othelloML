@@ -12,8 +12,6 @@ import time
 import math
 import WThorParser
 
-DATA_FILENAME = 'WTH_2018'
-
 
 class OthelloCNN(nn.Module):
     def __init__(self):
@@ -78,7 +76,7 @@ optimiser = optim.SGD(network.parameters(), lr=lr, momentum=sgd_momentum)
 
 ## prepare data
 
-boards_data, moves = WThorParser.loadTrainingData(DATA_FILENAME)
+boards_data, moves = WThorParser.loadTrainingData()
 
 
 train_data = []
