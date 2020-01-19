@@ -59,6 +59,7 @@ class OthelloCNN(nn.Module):
 def getNumberCorrectGuesses(predictions, moves):
     return predictions.argmax(dim=1).eq(moves).sum().item()
 
+
 ## hyperparamters
 
 lr = 0.01
