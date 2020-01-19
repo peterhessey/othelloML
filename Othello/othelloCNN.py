@@ -48,11 +48,18 @@ class OthelloCNN(nn.Module):
 
         t = self.out(t)
         t = F.relu(t)
-        softmaxer = nn.Softmax(dim=0)
+        # softmaxer = nn.Softmax(dim=1)
         
-        t = softmaxer(t)
+        # t = softmaxer(t)
+        # print(t)
 
         return t
+
+
+def getNumberCorrectGuesses(predictions, moves):
+    return predictions.argmax(dim=1).eq(moves).sum().item()
+
+
 
 
 ## hyperparamters
@@ -65,13 +72,12 @@ num_epochs = 2
 ## set up devices, NN and optimiser
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-network = OthelloCNN().to(device)
+network = OthelloCNN()#.to(device)
 optimiser = optim.SGD(network.parameters(), lr=lr, momentum=sgd_momentum)
 
 ## prepare data
 
 boards_data, moves = WThorParser.loadTrainingData(DATA_FILENAME)
-print(boards_data.dtype)
 train_data = []
 
 for i in range(len(boards_data)):
@@ -84,6 +90,7 @@ training_loader = torch.utils.data.DataLoader(
     shuffle=True
 )
 
+print('Length of training data:', len(train_data))
 
 for epoch in range(num_epochs):
     total_loss = 0
@@ -91,10 +98,11 @@ for epoch in range(num_epochs):
     start_time = time.time()
 
     for batch in training_loader:
-        boards = batch[0].to(device)
-        moves = batch[1].to(device)
+        boards = batch[0]#.to(device)
+        moves = batch[1]#.to(device)
 
         predictions = network(boards)
+
         loss = F.cross_entropy(predictions, moves)
 
         optimiser.zero_grad()
@@ -109,7 +117,7 @@ for epoch in range(num_epochs):
 
     print(
         'Epoch:', epoch, '|',
-        'Total correct:', total_correct, '|',
+        'Percentage correct:', round(total_correct/len(train_data), 4), '%', '|',
         'Total loss:', total_loss, '|',
         'Time taken:', total_time, '|'
     )

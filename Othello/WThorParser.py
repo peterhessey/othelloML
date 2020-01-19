@@ -3,7 +3,7 @@ import numpy as np
 import torch
 import othelloBoard as board
 
-MASTER_PATH = 'C:/Users/Peter/Documents/UNIVERSITY/Year_3/Individual_Project/othelloML/Data/'
+MASTER_PATH = '../Data/'
 
 def extractBoardStates(filename):
     """Extracts and saves to an output file the NN data from the WTHOR files
@@ -18,7 +18,7 @@ def extractBoardStates(filename):
         game_data = games_file.read()
 
         number_of_games = int.from_bytes(game_data[4:8], 'little')
-        
+        # number_of_games = 5
         print('Number of games in file:', number_of_games)
 
         for game_num in range(number_of_games):
@@ -136,7 +136,7 @@ def processTriples(board_state_triples):
         all_boards_data.append(board_data)
         moves.append(move_map[move])
 
-    return all_boards_data, moves
+    return np.array(all_boards_data, dtype=np.float32), np.array(moves, dtype=np.int64)
 
 def generateMoveToIntMap():
 
