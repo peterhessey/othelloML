@@ -84,15 +84,14 @@ boards_data, moves = WThorParser.loadTrainingData(DATA_FILENAME)
 train_data = []
 test_data = []
 
-test_percentile = 0.9
+test_percentile = 0.95
 
 number_boards_to_train = math.floor(len(boards_data)*test_percentile)
-number_boards_to_test = len(boards_data) - number_boards_to_train
 
-for i in range(number_boards_to_test):
+for i in range(number_boards_to_train):
     train_data.append([boards_data[i], moves[i]])
 
-for i in range(number_boards_to_test, len(boards_data)):
+for i in range(number_boards_to_train, len(boards_data)):
     test_data.append([boards_data[i], moves[i]])
 
 
@@ -158,5 +157,5 @@ with torch.no_grad():
     print(
         'Testing results:\n',
         'Number of correctly guessed moves:', total_correct, '\n',
-        'Percentage correct:', round(total_correct / number_boards_to_test * 100, 4)
+        'Percentage correct:', round(total_correct / len(test_data) * 100, 2)
     )
