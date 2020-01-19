@@ -160,4 +160,4 @@ with torch.no_grad():
 
 ## saving model 
 print('Saving model...')
-torch.save(network.state_dict(), ./models/str(int(percentage_correct)))
+torch.save(network.state_dict(), './models/' + str(int(percentage_correct)))
