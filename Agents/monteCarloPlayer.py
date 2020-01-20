@@ -2,8 +2,8 @@ import numpy as np
 import random
 import math
 import time
-import othelloBoard
-import roxanne
+import Othello
+from roxanne import Roxanne
 
 MAX_TIME_PER_MOVE = 5
 C_VAL = 1
@@ -69,7 +69,7 @@ class MCAgent:
 
         start_time = time.time()
         # root node object  
-        root = Node(othelloBoard.OthelloBoard(root_board_state, self.dark_turn), 
+        root = Node(Othello.OthelloBoard(root_board_state, self.dark_turn), 
                     None)
 
         #while the time for making each move has not been maxed out
@@ -190,7 +190,7 @@ class MCAgent:
         game_not_over = True
 
         #the policy used to select moves (e.g. random, roxanne, etc.)
-        rollout_policy = roxanne.Roxanne(self.verbose, node.board.dark_turn)
+        rollout_policy = Roxanne(self.verbose, node.board.dark_turn)
         current_board_state = node.board.board_state
 
         #loop until terminal board state found
@@ -283,7 +283,7 @@ class Node:
         pointers to them in this node object.
         """
         for child_board_state in self.board.getChildren():
-            child_node_board = othelloBoard.OthelloBoard(child_board_state,
+            child_node_board = Othello.OthelloBoard(child_board_state,
                                                 not self.board.dark_turn)
             self.children.append(Node(child_node_board, self))
 

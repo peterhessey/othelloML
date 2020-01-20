@@ -4,7 +4,7 @@ Main python module. Parses arguments and initialises an othello game.
 
 import argparse
 import time
-import othello
+from Othello import Game
 
 
 def playerStringError(players_string):
@@ -121,9 +121,9 @@ if __name__ == "__main__":
 
         for _ in range(int(args.number_of_games[0])):
 
-            Othello = othello.Game(args)
+            game = Game(args)
 
-            winning_player = Othello.run()
+            winning_player = game.run()
 
             if winning_player == 'w':
                 white_wins += 1

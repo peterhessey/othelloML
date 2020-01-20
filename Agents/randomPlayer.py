@@ -1,9 +1,9 @@
 import numpy as np 
 import random as rand 
-import othelloBoard
+import Othello as oth
 from Player import Player
 
-class randomPlayer(Player):
+class RandomPlayer(Player):
     def __init__(self, verbose, dark_player):
 
         self.verbose = verbose
@@ -26,7 +26,7 @@ class randomPlayer(Player):
             move. Will only be a 1-D array containing an error code if a valid
             move has not been made / is not available
         """
-        board = othelloBoard.OthelloBoard(board_state, self.dark_player)
+        board = oth.OthelloBoard(board_state, self.dark_player)
         valid_moves = board.getValidMoves()
 
         if bool(valid_moves):

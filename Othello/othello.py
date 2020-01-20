@@ -3,15 +3,13 @@ Main othello playing module. Allows any 2 agents to play othello (human,
 random, roxanne, monte-carlo etc).
 '''
 
+import sys
 
 import numpy as np
-import roxanne
-import humanPlayer as human
-import randomPlayer
-import monteCarloPlayer as monteCarlo
-from othelloCNNPlayer import CNNPlayer
-import othelloDraw
 import time
+
+from othelloDraw import OthelloDrawer
+from Agents import Human, MCAgent, CNNPlayer, Player, RandomPlayer, Roxanne
 
 class Game:
 
@@ -32,7 +30,7 @@ class Game:
         if self.demo_mode and ('h' not in args.players):
             
             print('Setting up pygame for machine players...')
-            self.drawer = othelloDraw.othelloDrawer(self.board_size, True)
+            self.drawer = OthelloDrawer(self.board_size, True)
         else:
             self.demo_mode = False
 
@@ -55,15 +53,15 @@ class Game:
                 dark_player = False
 
             if player_string[i] == 'h':
-                new_player = human.Human(self.verbose, dark_player, 
+                new_player = Human(self.verbose, dark_player, 
                                          self.board_size)
             elif player_string[i] == 'r':
-                new_player = roxanne.Roxanne(self.verbose, dark_player)
+                new_player = Roxanne(self.verbose, dark_player)
             elif player_string[i] == 'R':                
-                new_player = randomPlayer.randomPlayer(self.verbose,
+                new_player = RandomPlayer(self.verbose,
                                                        dark_player)
             elif player_string[i] == 'M':
-                new_player = monteCarlo.MCAgent(self.verbose, dark_player)
+                new_player = MCAgent(self.verbose, dark_player)
             elif player_string[i] == 'C':
                 new_player = CNNPlayer(self.verbose, dark_player)
 

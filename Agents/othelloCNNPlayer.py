@@ -1,7 +1,7 @@
 import torch
 import numpy as np
-import othelloBoard
-from othelloCNN import OthelloCNN
+import Othello as oth
+from DeepLearning import OthelloCNN
 from Player import Player
 
 # ID of the model to use
@@ -30,10 +30,10 @@ class CNNPlayer(Player):
 
         # set up cnn
         self.move_map = self.generateMoveMap()
-        self.cnn = OthelloCNN().to(self.device)
+        self.cnn = dl.OthelloCNN().to(self.device)
 
         # load saved cnn model
-        self.cnn.load_state_dict(torch.load('./models/' + MODEL_NUM, map_location=self.device))
+        self.cnn.load_state_dict(torch.load('./DeepLearning/models/' + MODEL_NUM, map_location=self.device))
         self.cnn.eval()
     
 
@@ -67,7 +67,7 @@ class CNNPlayer(Player):
             made
         """
 
-        board = othelloBoard.OthelloBoard(board_state, self.dark_player)
+        board = oth.OthelloBoard(board_state, self.dark_player)
         valid_moves = board.getValidMoves()
 
         network_input = self.getNetworkInputFromBoard(board_state)

@@ -1,9 +1,13 @@
+import sys
+sys.path.insert(1, './Othello')
+
 import argparse
 import numpy as np
 import torch
-import othelloBoard as board
 
-MASTER_PATH = './../Data/'
+from othelloBoard import OthelloBoard
+
+MASTER_PATH = './Data/'
 
 def extractBoardStates(filenames):
     """Extracts and saves to an output file the NN data from the WTHOR files
@@ -79,14 +83,14 @@ def getBoardStatesFromMoves(games):
         current_board_state = np.copy(start_board_state)
 
         for move in game:
-            current_board = board.OthelloBoard(current_board_state, dark_turn)
+            current_board = OthelloBoard(current_board_state, dark_turn)
             
             valid_moves = current_board.getValidMoves()
 
             # checks if a player had to skip a turn
             if move not in valid_moves:
                 dark_turn = not dark_turn
-                current_board = board.OthelloBoard(current_board_state, dark_turn)       
+                current_board = OthelloBoard(current_board_state, dark_turn)       
                 valid_moves = current_board.getValidMoves()
 
             board_state_triples.append([current_board_state, dark_turn, move])

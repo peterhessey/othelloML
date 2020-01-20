@@ -2,7 +2,7 @@ import pygame
 import numpy as np 
 import math
 
-class othelloDrawer:
+class OthelloDrawer:
 
     def __init__(self, board_size, demo_mode):
         """Initalises the board drawing class

@@ -1,6 +1,6 @@
 import numpy as np
 import random as rand
-import othelloBoard
+import Othello
 from Player import Player
 
 class Roxanne(Player):
@@ -49,7 +49,7 @@ class Roxanne(Player):
             print("Roxanne agent can only play on 8x8 Othello boards.")
             board_to_return = np.array([0])
         else:
-            board = othelloBoard.OthelloBoard(board_state, self.dark_player)
+            board = Othello.OthelloBoard(board_state, self.dark_player)
             valid_moves = board.getValidMoves()
 
             if bool(valid_moves):

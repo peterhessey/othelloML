@@ -162,4 +162,4 @@ if __name__=='__main__':
 
     ## saving model 
     print('Saving model...')
-    torch.save(network.state_dict(), './models/' + str(int(percentage_correct)))
+    torch.save(network.state_dict(), './DeepLearning/models/' + str(int(percentage_correct)))

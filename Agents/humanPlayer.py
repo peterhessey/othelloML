@@ -5,8 +5,7 @@ input and feeding it back to main othello engine.
 
 import numpy as np
 import math
-import othelloDraw
-import othelloBoard
+import Othello
 from Player import Player
 
 class Human(Player):
@@ -26,7 +25,7 @@ class Human(Player):
             print("Initialising human player...")
             print('\n\n')
 
-        self.drawer = othelloDraw.othelloDrawer(board_size, False)
+        self.drawer = Othello.OthelloDrawer(board_size, False)
                
 
     def getNextBoardState(self, board_state):
@@ -41,7 +40,7 @@ class Human(Player):
             move. Will only be a 1-D array containing an error code if a valid
             move has not been made / is not available
         """
-        board = othelloBoard.OthelloBoard(board_state, 
+        board = Othello.OthelloBoard(board_state, 
                                           self.dark_player)
 
 
