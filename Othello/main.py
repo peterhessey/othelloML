@@ -17,6 +17,9 @@ def playerStringError(players_string):
     print('Please only enter 2 characters. Valid players are:')
     print('Human player: h')
     print('Computer player: c')
+    print('Monte Carlo player: M')
+    print('Roxanne player: R (board size 8 only)')
+    print('CNN plyer: C (board size 8 only)')
     print('------------------------------')
 
 
@@ -56,8 +59,10 @@ def validateArgs(args):
         playerStringError(players_string)
         
     else:
-
-        valid_chars = 'hrRMC'
+        if board_size == 8:
+            valid_chars = 'hrRMC'
+        else:
+            valid_chars = 'hrM'
         for player_char in players_string:
             if player_char not in valid_chars:
                 valid_arguments = False

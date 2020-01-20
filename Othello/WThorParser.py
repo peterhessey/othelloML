@@ -65,6 +65,7 @@ def getBoardStatesFromMoves(games):
     """
     board_state_triples = []
 
+    # set up start board
     start_board_state = np.full((8,8), 'x')
     start_board_state[3,3] = 'w'
     start_board_state[4,4] = 'w'

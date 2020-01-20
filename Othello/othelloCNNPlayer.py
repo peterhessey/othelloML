@@ -108,12 +108,14 @@ class CNNPlayer(Player):
             torch.tensor -- Tensor of shape (1,2,8,8) that represents the
             board state.
         """
+
+        # create blank tensor
         network_input = np.full((2,8,8), 0)
 
         for i in range(8):
             for j in range(8):
                 board_char = board_state[i,j]
-
+                # 1 channel for white pieces, 1 for black
                 if self.dark_player:
                     if board_char == 'd':
                         network_input[0][i][j] = 1
@@ -126,6 +128,10 @@ class CNNPlayer(Player):
                     elif board_char == 'w':
                         network_input[0][i][j] = 1
 
-        network_tensor = torch.as_tensor(np.array(network_input, dtype=np.float32)).unsqueeze(dim=0)
+        # convert numpy array to tensor and add batch size dimension
+        network_tensor = torch.as_tensor(np.array(
+            network_input,
+            dtype=np.float32
+        )).unsqueeze(dim=0)
 
         return network_tensor
