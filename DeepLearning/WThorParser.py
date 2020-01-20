@@ -168,14 +168,9 @@ def generateMoveToIntMap():
 
     return move_map 
 def loadTrainingData():
-    try:
-        boards_data = np.load(MASTER_PATH + 'boardsData.npy')
-        moves = np.load(MASTER_PATH + 'movesData.npy')
 
-    except:
-        MASTER_PATH = './../Data/'
-        boards_data = np.load(MASTER_PATH + 'boardsData.npy')
-        moves = np.load(MASTER_PATH + 'movesData.npy')
+    boards_data = np.load(MASTER_PATH + 'boardsData.npy')
+    moves = np.load(MASTER_PATH + 'movesData.npy')
 
     return boards_data, moves
 

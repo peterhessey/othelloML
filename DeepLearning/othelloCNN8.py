@@ -57,7 +57,7 @@ class OthelloCNN8(nn.Module):
 
         # fully connected layers
 
-        t = t.reshape(-1, 128*8*8)
+        t = t.reshape(-1, 256*8*8)
         t = self.fc1(t)
         t = F.relu(t)
 
