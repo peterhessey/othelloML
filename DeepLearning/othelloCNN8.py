@@ -81,9 +81,9 @@ if __name__=='__main__':
 
     ## hyperparamters
 
-    lr = 0.01
+    lr = 0.1
     sgd_momentum = 0.95
-    batch_size = 100
+    batch_size = 1000
     num_epochs = 25
 
     ## set up devices, NN and optimiser
@@ -157,6 +157,9 @@ if __name__=='__main__':
             'Total loss:', total_loss, '|',
             'Time taken:', total_time, '|'
         )
+
+        lr = 0.5 * lr
+        optimiser = optim.SGD(network.parameters(), lr=lr, momentum=sgd_momentum)
 
     ## testing
 
