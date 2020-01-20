@@ -173,7 +173,7 @@ def loadTrainingData():
         moves = np.load(MASTER_PATH + 'movesData.npy')
 
     except:
-        MASTER_PATH = './../Data'
+        MASTER_PATH = './../Data/'
         boards_data = np.load(MASTER_PATH + 'boardsData.npy')
         moves = np.load(MASTER_PATH + 'movesData.npy')
 
