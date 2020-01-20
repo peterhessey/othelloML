@@ -5,9 +5,9 @@
 #SBATCH -p ug-gpu-small
 #SBATCH --qos=debug
 #SBATCH --job-name=OthelloCNN
-
+#SBATCH -o ./Results/CNN8training1.txt
 
 source /etc/profile
 module load cuda/10.1
 
-python3 ./othelloCNN.py
+python3 ./DeepLearning/othelloCNN8.py
