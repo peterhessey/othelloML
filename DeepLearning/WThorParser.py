@@ -1,5 +1,6 @@
 import sys
 sys.path.insert(1, './Othello')
+sys.path.insert(1, './../Othello')
 
 import argparse
 import numpy as np
