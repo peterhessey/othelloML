@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 import Othello as oth
-from DeepLearning import OthelloCNN
+from DeepLearning import OthelloCNN4
 from Player import Player
 
 # ID of the model to use
@@ -30,7 +30,7 @@ class CNNPlayer(Player):
 
         # set up cnn
         self.move_map = self.generateMoveMap()
-        self.cnn = dl.OthelloCNN().to(self.device)
+        self.cnn = OthelloCNN4().to(self.device)
 
         # load saved cnn model
         self.cnn.load_state_dict(torch.load('./DeepLearning/models/' + MODEL_NUM, map_location=self.device))

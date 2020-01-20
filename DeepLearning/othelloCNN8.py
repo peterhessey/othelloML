@@ -13,7 +13,7 @@ import math
 import WThorParser
 
 
-class OthelloCNN(nn.Module):
+class OthelloCNN8(nn.Module):
     def __init__(self):
         super().__init__()
 
@@ -21,8 +21,12 @@ class OthelloCNN(nn.Module):
         self.conv2 = nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, padding=1)
         self.conv3 = nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, padding=1)
         self.conv4 = nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3, padding=1)
+        self.conv5 = nn.Conv2d(in_channels=128, out_channels=256, kernel_size=3, padding=1)
+        self.conv6 = nn.Conv2d(in_channels=256, out_channels=256, kernel_size=3, padding=1)
+        self.conv7 = nn.Conv2d(in_channels=256, out_channels=256, kernel_size=3, padding=1)
+        self.conv8 = nn.Conv2d(in_channels=256, out_channels=256, kernel_size=3, padding=1)
 
-        self.fc1 = nn.Linear(in_features=128*8*8, out_features=128)
+        self.fc1 = nn.Linear(in_features=256*8*8, out_features=128)
         self.out = nn.Linear(in_features=128, out_features=60)
 
     def forward(self, t):
@@ -37,6 +41,18 @@ class OthelloCNN(nn.Module):
         t = F.relu(t)
 
         t = self.conv4(t)
+        t = F.relu(t)
+
+        t = self.conv5(t)
+        t = F.relu(t)
+
+        t = self.conv6(t)
+        t = F.relu(t)
+
+        t = self.conv7(t)
+        t = F.relu(t)
+
+        t = self.conv8(t)
         t = F.relu(t)
 
         # fully connected layers
@@ -73,7 +89,7 @@ if __name__=='__main__':
     ## set up devices, NN and optimiser
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    network = OthelloCNN().to(device)
+    network = OthelloCNN8().to(device)
     optimiser = optim.SGD(network.parameters(), lr=lr, momentum=sgd_momentum)
 
     ## prepare data
