@@ -4,26 +4,45 @@ import othelloBoard
 from othelloCNN import OthelloCNN
 from Player import Player
 
-MODEL_NUM = '50'
+# ID of the model to use
+
+MODEL_NUM = '1'
+
+# A standard Othello player that uses a CNN move-predictor to make its moves.
+# Trained against the 750000 WThor board states from expert games.
 
 class CNNPlayer(Player):
     def __init__(self, verbose, dark_player):
+        """CNNPlayer constructor function
+        
+        Arguments:
+            verbose {bool} -- Verbosity of the agent
+            dark_player {bool} -- True if agent is dark pieces, false 
+            otherwise
+        """
 
+        # set up PyTorch device to use
         self.device = torch.device("cuda" if torch.cuda.is_available() else \
              "cpu")
 
         self.verbose = verbose
         self.dark_player = dark_player
 
+        # set up cnn
         self.move_map = self.generateMoveMap()
         self.cnn = OthelloCNN().to(self.device)
 
+        # load saved cnn model
         self.cnn.load_state_dict(torch.load('./models/' + MODEL_NUM, map_location=self.device))
         self.cnn.eval()
     
 
     def generateMoveMap(self):
-
+        """Generates a dictionary for converting integer values to move tuples
+        
+        Returns:
+            {int: (int,int)} -- Integer keys map to move tuples
+        """
         move_num = 0
         move_map = {}
         for i in range(8):
@@ -38,19 +57,31 @@ class CNNPlayer(Player):
 
 
     def getNextBoardState(self, board_state):
+        """Returns the new board state as per the move selected by the CNN
+        
+        Arguments:
+            board_state {[[chr]]} -- The current board state
+        
+        Returns:
+            [[chr]] -- The new board state after the selected move has been
+            made
+        """
 
         board = othelloBoard.OthelloBoard(board_state, self.dark_player)
         valid_moves = board.getValidMoves()
 
         network_input = self.getNetworkInputFromBoard(board_state)
 
+        # if there are any valid moves
         if bool(valid_moves):
 
+            # use no_grad() to not alter the model
             with torch.no_grad():
                 move_probabilities = self.cnn(network_input).squeeze().tolist()
 
             move = (-1, -1)
 
+            # loop until the network selects a valid move
             while move not in valid_moves:
 
                 move_int = move_probabilities.index(max(move_probabilities))
@@ -59,12 +90,24 @@ class CNNPlayer(Player):
                 if move in valid_moves:
                     return board.makeMove(move, valid_moves[move])
                 else:
+                    # if an invalid move is selected, mark it as invalid (-ve)
                     move_probabilities[move_int] = float('-inf')
         
         else:
             return np.array([0])
     
     def getNetworkInputFromBoard(self, board_state):
+        """Converts the character board state into a 2-channel binary input
+        suitable for being processed by the CNN.
+        
+        Arguments:
+            board_state {[[chr]]} -- The character representation of the 
+            current board state.
+        
+        Returns:
+            torch.tensor -- Tensor of shape (1,2,8,8) that represents the
+            board state.
+        """
         network_input = np.full((2,8,8), 0)
 
         for i in range(8):

@@ -5,7 +5,7 @@ import time
 import othelloBoard
 import roxanne
 
-MAX_TIME_PER_MOVE = 1
+MAX_TIME_PER_MOVE = 5
 C_VAL = 1
 
 def getWinner(board_state):
