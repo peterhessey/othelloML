@@ -13,7 +13,7 @@ import math
 import WThorParser
 
 
-class OthelloCNN4(nn.Module):
+class OthelloCNN6(nn.Module):
     def __init__(self):
         super().__init__()
 
@@ -80,7 +80,7 @@ if __name__=='__main__':
     ## set up devices, NN and optimiser
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    network = OthelloCNN4().to(device)
+    network = OthelloCNN6().to(device)
     optimiser = optim.SGD(network.parameters(), lr=lr, momentum=sgd_momentum)
 
     ## prepare data
