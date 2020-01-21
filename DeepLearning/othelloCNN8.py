@@ -81,7 +81,7 @@ if __name__=='__main__':
 
     ## hyperparamters
 
-    lr = 0.1
+    lr = 0.01
     sgd_momentum = 0.95
     batch_size = 1000
     num_epochs = 25
@@ -158,8 +158,8 @@ if __name__=='__main__':
             'Time taken:', total_time, '|'
         )
 
-        lr = 0.5 * lr
-        optimiser = optim.SGD(network.parameters(), lr=lr, momentum=sgd_momentum)
+        # lr = 0.5 * lr
+        # optimiser = optim.SGD(network.parameters(), lr=lr, momentum=sgd_momentum)
 
     ## testing
 
