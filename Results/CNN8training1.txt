@@ -1,16 +1,31 @@
 Initilaising variables...
-Traceback (most recent call last):
-  File "/home2/mxjf75/othelloML/DeepLearning/WThorParser.py", line 172, in loadTrainingData
-    boards_data = np.load(MASTER_PATH + 'boardsData.npy')
-UnboundLocalError: local variable 'MASTER_PATH' referenced before assignment
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "./DeepLearning/othelloCNN8.py", line 97, in <module>
-    boards_data, moves = WThorParser.loadTrainingData()
-  File "/home2/mxjf75/othelloML/DeepLearning/WThorParser.py", line 177, in loadTrainingData
-    boards_data = np.load(MASTER_PATH + 'boardsData.npy')
-  File "/home2/mxjf75/.local/lib/python3.6/site-packages/numpy/lib/npyio.py", line 428, in load
-    fid = open(os_fspath(file), "rb")
-FileNotFoundError: [Errno 2] No such file or directory: './../Data/boardsData.npy'
+Length of training data: 740501
+Epoch: 0 | Percentage correct: 1.6651 % | Total loss: 30323.063962459564 | Time taken: 69.69514 |
+Epoch: 1 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 69.75114 |
+Epoch: 2 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.1517 |
+Epoch: 3 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.09993 |
+Epoch: 4 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.29984 |
+Epoch: 5 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.55372 |
+Epoch: 6 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.57685 |
+Epoch: 7 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.54621 |
+Epoch: 8 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.60162 |
+Epoch: 9 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.58653 |
+Epoch: 10 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.65391 |
+Epoch: 11 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.66968 |
+Epoch: 12 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.16486 |
+Epoch: 13 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.31854 |
+Epoch: 14 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.11 |
+Epoch: 15 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.2546 |
+Epoch: 16 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.22255 |
+Epoch: 17 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.17224 |
+Epoch: 18 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.29159 |
+Epoch: 19 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.23601 |
+Epoch: 20 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.26884 |
+Epoch: 21 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.31702 |
+Epoch: 22 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.2499 |
+Epoch: 23 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.30618 |
+Epoch: 24 | Percentage correct: 1.6672 % | Total loss: 30322.705632686615 | Time taken: 70.30518 |
+Testing results:
+ Number of correctly guessed moves: 651 
+ Percentage correct: 1.67
+Saving model...
