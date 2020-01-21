@@ -24,7 +24,7 @@ class OthelloCNN4(nn.Module):
         self.conv5 = nn.Conv2d(in_channels=128, out_channels=256, kernel_size=3, padding=1)
         self.conv6 = nn.Conv2d(in_channels=256, out_channels=256, kernel_size=3, padding=1)
         self.conv7 = nn.Conv2d(in_channels=256, out_channels=256, kernel_size=3, padding=1)
-        self.conv8 = nn.Conv2d(in_channels=256, out_channels=256, kernsel_size=3, padding=1)
+        self.conv8 = nn.Conv2d(in_channels=256, out_channels=256, kernel_size=3, padding=1)
         
         self.fc1 = nn.Linear(in_features=256*8*8, out_features=128)
         self.out = nn.Linear(in_features=128, out_features=60)
