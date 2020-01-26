@@ -13,18 +13,14 @@ from Agents import Human, MCAgent, CNNPlayer, Player, RandomPlayer, Roxanne
 
 class Game:
 
-    def __init__(self, args):
-        """Initialise Othello game object
-        
-        Arguments:
-            args {Namespace} -- Contains user-input arguments
-        """
-        self.verbose = args.verbose
-        self.board_size = args.size
-        self.demo_mode = args.demo
+    def __init__(self, verbose, board_size, demo_mode, player_strings):
+
+        self.verbose = verbose
+        self.board_size = board_size
+        self.demo_mode = demo_mode
         self.dark_turn = True
         self.board = self.generateInitialBoard()
-        self.players = self.setUpPlayers(args)        
+        self.players = self.setUpPlayers(player_strings)        
 
         #checks if demo mode is on, not needed if already a human playing!
         if self.demo_mode and ('h' not in args.players):
@@ -35,20 +31,7 @@ class Game:
             self.demo_mode = False
 
 
-    def setUpPlayers(self, args):
-        """Sets up player objects
-        
-        Arguments:
-            args {Namespace} -- Contains user-input arguments
-        
-        Returns:
-            [Player] -- Array containing the two player objects
-        """
-
-        dark_player_str = args.dark_player
-        white_player_str = args.white_player
-
-        player_strings = [dark_player_str, white_player_str]
+    def setUpPlayers(self, player_strings):
 
         players = []
         for i in range(2):

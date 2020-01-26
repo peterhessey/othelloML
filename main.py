@@ -19,7 +19,8 @@ def playerStringError():
     print('Human player: h')
     print('Computer player: c')
     print('Monte Carlo player: M')
-    print('Roxanne player: R (board size 8 only)')
+    print('Random player: R')
+    print('Roxanne player: r (board size 8 only)')
     print('CNN plyer: C (board size 8 only)')
     print('------------------------------')
 
@@ -115,9 +116,14 @@ if __name__ == "__main__":
 
         start_time = time.time()
 
+        verbose = args.verbose
+        board_size = args.size
+        demo_mode = args.demo
+        player_strings = [args.dark_player, args.white_player]
+
         for _ in range(int(args.number_of_games[0])):
 
-            game = Game(args)
+            game = Game(verbose, board_size, demo_mode, player_strings)
 
             winning_player = game.run()
 
