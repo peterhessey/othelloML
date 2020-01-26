@@ -4,17 +4,18 @@ Main python module. Parses arguments and initialises an othello game.
 
 import argparse
 import time
+import matplotlib.pyplot as plt
+
 from Othello import Game
 
 
-def playerStringError(players_string):
+def playerStringError():
     """Simple error message displayed on invalid players input
     
-    Arguments:
-        players_string {String} -- The input player string
     """
-    print("Invalid player string. Input string: %s" % players_string)
-    print('Please only enter 2 characters. Valid players are:')
+
+    print('Invalid player string.')
+    print('Valid players are:')
     print('Human player: h')
     print('Computer player: c')
     print('Monte Carlo player: M')
@@ -48,25 +49,23 @@ def validateArgs(args):
     valid_arguments = True
 
     board_size = args.size
-    players_string = args.players
+    dark_player = args.dark_player
+    white_player = args.white_player
 
     if board_size < 4 or board_size % 2 != 0:
         boardSizeError(board_size)
         valid_arguments = False
-
-    if len(players_string) != 2:
-        valid_arguments = False
-        playerStringError(players_string)
         
     else:
         if board_size == 8:
-            valid_chars = 'hrRMC'
+            valid_chars = ['h', 'r', 'R', 'M', 'M10', 'M30', 'C']
         else:
-            valid_chars = 'hrM'
-        for player_char in players_string:
-            if player_char not in valid_chars:
-                valid_arguments = False
-                playerStringError(players_string)
+            valid_chars = ['h', 'r', 'M', 'M10', 'M30']
+
+        
+        if dark_player not in valid_chars or white_player not in valid_chars:
+            valid_arguments = False
+            playerStringError()
     
     return valid_arguments
 
@@ -91,17 +90,14 @@ if __name__ == "__main__":
     parser.add_argument('-n', dest='number_of_games', action='store',
                         nargs=1, default=['1'], help='The number of games to \
                         run, used for analysis.')
-    parser.add_argument('-p', dest='players', action='store', nargs = 1, 
-                        default=['hh'], help='The type of players, passed \
-                        as a 2 character string, e.g. "hr" for human v \
-                        roxanne, "rr" for roxanne v roxanne or "hh" for \
-                        human vs human | Valid players: h, r, R, M, C \
-                         | Default = "hh"')
+    parser.add_argument('-pD', dest='dark_player', type=str, default='h', 
+                        help='Type of player to use dark pieces.')
+    parser.add_argument('-pW', dest='white_player', type=str, default='h', 
+                        help='Type of player to use white pieces.')
 
 
     args = parser.parse_args()
     args.size = int(args.size[0])
-    args.players = args.players[0]
 
     if args.verbose:
         verbose = True

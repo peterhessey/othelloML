@@ -24,7 +24,7 @@ class Game:
         self.demo_mode = args.demo
         self.dark_turn = True
         self.board = self.generateInitialBoard()
-        self.players = self.setUpPlayers(args.players)        
+        self.players = self.setUpPlayers(args)        
 
         #checks if demo mode is on, not needed if already a human playing!
         if self.demo_mode and ('h' not in args.players):
@@ -35,16 +35,21 @@ class Game:
             self.demo_mode = False
 
 
-    def setUpPlayers(self, player_string):
+    def setUpPlayers(self, args):
         """Sets up player objects
         
         Arguments:
-            player_string {String} -- String storing types of players, i.e
-            "hc" for human v computer, "cc" for computer v computer
+            args {Namespace} -- Contains user-input arguments
         
         Returns:
             [Player] -- Array containing the two player objects
         """
+
+        dark_player_str = args.dark_player
+        white_player_str = args.white_player
+
+        player_strings = [dark_player_str, white_player_str]
+
         players = []
         for i in range(2):
             if i == 0:
@@ -52,17 +57,21 @@ class Game:
             else:
                 dark_player = False
 
-            if player_string[i] == 'h':
+            if player_strings[i] == 'h':
                 new_player = Human(self.verbose, dark_player, 
                                          self.board_size)
-            elif player_string[i] == 'r':
+            elif player_strings[i] == 'r':
                 new_player = Roxanne(self.verbose, dark_player)
-            elif player_string[i] == 'R':                
+            elif player_strings[i] == 'R':                
                 new_player = RandomPlayer(self.verbose,
                                                        dark_player)
-            elif player_string[i] == 'M':
+            elif player_strings[i] == 'M':
                 new_player = MCAgent(self.verbose, dark_player)
-            elif player_string[i] == 'C':
+            elif player_strings[i] == 'M30':
+                new_player = MCAgent(self.verbose, dark_player, 30)
+            elif player_strings[i] == 'M10':
+                new_player = MCAgent(self.verbose, dark_player, 10)
+            elif player_strings[i] == 'C':
                 new_player = CNNPlayer(self.verbose, dark_player)
 
         

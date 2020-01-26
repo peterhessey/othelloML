@@ -5,8 +5,7 @@ import time
 import Othello
 from roxanne import Roxanne
 
-MAX_TIME_PER_MOVE = 5
-C_VAL = 1
+C_VAL = math.sqrt(2)
 
 def getWinner(board_state):
     """Function used for determining the winner in an final board state
@@ -42,7 +41,7 @@ class MCAgent:
     Returns:
         MCAgent
     """
-    def __init__(self, verbose, dark_turn):
+    def __init__(self, verbose, dark_turn, time_per_move=1):
         """Constructor function for the monte carlo othello agent.
         
         Arguments:
@@ -52,6 +51,7 @@ class MCAgent:
         """
         self.verbose = verbose
         self.dark_turn = dark_turn
+        self.time_per_move = time_per_move
 
 
     def getNextBoardState(self, root_board_state):
@@ -73,7 +73,7 @@ class MCAgent:
                     None)
 
         #while the time for making each move has not been maxed out
-        while (time.time() - start_time) < MAX_TIME_PER_MOVE:
+        while (time.time() - start_time) < self.time_per_move:
             #select the next leaf node to explore
             leaf = self.traverse(root)
 
