@@ -1,31 +1,31 @@
 Initilaising variables...
 Length of training data: 740501
-Epoch: 0 | Percentage correct: 29.7955 % | Total loss: 17923.22088599205 | Time taken: 45.20237 |
-Epoch: 1 | Percentage correct: 49.2838 % | Total loss: 10724.084319353104 | Time taken: 45.39151 |
-Epoch: 2 | Percentage correct: 53.0164 % | Total loss: 9771.853948414326 | Time taken: 45.31756 |
-Epoch: 3 | Percentage correct: 55.0469 % | Total loss: 9292.316488623619 | Time taken: 45.39843 |
-Epoch: 4 | Percentage correct: 56.5997 % | Total loss: 8957.513524472713 | Time taken: 45.38815 |
-Epoch: 5 | Percentage correct: 57.8726 % | Total loss: 8703.290145635605 | Time taken: 45.37548 |
-Epoch: 6 | Percentage correct: 59.1378 % | Total loss: 8427.037101507187 | Time taken: 45.2213 |
-Epoch: 7 | Percentage correct: 59.7965 % | Total loss: 8297.703481853008 | Time taken: 45.26544 |
-Epoch: 8 | Percentage correct: 61.0312 % | Total loss: 8032.216958403587 | Time taken: 45.26783 |
-Epoch: 9 | Percentage correct: 61.9675 % | Total loss: 7847.804841160774 | Time taken: 45.33733 |
-Epoch: 10 | Percentage correct: 62.9205 % | Total loss: 7663.47074598074 | Time taken: 45.25497 |
-Epoch: 11 | Percentage correct: 63.5459 % | Total loss: 7540.443538248539 | Time taken: 45.31025 |
-Epoch: 12 | Percentage correct: 64.6184 % | Total loss: 7328.396076261997 | Time taken: 45.33882 |
-Epoch: 13 | Percentage correct: 65.4161 % | Total loss: 7160.126002550125 | Time taken: 45.30215 |
-Epoch: 14 | Percentage correct: 66.1667 % | Total loss: 6997.769535243511 | Time taken: 45.30564 |
-Epoch: 15 | Percentage correct: 66.6745 % | Total loss: 6900.776391804218 | Time taken: 45.20983 |
-Epoch: 16 | Percentage correct: 67.0049 % | Total loss: 6850.360231459141 | Time taken: 45.30754 |
-Epoch: 17 | Percentage correct: 68.0437 % | Total loss: 6634.943674147129 | Time taken: 45.36052 |
-Epoch: 18 | Percentage correct: 68.7235 % | Total loss: 6500.321542084217 | Time taken: 45.31909 |
-Epoch: 19 | Percentage correct: 67.9324 % | Total loss: 6695.612011790276 | Time taken: 45.24045 |
-Epoch: 20 | Percentage correct: 69.0496 % | Total loss: 6452.672866463661 | Time taken: 45.33186 |
-Epoch: 21 | Percentage correct: 69.7295 % | Total loss: 6303.367976427078 | Time taken: 45.30413 |
-Epoch: 22 | Percentage correct: 70.4004 % | Total loss: 6172.259481459856 | Time taken: 45.26405 |
-Epoch: 23 | Percentage correct: 69.9795 % | Total loss: 6282.262525469065 | Time taken: 45.33862 |
-Epoch: 24 | Percentage correct: 69.5266 % | Total loss: 6386.637404501438 | Time taken: 45.2407 |
+Epoch: 0 | Percentage correct: 29.7796 % | Total loss: 17803.716428041458 | Time taken: 33.65464 |
+Epoch: 1 | Percentage correct: 47.9752 % | Total loss: 11111.479995250702 | Time taken: 33.78125 |
+Epoch: 2 | Percentage correct: 52.07 % | Total loss: 10062.100006878376 | Time taken: 33.91498 |
+Epoch: 3 | Percentage correct: 54.2227 % | Total loss: 9535.72773039341 | Time taken: 34.00462 |
+Epoch: 4 | Percentage correct: 55.3306 % | Total loss: 9292.005100309849 | Time taken: 33.98926 |
+Epoch: 5 | Percentage correct: 56.9654 % | Total loss: 8909.467469096184 | Time taken: 33.90897 |
+Epoch: 6 | Percentage correct: 58.0994 % | Total loss: 8691.609070241451 | Time taken: 33.91889 |
+Epoch: 7 | Percentage correct: 59.2283 % | Total loss: 8442.422114372253 | Time taken: 33.98222 |
+Epoch: 8 | Percentage correct: 60.1192 % | Total loss: 8251.260909557343 | Time taken: 33.95841 |
+Epoch: 9 | Percentage correct: 60.9244 % | Total loss: 8099.940053880215 | Time taken: 33.87429 |
+Epoch: 10 | Percentage correct: 61.6352 % | Total loss: 7947.710467875004 | Time taken: 33.91538 |
+Epoch: 11 | Percentage correct: 62.8364 % | Total loss: 7682.002020359039 | Time taken: 33.94021 |
+Epoch: 12 | Percentage correct: 63.8268 % | Total loss: 7488.107107639313 | Time taken: 33.91521 |
+Epoch: 13 | Percentage correct: 64.6032 % | Total loss: 7326.161869585514 | Time taken: 33.8964 |
+Epoch: 14 | Percentage correct: 64.8943 % | Total loss: 7281.116296648979 | Time taken: 33.87214 |
+Epoch: 15 | Percentage correct: 65.9451 % | Total loss: 7068.241567015648 | Time taken: 33.95987 |
+Epoch: 16 | Percentage correct: 66.4826 % | Total loss: 6954.198908656836 | Time taken: 33.89471 |
+Epoch: 17 | Percentage correct: 67.1579 % | Total loss: 6805.060859233141 | Time taken: 33.86406 |
+Epoch: 18 | Percentage correct: 67.0743 % | Total loss: 6851.582026481628 | Time taken: 33.88246 |
+Epoch: 19 | Percentage correct: 68.0152 % | Total loss: 6647.411307394505 | Time taken: 33.90961 |
+Epoch: 20 | Percentage correct: 68.7747 % | Total loss: 6490.1405310332775 | Time taken: 33.89589 |
+Epoch: 21 | Percentage correct: 69.067 % | Total loss: 6444.533861190081 | Time taken: 33.83273 |
+Epoch: 22 | Percentage correct: 69.7803 % | Total loss: 6279.6490198373795 | Time taken: 33.9006 |
+Epoch: 23 | Percentage correct: 70.324 % | Total loss: 6189.398246437311 | Time taken: 33.88866 |
+Epoch: 24 | Percentage correct: 69.9167 % | Total loss: 6290.41499170661 | Time taken: 33.91987 |
 Testing results:
- Number of correctly guessed moves: 19974 
- Percentage correct: 51.25
+ Number of correctly guessed moves: 20006 
+ Percentage correct: 51.33
 Saving model...
