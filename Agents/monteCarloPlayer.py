@@ -6,8 +6,8 @@ import Othello
 from roxanne import Roxanne
 
 C_VAL = math.sqrt(2)
-  
-        
+
+
 class MCAgent:
     """An agent capable of performing monte carlo tree search on a given 
     Othello board state.
@@ -72,9 +72,9 @@ class MCAgent:
             self.backpropogate(leaf, simulation_result)
 
         #select the best node of all the root node's children
-        return self.getBestNode(root)
+        return self.getBestNode(root, root_board_state)
         
-    def getBestNode(self, root):
+    def getBestNode(self, root, board_state):
         """Return the best move based on the current tree statistics.
         
         Arguments:
