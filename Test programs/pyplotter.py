@@ -1,12 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import math
-from Othello import Game
 
-wins = [14, 45]
-losses = [36, 4]
-draws = [0 , 1]
-tags = ['MC-10', 'Roxanne']
+
+wins = [50, 45, 14, 17]
+losses = [0, 4, 36, 31]
+draws = [0 , 1, 0, 2]
+tags = ['Random', 'Roxanne', 'MC-10', 'CNN-6']
 width = 0.3
 
 

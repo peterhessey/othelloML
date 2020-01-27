@@ -6,7 +6,7 @@ from Player import Player
 
 # ID of the model to use
 
-MODEL_NUM = '1'
+MODEL_NUM = '69'
 
 # A standard Othello player that uses a CNN move-predictor to make its moves.
 # Trained against the 750000 WThor board states from expert games.
