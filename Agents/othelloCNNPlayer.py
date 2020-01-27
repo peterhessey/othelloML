@@ -33,7 +33,8 @@ class CNNPlayer(Player):
         self.cnn = OthelloCNN6().to(self.device)
 
         # load saved cnn model
-        self.cnn.load_state_dict(torch.load('./DeepLearning/models/' + MODEL_NUM, map_location=self.device))
+        self.cnn.load_state_dict(torch.load('./DeepLearning/models/' + \
+            MODEL_NUM, map_location=self.device))
         self.cnn.eval()
     
 
@@ -77,6 +78,7 @@ class CNNPlayer(Player):
 
             # use no_grad() to not alter the model
             with torch.no_grad():
+                # extract the probability of selecting each move, put into list
                 move_probabilities = self.cnn(network_input).squeeze().tolist()
 
             move = (-1, -1)

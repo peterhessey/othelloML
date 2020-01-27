@@ -9,11 +9,6 @@ draws = [0 , 1, 0, 2]
 tags = ['Random', 'Roxanne', 'MC-10', 'CNN-6']
 width = 0.3
 
-
-
-
-
-
 plt.xticks(np.arange(len(wins)) + width, tags)
 plt.xlabel('Agent')
 plt.ylabel('No. of games')

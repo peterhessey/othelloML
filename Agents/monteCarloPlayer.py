@@ -6,33 +6,7 @@ import Othello
 from roxanne import Roxanne
 
 C_VAL = math.sqrt(2)
-
-def getWinner(board_state):
-    """Function used for determining the winner in an final board state
-    
-    Arguments:
-        board_state {[[chr]]} -- Array representation of the board state
-    
-    Returns:
-        chr -- Returns 'd' if dark wins, 'w' if white and 't' if it's a tie
-    """
-    dark_count = 0
-    white_count = 0
-
-    for i in range(len(board_state)):
-        for j in range(len(board_state)):
-            if board_state[i, j] == 'd':
-                dark_count += 1
-            elif board_state[i,j] == 'w':
-                white_count += 1
-
-    if dark_count > white_count:
-        return 'd'
-    elif white_count > dark_count:
-        return 'w'
-    else:
-        return 't'
-    
+  
         
 class MCAgent:
     """An agent capable of performing monte carlo tree search on a given 
@@ -48,6 +22,8 @@ class MCAgent:
             verbose {bool} -- Determines verbosity of the agent
             dark_turn {bool} -- True if the MC player is using the dark pieces,
             false otherwise.
+            time_per_move {int} -- Time in seconds that the Agent has to make
+            each move. Default 1
         """
         self.verbose = verbose
         self.dark_turn = dark_turn
@@ -96,7 +72,9 @@ class MCAgent:
             self.backpropogate(leaf, simulation_result)
 
         #select the best node of all the root node's children
-
+        return self.getBestNode(root)
+        
+    def getBestNode(self, root):
         best_node_score = float('-inf')
         best_node = root
 
@@ -110,6 +88,7 @@ class MCAgent:
                 best_node_score = node_score
 
         return best_node.board.board_state
+
 
 
     def traverse(self, node):
@@ -222,7 +201,7 @@ class MCAgent:
             print('Simulation complete on the following board state:')
             print(current_board_state)
         
-        return getWinner(current_board_state)
+        return self.getWinner(current_board_state)
 
 
     def backpropogate(self, node, result):
@@ -250,6 +229,32 @@ class MCAgent:
         node.reward += result_score
         
         self.backpropogate(node.parent, result)
+
+    def getWinner(self, board_state):
+        """Function used for determining the winner in an final board state
+        
+        Arguments:
+            board_state {[[chr]]} -- Array representation of the board state
+        
+        Returns:
+            chr -- Returns 'd' if dark wins, 'w' if white and 't' if it's a tie
+        """
+        dark_count = 0
+        white_count = 0
+
+        for i in range(len(board_state)):
+            for j in range(len(board_state)):
+                if board_state[i, j] == 'd':
+                    dark_count += 1
+                elif board_state[i,j] == 'w':
+                    white_count += 1
+
+        if dark_count > white_count:
+            return 'd'
+        elif white_count > dark_count:
+            return 'w'
+        else:
+            return 't'
 
 
 class Node:
