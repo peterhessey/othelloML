@@ -15,18 +15,18 @@ class MCAgent:
     Returns:
         MCAgent
     """
-    def __init__(self, verbose, dark_turn, time_per_move=1):
+    def __init__(self, verbose, dark_player, time_per_move=1):
         """Constructor function for the monte carlo othello agent.
         
         Arguments:
             verbose {bool} -- Determines verbosity of the agent
-            dark_turn {bool} -- True if the MC player is using the dark pieces,
+            dark_player {bool} -- True if the MC player is using the dark pieces,
             false otherwise.
             time_per_move {int} -- Time in seconds that the Agent has to make
             each move. Default 1
         """
         self.verbose = verbose
-        self.dark_turn = dark_turn
+        self.dark_player = dark_player
         self.time_per_move = time_per_move
 
 
@@ -45,7 +45,7 @@ class MCAgent:
 
         start_time = time.time()
         # root node object  
-        root = Node(Othello.OthelloBoard(root_board_state, self.dark_turn), 
+        root = Node(Othello.OthelloBoard(root_board_state, self.dark_player), 
                     None)
 
         #while the time for making each move has not been maxed out
@@ -75,6 +75,15 @@ class MCAgent:
         return self.getBestNode(root)
         
     def getBestNode(self, root):
+        """Return the best move based on the current tree statistics.
+        
+        Arguments:
+            root {Node} -- The root node representing the current board state
+        
+        Returns:
+            [[chr]] -- Board state representing the new board position based on
+            the selected best move.
+        """
         best_node_score = float('-inf')
         best_node = root
 
@@ -169,7 +178,7 @@ class MCAgent:
         game_not_over = True
 
         #the policy used to select moves (e.g. random, roxanne, etc.)
-        rollout_policy = Roxanne(self.verbose, node.board.dark_turn)
+        rollout_policy = Roxanne(self.verbose, node.board.dark_player)
         current_board_state = node.board.board_state
 
         #loop until terminal board state found
@@ -222,9 +231,9 @@ class MCAgent:
         result_score = 0
 
         if result == 'd':
-            result_score = 1 if self.dark_turn else -1
+            result_score = 1 if self.dark_player else -1
         elif result == 'w':
-            result_score = -1 if self.dark_turn else 1
+            result_score = -1 if self.dark_player else 1
 
         node.reward += result_score
         
@@ -289,7 +298,7 @@ class Node:
         """
         for child_board_state in self.board.getChildren():
             child_node_board = Othello.OthelloBoard(child_board_state,
-                                                not self.board.dark_turn)
+                                                not self.board.dark_player)
             self.children.append(Node(child_node_board, self))
 
     def getUCT(self):
