@@ -15,7 +15,10 @@ class Wendy(MCAgent, CNNPlayer):
         # set up CNN
         super(CNNPlayer, self).__init__(verbose, dark_turn)
         
-    # need to think about this one, check if can use MC function and merge
-    # CNN with getBestNode or got to write entire function from scrath
+    # uses MCAgent getBoardState
     def getNextBoardState(self, board_state):
+        pass
+
+    # will use weighted sum of CNN and MC output to determine best node
+    def getBestNode(self, root):
         pass
