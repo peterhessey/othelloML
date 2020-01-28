@@ -26,7 +26,6 @@ class MCAgent:
             each move. Default 1
         """
 
-        print('Initialising with time value', time_per_move)
         self.verbose = verbose
         self.dark_player = dark_player
         self.time_per_move = time_per_move
@@ -49,8 +48,7 @@ class MCAgent:
         # root node object  
         root = Node(Othello.OthelloBoard(root_board_state, self.dark_player), 
                     None)
-
-        print('MCTS time-per-move:', self.time_per_move)
+                    
         #while the time for making each move has not been maxed out
         while (time.time() - start_time) < self.time_per_move:
             #select the next leaf node to explore

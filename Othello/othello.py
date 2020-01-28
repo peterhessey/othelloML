@@ -23,7 +23,7 @@ class Game:
         self.players = self.setUpPlayers(player_strings)        
 
         #checks if demo mode is on, not needed if already a human playing!
-        if self.demo_mode and ('h' not in args.players):
+        if self.demo_mode and ('h' not in player_strings):
             
             print('Setting up pygame for machine players...')
             self.drawer = OthelloDrawer(self.board_size, True)

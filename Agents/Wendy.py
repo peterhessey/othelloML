@@ -8,9 +8,8 @@ import Othello as oth
 
 class Wendy(MCAgent, CNNPlayer):
 
-    def __init__(self, verbose, dark_player, time_per_move=5):
-        self.alpha = 0
-        print('Wendys time per move', time_per_move)
+    def __init__(self, verbose, dark_player, time_per_move=10):
+        self.alpha = 0.1
         # set up CNN
         CNNPlayer.__init__(self, verbose, dark_player)
         
@@ -83,8 +82,9 @@ class Wendy(MCAgent, CNNPlayer):
                 # get the probability from the CNN using Wendy's move map
                 cnn_score = move_probabilities[self.move_map[move]]
 
-                # simply multiplying them for now MAY CHANGE THIS IN THE FUTURE
-                node_score = monte_carlo_score + cnn_score
+                # taken the weight sum of both scores
+                node_score = (1-self.alpha) * monte_carlo_score + \
+                             self.alpha * cnn_score
 
                 print(
                     'Scores ---',
