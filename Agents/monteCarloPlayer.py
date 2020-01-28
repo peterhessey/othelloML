@@ -25,6 +25,8 @@ class MCAgent:
             time_per_move {int} -- Time in seconds that the Agent has to make
             each move. Default 1
         """
+
+        print('Initialising with time value', time_per_move)
         self.verbose = verbose
         self.dark_player = dark_player
         self.time_per_move = time_per_move
@@ -48,6 +50,7 @@ class MCAgent:
         root = Node(Othello.OthelloBoard(root_board_state, self.dark_player), 
                     None)
 
+        print('MCTS time-per-move:', self.time_per_move)
         #while the time for making each move has not been maxed out
         while (time.time() - start_time) < self.time_per_move:
             #select the next leaf node to explore
@@ -178,7 +181,7 @@ class MCAgent:
         game_not_over = True
 
         #the policy used to select moves (e.g. random, roxanne, etc.)
-        rollout_policy = Roxanne(self.verbose, node.board.dark_player)
+        rollout_policy = Roxanne(self.verbose, node.board.dark_turn)
         current_board_state = node.board.board_state
 
         #loop until terminal board state found
@@ -298,7 +301,7 @@ class Node:
         """
         for child_board_state in self.board.getChildren():
             child_node_board = Othello.OthelloBoard(child_board_state,
-                                                not self.board.dark_player)
+                                                not self.board.dark_turn)
             self.children.append(Node(child_node_board, self))
 
     def getUCT(self):

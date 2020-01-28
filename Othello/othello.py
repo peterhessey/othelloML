@@ -44,8 +44,7 @@ class Game:
                 new_player = Human(self.verbose, dark_player, 
                                          self.board_size)
             elif player_strings[i] == 'W':
-                new_player = Wendy(self.verbose, dark_player, 
-                                         self.board_size)
+                new_player = Wendy(self.verbose, dark_player)
             elif player_strings[i] == 'r':
                 new_player = Roxanne(self.verbose, dark_player)
             elif player_strings[i] == 'R':                

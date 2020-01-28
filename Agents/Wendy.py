@@ -8,39 +8,41 @@ import Othello as oth
 
 class Wendy(MCAgent, CNNPlayer):
 
-    def __init__(self, verbose, dark_player, time_per_move=1):
-        # set up MC 
-        super(MCAgent, self).__init__(verbose, dark_player, time_per_move)
-        
+    def __init__(self, verbose, dark_player, time_per_move=5):
+        self.alpha = 0
+        print('Wendys time per move', time_per_move)
         # set up CNN
-        super(CNNPlayer, self).__init__(verbose, dark_turn)
+        CNNPlayer.__init__(self, verbose, dark_player)
+        
+        # set up MC 
+        MCAgent.__init__(self, verbose, dark_player, time_per_move)
+        
+        
         
         # generate own move map
         self.move_map = self.generateMoveToIntMap()
 
 
     def generateMoveToIntMap(self):
-    """Generates a dictionary that maps move coordinates to an integer from 0
-    to 59
-    
-    Returns:
-        {(int,int):int} -- [Map from move tuple to representative integer]
-    """
+        """Generates a map from moves to representative integers
+        
+        Returns:
+            {(int,int):int} -- The map
+        """
+        move_map = {}
+        move_num = 0
+        for i in range(8):
+            for j in range(8):
+                if not ((i == 3 or i == 4) and (j == 3 or j == 4)):
+                    move_map[(i,j)] = move_num
+                    move_num += 1
 
-    move_map = {}
-    move_num = 0
-    for i in range(8):
-        for j in range(8):
-            if not ((i == 3 or i == 4) and (j == 3 or j == 4)):
-                move_map[(i,j)] = move_num
-                move_num += 1
-
-    return move_map 
+        return move_map 
 
 
     # uses MCAgent getBoardState
     def getNextBoardState(self, board_state):
-        MCAgent.getNextBoardState(board_state)
+        return MCAgent.getNextBoardState(self, board_state)
 
 
 #################NOT FINISHED ######################################
@@ -51,7 +53,7 @@ class Wendy(MCAgent, CNNPlayer):
     def getBestNode(self, root, board_state):
 
         # retrieve valid moves and the children associated with those moves
-        valid_moves = board.getValidMoves()
+        valid_moves = root.board.getValidMoves()
         
         move_board_pairs = []
         move_count = 0
@@ -82,7 +84,7 @@ class Wendy(MCAgent, CNNPlayer):
                 cnn_score = move_probabilities[self.move_map[move]]
 
                 # simply multiplying them for now MAY CHANGE THIS IN THE FUTURE
-                node_score = monte_carlo_score * cnn_score
+                node_score = monte_carlo_score + cnn_score
 
                 print(
                     'Scores ---',
@@ -93,7 +95,8 @@ class Wendy(MCAgent, CNNPlayer):
                 if node_score > best_node_score:
                     best_node_score = node_score
                     best_node = child_node
-
+            
+            
             return best_node.board.board_state
 
         else:
