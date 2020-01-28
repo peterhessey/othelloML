@@ -9,7 +9,7 @@ import numpy as np
 import time
 
 from othelloDraw import OthelloDrawer
-from Agents import Human, MCAgent, CNNPlayer, Player, RandomPlayer, Roxanne
+from Agents import Human, Wendy, MCAgent, CNNPlayer, Player, RandomPlayer, Roxanne
 
 class Game:
 
@@ -42,6 +42,9 @@ class Game:
 
             if player_strings[i] == 'h':
                 new_player = Human(self.verbose, dark_player, 
+                                         self.board_size)
+            elif player_strings[i] == 'W':
+                new_player = Wendy(self.verbose, dark_player, 
                                          self.board_size)
             elif player_strings[i] == 'r':
                 new_player = Roxanne(self.verbose, dark_player)

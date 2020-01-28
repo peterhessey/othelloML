@@ -17,6 +17,7 @@ def playerStringError():
     print('Invalid player string.')
     print('Valid players are:')
     print('Human player: h')
+    print('Wendy: W')
     print('Computer player: c')
     print('Monte Carlo player: M')
     print('Random player: R')
@@ -59,7 +60,7 @@ def validateArgs(args):
         
     else:
         if board_size == 8:
-            valid_chars = ['h', 'r', 'R', 'M', 'M10', 'M30', 'C']
+            valid_chars = ['h', 'W', 'r', 'R', 'M', 'M10', 'M30', 'C']
         else:
             valid_chars = ['h', 'r', 'M', 'M10', 'M30']
 

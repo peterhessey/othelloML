@@ -240,7 +240,7 @@ class MCAgent:
         self.backpropogate(node.parent, result)
 
     def getWinner(self, board_state):
-        """Function used for determining the winner in an final board state
+        """Function used for determining the winner in a final board state
         
         Arguments:
             board_state {[[chr]]} -- Array representation of the board state
