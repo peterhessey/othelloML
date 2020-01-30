@@ -8,7 +8,7 @@ import Othello as oth
 
 class Wendy(MCAgent, CNNPlayer):
 
-    def __init__(self, verbose, dark_player, time_per_move=10):
+    def __init__(self, verbose, dark_player, time_per_move=30):
         self.alpha = 0.1
         # set up CNN
         CNNPlayer.__init__(self, verbose, dark_player)
