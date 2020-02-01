@@ -1,3 +1,5 @@
 Wendy with alpha = 0.1, time = 10 vs MC10: 5-0
 Wendy with alpha = 0.1, time = 10 vs MC30: 8-2
-CNN-6 trained with standard constants vs MC30 7-3
+CNN-6 trained with standard constants vs MC30: 7-3
+CNN-6 vs Wendy, alpha = 0.1 time = 30: 3-6-1
+CNN-6 vs Wendy, alpha = 0.1, time = 30: 9-1-0

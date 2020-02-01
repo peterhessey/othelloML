@@ -8,7 +8,7 @@ import Othello as oth
 
 class Wendy(MCAgent, CNNPlayer):
 
-    def __init__(self, verbose, dark_player, time_per_move=30):
+    def __init__(self, verbose, dark_player, time_per_move=3    0):
         self.alpha = 0.1
         # set up CNN
         CNNPlayer.__init__(self, verbose, dark_player)
@@ -43,10 +43,6 @@ class Wendy(MCAgent, CNNPlayer):
     def getNextBoardState(self, board_state):
         return MCAgent.getNextBoardState(self, board_state)
 
-
-#################NOT FINISHED ######################################
-# Need to find a way to convert Node board states into the integer output from
-# the CNN
 
     # will use weighted sum of CNN and MC output to determine best node
     def getBestNode(self, root, board_state):
@@ -101,9 +97,3 @@ class Wendy(MCAgent, CNNPlayer):
 
         else:
             return np.array([0])
-
-
-        
-        
-
-            
