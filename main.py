@@ -4,6 +4,7 @@ Main python module. Parses arguments and initialises an othello game.
 
 import argparse
 import time
+import multiprocessing as mp
 import matplotlib.pyplot as plt
 
 from Othello import Game
@@ -71,6 +72,37 @@ def validateArgs(args):
     
     return valid_arguments
 
+def extractArgs(args):
+
+    verbose = args.verbose
+    board_size = args.size
+    demo_mode = args.demo
+    player_strings = [args.dark_player, args.white_player]
+    number_of_games = int(args.number_of_games[0])
+
+    return verbose, board_size, demo_mode, player_strings, number_of_games
+
+
+def runGame(queue, verbose, board_size, demo_mode, player_strings):
+
+    if queue:
+
+        print('Running game on process: ' + str(mp.current_process()))
+        game = Game(verbose, board_size, False, player_strings)
+        winning_player = game.run()
+        queue.put(winning_player)
+
+    else:
+        game = Game(verbose, board_size, True, player_strings)
+        winning_player = game.run()
+        if winning_player == 'b':
+            print('black wins!')
+        elif winning_player == 'w':
+            print('white wins!')
+        else:
+            print('It was a draw!')
+
+
 if __name__ == "__main__":
     """Main startup, parses arguments and validates them before starting
     the game.
@@ -101,46 +133,44 @@ if __name__ == "__main__":
     args = parser.parse_args()
     args.size = int(args.size[0])
 
-    if args.verbose:
-        verbose = True
-
     if validateArgs(args):
+        
+        verbose, board_size, demo_mode, player_strings, number_of_games = extractArgs(args)
+
         if verbose:
             print('Running new othello game with the following:')
-            print('Board size: %s' % args.size)
-            print('Players: %s' % args.players)
-            print('------------------------------')
+            print('Board size: %s' % board_size)
+            print('Players: %s' % player_strings)
+            print('------------------------------')  
 
-        dark_wins = 0
-        white_wins = 0
-        draws = 0
-
-        start_time = time.time()
-
-        verbose = args.verbose
-        board_size = args.size
-        demo_mode = args.demo
-        player_strings = [args.dark_player, args.white_player]
-
-        for _ in range(int(args.number_of_games[0])):
-
-            game = Game(verbose, board_size, demo_mode, player_strings)
-
-            winning_player = game.run()
-
-            if winning_player == 'w':
-                white_wins += 1
-            elif winning_player == 'd':
-                dark_wins += 1
-            else:
-                draws += 1
         
-        end_time = time.time()
-        time_taken = end_time - start_time
+        if number_of_games > 1:
+            
+            queue = mp.Queue()
+            parallel_args = (queue, verbose, board_size, demo_mode, player_strings)
+            
+            processes = [mp.Process(target=runGame, args=parallel_args) for _ in range(number_of_games)]
 
-        print('Dark - %d | White - %d | Draws - %d' % (dark_wins, white_wins, 
-                                                       draws))
-        print('Time taken: %s seconds' % round(time_taken, 3))
-        
+            for p in processes:
+                p.start()
+
+            for p in processes:
+                p.join()
 
 
+            results = [0,0,0] # black, white, draw
+            for _ in range(number_of_games):
+                result = queue.get()
+                if result == 'd':
+                    results[0] += 1
+                elif result == 'w':
+                    results[1] += 1
+                else:
+                    results[2] += 1               
+
+            print('Black - %s, White - %s, Draws - %s' % (results[0],
+                                                          results[1],
+                                                          results[2]))
+
+        else:
+            runGame(None, verbose, board_size, demo_mode, player_strings)
