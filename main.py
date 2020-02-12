@@ -93,7 +93,7 @@ def runGame(queue, verbose, board_size, demo_mode, player_strings):
         queue.put(winning_player)
 
     else:
-        game = Game(verbose, board_size, True, player_strings)
+        game = Game(verbose, board_size, demo_mode, player_strings)
         winning_player = game.run()
         if winning_player == 'b':
             print('black wins!')
