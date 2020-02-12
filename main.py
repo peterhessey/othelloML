@@ -87,7 +87,7 @@ def runGame(queue, verbose, board_size, demo_mode, player_strings):
 
     if queue:
 
-        print('Running game on process: ' + str(mp.current_process()))
+        # print('Running game on process: ' + str(mp.current_process()))
         game = Game(verbose, board_size, False, player_strings)
         winning_player = game.run()
         queue.put(winning_player)
