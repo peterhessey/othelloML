@@ -21,7 +21,7 @@ def runSerialGames():
         
         game = Game(False, 8, False, [BLACK_PLAYER, WHITE_PLAYER])
         winning_player = game.run()
-        print('Serial completed game %d/%d' %(i+1, NUM_OF_GAMES))
+        # print('Serial completed game %d/%d' %(i+1, NUM_OF_GAMES))
 
         if winning_player == 'b':
             results[0] += 1
@@ -59,7 +59,7 @@ def parallelGame(queue, game_id):
     game = Game(False, 8, False, [BLACK_PLAYER, WHITE_PLAYER])
     winning_player = game.run()
     queue.put(winning_player)
-    print('Parallel completed game %s on process: %s' %(str(game_id), str(mp.current_process())))
+    # print('Parallel completed game %s on process: %s' %(str(game_id), str(mp.current_process())))
 
 if __name__=='__main__':
     
