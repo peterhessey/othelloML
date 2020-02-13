@@ -82,11 +82,11 @@ class Wendy(MCAgent, CNNPlayer):
                 node_score = (1-self.alpha) * monte_carlo_score + \
                              self.alpha * cnn_score
 
-                print(
-                    'Scores ---',
-                    'MC-Score:', monte_carlo_score,
-                    'CNN-Score:', cnn_score
-                )
+                # print(
+                #     'Scores ---',
+                #     'MC-Score:', monte_carlo_score,
+                #     'CNN-Score:', cnn_score
+                # )
 
                 if node_score > best_node_score:
                     best_node_score = node_score
