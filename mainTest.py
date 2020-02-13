@@ -78,9 +78,9 @@ if __name__=='__main__':
     WHITE_PLAYER = args.white_player 
     
     
-    serial_time_start = time.time()
-    serial_results = runSerialGames()
-    serial_time_taken = time.time() - serial_time_start
+    # serial_time_start = time.time()
+    # serial_results = runSerialGames()
+    # serial_time_taken = time.time() - serial_time_start
 
     parallel_time_start = time.time()
     parallel_results = runParallelGames()
@@ -88,9 +88,10 @@ if __name__=='__main__':
 
     print(
         'Number of games: %s | Black player: %s | White player: %s \n\
-Serial time: %d\n\
 Parallel time: %d'\
-        % (NUM_OF_GAMES, BLACK_PLAYER, WHITE_PLAYER, 
-           serial_time_taken, parallel_time_taken)
+        % (NUM_OF_GAMES, BLACK_PLAYER, WHITE_PLAYER, parallel_time_taken)
     )
     print('\nResults:')
+    print('Black wins:', parallel_results[0])
+    print('White wins:', parallel_results[1])
+    print('Draws:', parallel_results[2])
