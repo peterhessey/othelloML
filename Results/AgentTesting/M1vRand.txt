@@ -1,0 +1,61 @@
+Unable to init server: Could not connect: Connection refused
+Unable to init server: Could not connect: Connection refused
+
+(mainTest.py:22602): Gdk-CRITICAL **: 16:29:51.168: gdk_cursor_new_for_display: assertion 'GDK_IS_DISPLAY (display)' failed
+Parallel completed game 38 on process: <Process(Process-38, started)>
+Parallel completed game 11 on process: <Process(Process-11, started)>
+Parallel completed game 5 on process: <Process(Process-5, started)>
+Parallel completed game 8 on process: <Process(Process-8, started)>
+Parallel completed game 16 on process: <Process(Process-16, started)>
+Parallel completed game 1 on process: <Process(Process-1, started)>
+Parallel completed game 9 on process: <Process(Process-9, started)>
+Parallel completed game 23 on process: <Process(Process-23, started)>
+Parallel completed game 50 on process: <Process(Process-50, started)>
+Parallel completed game 7 on process: <Process(Process-7, started)>
+Parallel completed game 21 on process: <Process(Process-21, started)>
+Parallel completed game 36 on process: <Process(Process-36, started)>
+Parallel completed game 33 on process: <Process(Process-33, started)>
+Parallel completed game 41 on process: <Process(Process-41, started)>
+Parallel completed game 48 on process: <Process(Process-48, started)>
+Parallel completed game 30 on process: <Process(Process-30, started)>
+Parallel completed game 42 on process: <Process(Process-42, started)>
+Parallel completed game 26 on process: <Process(Process-26, started)>
+Parallel completed game 44 on process: <Process(Process-44, started)>
+Parallel completed game 3 on process: <Process(Process-3, started)>
+Parallel completed game 28 on process: <Process(Process-28, started)>
+Parallel completed game 29 on process: <Process(Process-29, started)>
+Parallel completed game 20 on process: <Process(Process-20, started)>
+Parallel completed game 14 on process: <Process(Process-14, started)>
+Parallel completed game 10 on process: <Process(Process-10, started)>
+Parallel completed game 17 on process: <Process(Process-17, started)>
+Parallel completed game 46 on process: <Process(Process-46, started)>
+Parallel completed game 25 on process: <Process(Process-25, started)>
+Parallel completed game 12 on process: <Process(Process-12, started)>
+Parallel completed game 32 on process: <Process(Process-32, started)>
+Parallel completed game 22 on process: <Process(Process-22, started)>
+Parallel completed game 47 on process: <Process(Process-47, started)>
+Parallel completed game 49 on process: <Process(Process-49, started)>
+Parallel completed game 39 on process: <Process(Process-39, started)>
+Parallel completed game 19 on process: <Process(Process-19, started)>
+Parallel completed game 6 on process: <Process(Process-6, started)>
+Parallel completed game 35 on process: <Process(Process-35, started)>
+Parallel completed game 24 on process: <Process(Process-24, started)>
+Parallel completed game 13 on process: <Process(Process-13, started)>
+Parallel completed game 27 on process: <Process(Process-27, started)>
+Parallel completed game 31 on process: <Process(Process-31, started)>
+Parallel completed game 40 on process: <Process(Process-40, started)>
+Parallel completed game 43 on process: <Process(Process-43, started)>
+Parallel completed game 45 on process: <Process(Process-45, started)>
+Parallel completed game 4 on process: <Process(Process-4, started)>
+Parallel completed game 15 on process: <Process(Process-15, started)>
+Parallel completed game 18 on process: <Process(Process-18, started)>
+Parallel completed game 34 on process: <Process(Process-34, started)>
+Parallel completed game 2 on process: <Process(Process-2, started)>
+Parallel completed game 37 on process: <Process(Process-37, started)>
+Number of games: 50 | Black player: R | White player: M 
+Parallel time: 36
+
+Results:
+Black wins: 1
+White wins: 49
+Draws: 0

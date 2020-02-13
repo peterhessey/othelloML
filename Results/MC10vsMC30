@@ -1,0 +1,258 @@
+Unable to init server: Could not connect: Connection refused
+Unable to init server: Could not connect: Connection refused
+
+(main.py:12642): Gdk-CRITICAL **: 13:34:42.001: gdk_cursor_new_for_display: assertion 'GDK_IS_DISPLAY (display)' failed
+pygame 1.9.6
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Running game on process: <Process(Process-27, started)>
+Process Process-27:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "./main.py", line 92, in runGame
+    winning_player = game.run()
+  File "./Othello/othello.py", line 119, in run
+    game_running =  self.playNextMove(player_num, False)
+  File "./Othello/othello.py", line 129, in playNextMove
+    new_board = self.players[player_num].getNextBoardState(self.board)
+  File "./Agents/monteCarloPlayer.py", line 76, in getNextBoardState
+    return self.getBestNode(root, root_board_state)
+  File "./Agents/monteCarloPlayer.py", line 95, in getBestNode
+    node_score = float(node.reward / node.visits)
+ZeroDivisionError: division by zero
+Running game on process: <Process(Process-43, started)>
+Process Process-43:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "./main.py", line 92, in runGame
+    winning_player = game.run()
+  File "./Othello/othello.py", line 119, in run
+    game_running =  self.playNextMove(player_num, False)
+  File "./Othello/othello.py", line 129, in playNextMove
+    new_board = self.players[player_num].getNextBoardState(self.board)
+  File "./Agents/monteCarloPlayer.py", line 76, in getNextBoardState
+    return self.getBestNode(root, root_board_state)
+  File "./Agents/monteCarloPlayer.py", line 95, in getBestNode
+    node_score = float(node.reward / node.visits)
+ZeroDivisionError: division by zero
+Running game on process: <Process(Process-36, started)>
+Process Process-36:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "./main.py", line 92, in runGame
+    winning_player = game.run()
+  File "./Othello/othello.py", line 119, in run
+    game_running =  self.playNextMove(player_num, False)
+  File "./Othello/othello.py", line 129, in playNextMove
+    new_board = self.players[player_num].getNextBoardState(self.board)
+  File "./Agents/monteCarloPlayer.py", line 76, in getNextBoardState
+    return self.getBestNode(root, root_board_state)
+  File "./Agents/monteCarloPlayer.py", line 95, in getBestNode
+    node_score = float(node.reward / node.visits)
+ZeroDivisionError: division by zero
+Running game on process: <Process(Process-12, started)>
+Process Process-12:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "./main.py", line 92, in runGame
+    winning_player = game.run()
+  File "./Othello/othello.py", line 119, in run
+    game_running =  self.playNextMove(player_num, False)
+  File "./Othello/othello.py", line 129, in playNextMove
+    new_board = self.players[player_num].getNextBoardState(self.board)
+  File "./Agents/monteCarloPlayer.py", line 76, in getNextBoardState
+    return self.getBestNode(root, root_board_state)
+  File "./Agents/monteCarloPlayer.py", line 95, in getBestNode
+    node_score = float(node.reward / node.visits)
+ZeroDivisionError: division by zero
+Running game on process: <Process(Process-62, started)>
+Process Process-62:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "./main.py", line 92, in runGame
+    winning_player = game.run()
+  File "./Othello/othello.py", line 119, in run
+    game_running =  self.playNextMove(player_num, False)
+  File "./Othello/othello.py", line 129, in playNextMove
+    new_board = self.players[player_num].getNextBoardState(self.board)
+  File "./Agents/monteCarloPlayer.py", line 76, in getNextBoardState
+    return self.getBestNode(root, root_board_state)
+  File "./Agents/monteCarloPlayer.py", line 95, in getBestNode
+    node_score = float(node.reward / node.visits)
+ZeroDivisionError: division by zero
+Running game on process: <Process(Process-4, started)>
+Process Process-4:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "./main.py", line 92, in runGame
+    winning_player = game.run()
+  File "./Othello/othello.py", line 119, in run
+    game_running =  self.playNextMove(player_num, False)
+  File "./Othello/othello.py", line 129, in playNextMove
+    new_board = self.players[player_num].getNextBoardState(self.board)
+  File "./Agents/monteCarloPlayer.py", line 76, in getNextBoardState
+    return self.getBestNode(root, root_board_state)
+  File "./Agents/monteCarloPlayer.py", line 95, in getBestNode
+    node_score = float(node.reward / node.visits)
+ZeroDivisionError: division by zero
+Running game on process: <Process(Process-17, started)>
+Process Process-17:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "./main.py", line 92, in runGame
+    winning_player = game.run()
+  File "./Othello/othello.py", line 119, in run
+    game_running =  self.playNextMove(player_num, False)
+  File "./Othello/othello.py", line 129, in playNextMove
+    new_board = self.players[player_num].getNextBoardState(self.board)
+  File "./Agents/monteCarloPlayer.py", line 76, in getNextBoardState
+    return self.getBestNode(root, root_board_state)
+  File "./Agents/monteCarloPlayer.py", line 95, in getBestNode
+    node_score = float(node.reward / node.visits)
+ZeroDivisionError: division by zero
+Running game on process: <Process(Process-1, started)>
+Process Process-1:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "./main.py", line 92, in runGame
+    winning_player = game.run()
+  File "./Othello/othello.py", line 119, in run
+    game_running =  self.playNextMove(player_num, False)
+  File "./Othello/othello.py", line 129, in playNextMove
+    new_board = self.players[player_num].getNextBoardState(self.board)
+  File "./Agents/monteCarloPlayer.py", line 76, in getNextBoardState
+    return self.getBestNode(root, root_board_state)
+  File "./Agents/monteCarloPlayer.py", line 95, in getBestNode
+    node_score = float(node.reward / node.visits)
+ZeroDivisionError: division by zero
+Running game on process: <Process(Process-28, started)>
+Process Process-28:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "./main.py", line 92, in runGame
+    winning_player = game.run()
+  File "./Othello/othello.py", line 119, in run
+    game_running =  self.playNextMove(player_num, False)
+  File "./Othello/othello.py", line 129, in playNextMove
+    new_board = self.players[player_num].getNextBoardState(self.board)
+  File "./Agents/monteCarloPlayer.py", line 76, in getNextBoardState
+    return self.getBestNode(root, root_board_state)
+  File "./Agents/monteCarloPlayer.py", line 95, in getBestNode
+    node_score = float(node.reward / node.visits)
+ZeroDivisionError: division by zero
+Running game on process: <Process(Process-26, started)>
+Process Process-26:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "./main.py", line 92, in runGame
+    winning_player = game.run()
+  File "./Othello/othello.py", line 119, in run
+    game_running =  self.playNextMove(player_num, False)
+  File "./Othello/othello.py", line 129, in playNextMove
+    new_board = self.players[player_num].getNextBoardState(self.board)
+  File "./Agents/monteCarloPlayer.py", line 76, in getNextBoardState
+    return self.getBestNode(root, root_board_state)
+  File "./Agents/monteCarloPlayer.py", line 95, in getBestNode
+    node_score = float(node.reward / node.visits)
+ZeroDivisionError: division by zero
+Running game on process: <Process(Process-47, started)>
+Process Process-47:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "./main.py", line 92, in runGame
+    winning_player = game.run()
+  File "./Othello/othello.py", line 119, in run
+    game_running =  self.playNextMove(player_num, False)
+  File "./Othello/othello.py", line 129, in playNextMove
+    new_board = self.players[player_num].getNextBoardState(self.board)
+  File "./Agents/monteCarloPlayer.py", line 76, in getNextBoardState
+    return self.getBestNode(root, root_board_state)
+  File "./Agents/monteCarloPlayer.py", line 95, in getBestNode
+    node_score = float(node.reward / node.visits)
+ZeroDivisionError: division by zero
+Running game on process: <Process(Process-45, started)>
+Running game on process: <Process(Process-10, started)>
+Running game on process: <Process(Process-32, started)>
+Running game on process: <Process(Process-39, started)>
+Running game on process: <Process(Process-3, started)>
+Running game on process: <Process(Process-37, started)>
+Running game on process: <Process(Process-30, started)>
+Running game on process: <Process(Process-44, started)>
+Running game on process: <Process(Process-60, started)>
+Running game on process: <Process(Process-59, started)>
+Running game on process: <Process(Process-54, started)>
+Running game on process: <Process(Process-50, started)>
+Running game on process: <Process(Process-64, started)>
+Running game on process: <Process(Process-63, started)>
+Running game on process: <Process(Process-14, started)>
+Running game on process: <Process(Process-15, started)>
+Running game on process: <Process(Process-33, started)>
+Running game on process: <Process(Process-31, started)>
+Running game on process: <Process(Process-21, started)>
+Running game on process: <Process(Process-24, started)>
+Running game on process: <Process(Process-34, started)>
+Running game on process: <Process(Process-38, started)>
+Running game on process: <Process(Process-8, started)>
+Running game on process: <Process(Process-6, started)>
+Running game on process: <Process(Process-13, started)>
+Running game on process: <Process(Process-25, started)>
+Running game on process: <Process(Process-18, started)>
+Running game on process: <Process(Process-40, started)>
+Running game on process: <Process(Process-42, started)>
+Running game on process: <Process(Process-19, started)>
+Running game on process: <Process(Process-7, started)>
+Running game on process: <Process(Process-20, started)>
+Running game on process: <Process(Process-2, started)>
+Running game on process: <Process(Process-5, started)>
+Running game on process: <Process(Process-29, started)>
+Running game on process: <Process(Process-41, started)>
+Running game on process: <Process(Process-56, started)>
+Running game on process: <Process(Process-22, started)>
+Running game on process: <Process(Process-48, started)>
+Running game on process: <Process(Process-16, started)>
+Running game on process: <Process(Process-61, started)>
+Running game on process: <Process(Process-9, started)>
+Running game on process: <Process(Process-35, started)>
+Running game on process: <Process(Process-49, started)>
+Running game on process: <Process(Process-46, started)>
+Running game on process: <Process(Process-53, started)>
+Running game on process: <Process(Process-52, started)>
+Running game on process: <Process(Process-51, started)>
+Running game on process: <Process(Process-55, started)>
+Running game on process: <Process(Process-23, started)>
+Running game on process: <Process(Process-58, started)>
+Running game on process: <Process(Process-57, started)>
+Running game on process: <Process(Process-11, started)>
+slurmstepd-cpu1: error: *** JOB 33837 ON cpu1 CANCELLED AT 2020-02-13T10:26:47 ***

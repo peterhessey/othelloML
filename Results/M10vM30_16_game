@@ -1,0 +1,39 @@
+Unable to init server: Could not connect: Connection refused
+Unable to init server: Could not connect: Connection refused
+
+(main.py:8850): Gdk-CRITICAL **: 14:38:29.035: gdk_cursor_new_for_display: assertion 'GDK_IS_DISPLAY (display)' failed
+pygame 1.9.6
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Running game on process: <Process(Process-14, started)>
+Demo mode False
+Running game on process: <Process(Process-7, started)>
+Demo mode False
+Running game on process: <Process(Process-16, started)>
+Demo mode False
+Running game on process: <Process(Process-15, started)>
+Demo mode False
+Running game on process: <Process(Process-4, started)>
+Demo mode False
+Running game on process: <Process(Process-1, started)>
+Demo mode False
+Running game on process: <Process(Process-6, started)>
+Demo mode False
+Running game on process: <Process(Process-11, started)>
+Demo mode False
+Running game on process: <Process(Process-3, started)>
+Demo mode False
+Running game on process: <Process(Process-9, started)>
+Demo mode False
+Running game on process: <Process(Process-8, started)>
+Demo mode False
+Running game on process: <Process(Process-12, started)>
+Demo mode False
+Running game on process: <Process(Process-2, started)>
+Demo mode False
+Running game on process: <Process(Process-10, started)>
+Demo mode False
+Running game on process: <Process(Process-13, started)>
+Demo mode False
+Running game on process: <Process(Process-5, started)>
+Demo mode False
+Black - 5, White - 9, Draws - 2

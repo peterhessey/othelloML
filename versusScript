@@ -1,0 +1,13 @@
+#!/bin/bash
+#SBATCH -N 4
+#SBATCH -c 16
+#SBATCH -p cpu
+#SBATCH --qos=short
+#SBATCH --job-name=OthelloBattle
+#SBATCH -o ./Results/AgentTesting/M30vRand.txt
+
+source /etc/profile
+module load cuda/10.1
+
+python3 ./mainTest.py -pW M30 -pD R -n 50
+python3 ./mainTest.py -pD M30 -pW R -n 50
