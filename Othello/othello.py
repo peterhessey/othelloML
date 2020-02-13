@@ -22,8 +22,6 @@ class Game:
         self.board = self.generateInitialBoard()
         self.players = self.setUpPlayers(player_strings)      
 
-        print('Demo mode', str(self.demo_mode))  
-
         #checks if demo mode is on, not needed if already a human playing!
         if self.demo_mode and ('h' not in player_strings):
             

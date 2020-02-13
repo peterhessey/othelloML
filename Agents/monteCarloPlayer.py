@@ -92,7 +92,12 @@ class MCAgent:
             if self.verbose:
                 print('Node has %s visits and a score of %s' % \
                       (node.visits, node.reward))
-            node_score = float(node.reward / node.visits)
+
+            if node.visits == 0:
+                node_score = 0
+            else:
+                node_score = float(node.reward / node.visits)
+            
             if node_score > best_node_score:
                 best_node = node
                 best_node_score = node_score
