@@ -94,7 +94,9 @@ def getBoardStatesFromMoves(games):
                 current_board = OthelloBoard(current_board_state, dark_turn)       
                 valid_moves = current_board.getValidMoves()
 
-            board_state_triples.append([current_board_state, dark_turn, move])
+            # use symmetric board properties to get all possible states
+            for board_state, sym_move in getSymmetricBoardStates(current_board_state, move):
+                board_state_triples.append([board_state, dark_turn, sym_move])
 
             current_board_state = current_board.makeMove(move, valid_moves[move])
 
@@ -111,6 +113,27 @@ def getBoardStatesFromMoves(games):
             print('Processed %s/%s games' % (game_counter, number_of_games))
 
     return board_state_triples
+
+def getSymmetricBoardStates(board_state, move):
+    new_board = np.copy(board_state)
+    for v in [True, False]:
+        for h in [True, False]:
+            for r in [True, False]:
+
+                # flip board and move vertically
+                if v:
+                    new_board = np.flipud(new_board)
+                    move[0] = 7 - move[0]
+                # horizontally flip 
+                if h:
+                    new_board = np.fliplr(new_board)
+                    move[1] = 7 - move[1]
+                # rotate board by 90 degrees
+                if r:
+                    new_board = np.rot90(new_board)
+                    move = [7 - move[1], move[0]]
+
+                yield (new_board, move)
 
 
 def processTriples(board_state_triples):
@@ -134,6 +157,7 @@ def processTriples(board_state_triples):
             for j in range(8):
                 board_char = board_state[i,j]
 
+                # convert all board states to black player's perspective
                 if dark_turn:
                     if board_char == 'd':
                         board_data[0][i][j] = 1
@@ -167,6 +191,7 @@ def generateMoveToIntMap():
                 move_num += 1
 
     return move_map 
+
 def loadTrainingData():
 
     boards_data = np.load(MASTER_PATH + 'boardsData.npy')
