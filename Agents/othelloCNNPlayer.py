@@ -6,7 +6,7 @@ from Player import Player
 
 # ID of the model to use
 
-MODEL_NUM = '69'
+MODEL_NAME = '2013_to_2018_noSym'
 
 # A standard Othello player that uses a CNN move-predictor to make its moves.
 # Trained against the 750000 WThor board states from expert games.
@@ -34,7 +34,7 @@ class CNNPlayer(Player):
 
         # load saved cnn model
         self.cnn.load_state_dict(torch.load('./DeepLearning/models/' + \
-            MODEL_NUM, map_location=self.device))
+            MODEL_NAME, map_location=self.device))
         self.cnn.eval()
     
 

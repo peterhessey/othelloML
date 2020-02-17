@@ -16,7 +16,7 @@ def extractBoardStates(filenames):
     Arguments:
         filename {str} -- Filename of the WTHOR file to parse
     """
-
+    total_num_of_games = 0
     games = []
     for filename in filenames:
         file_path = MASTER_PATH + filename
@@ -27,7 +27,7 @@ def extractBoardStates(filenames):
             number_of_games = int.from_bytes(game_data[4:8], 'little')
             # number_of_games = 5
             print('Number of games in file:', number_of_games)
-
+            total_num_of_games += number_of_games
             for game_num in range(number_of_games):
                 start_byte = 24 + game_num * 68 # 16 bytes for header, 8 bytes for record data
                 move_list_bytes = game_data[start_byte:start_byte+60]
@@ -44,10 +44,12 @@ def extractBoardStates(filenames):
 
                 games.append(move_list)
 
+                # for testing only
+                break
         print('Processed', filename)
 
     board_state_triples = getBoardStatesFromMoves(games)
-    print('All board states processed!')
+    print('All board states generated')
 
     board_data, moves = processTriples(board_state_triples)
     print('Board data generated, saving...')
@@ -56,6 +58,7 @@ def extractBoardStates(filenames):
     np.save(MASTER_PATH + 'movesData', moves)
 
     print('Saved!')
+    print('%d games processed in total' % total_num_of_games)
 
 def getBoardStatesFromMoves(games):
     """Gets the character board states from the lists of moves
@@ -65,7 +68,7 @@ def getBoardStatesFromMoves(games):
         tuples.
     
     Returns:
-        [[[char], bool, (int,int)]] -- List of triples, where each triple is 
+        [[[char,char], bool, (int,int)]] -- List of triples, where each triple is 
         the board state, whose turn it is and the move about to be played.
     """
     board_state_triples = []
