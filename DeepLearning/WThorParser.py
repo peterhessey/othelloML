@@ -43,9 +43,7 @@ def extractBoardStates(filenames):
                         move_list.append((move_row, move_col))
 
                 games.append(move_list)
-
-                # for testing only
-                break
+                
         print('Processed', filename)
 
     board_state_triples = getBoardStatesFromMoves(games)
@@ -204,8 +202,9 @@ def loadTrainingData():
 
 
 if __name__ == "__main__":
-    filenames = ['WTH_2013.wtb', 'WTH_2014.wtb', 'WTH_2015.wtb', \
-        'WTH_2016.wtb', 'WTH_2017.wtb', 'WTH_2018.wtb']
+    filenames = []
+    for i in range(1990, 2019):
+        filenames.append('WTH_' + str(i) + '.wtb')
     extractBoardStates(filenames)
     print('Testing data loading...')
     network_input, moves = loadTrainingData()
