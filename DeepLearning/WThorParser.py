@@ -123,15 +123,15 @@ def getSymmetricBoardStates(board_state, move):
                 # flip board and move vertically
                 if v:
                     new_board = np.flipud(new_board)
-                    move[0] = 7 - move[0]
+                    move = (7 - move[0], move[1])
                 # horizontally flip 
                 if h:
                     new_board = np.fliplr(new_board)
-                    move[1] = 7 - move[1]
+                    move = (move[0], 7 - move[1])
                 # rotate board by 90 degrees
                 if r:
                     new_board = np.rot90(new_board)
-                    move = [7 - move[1], move[0]]
+                    move = (7 - move[1], move[0])
 
                 yield (new_board, move)
 
