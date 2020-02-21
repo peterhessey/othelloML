@@ -3,7 +3,7 @@
 #SBATCH -c 1
 #SBATCH --gres=gpu
 #SBATCH -p ug-gpu-small
-#SBATCH --qos=debug
+#SBATCH --qos=short
 #SBATCH --job-name=OthelloCNN
 #SBATCH -o ./Results/CNN6modelGeneration.txt
 
