@@ -5,8 +5,6 @@ import time
 import Othello
 from roxanne import Roxanne
 
-C_VAL = math.sqrt(2)
-
 
 class MCAgent:
     """An agent capable of performing monte carlo tree search on a given 
@@ -15,7 +13,7 @@ class MCAgent:
     Returns:
         MCAgent
     """
-    def __init__(self, verbose, dark_player, time_per_move=1):
+    def __init__(self, verbose, dark_player, time_per_move=1, c_val=math.sqrt(2)):
         """Constructor function for the monte carlo othello agent.
         
         Arguments:
@@ -29,6 +27,7 @@ class MCAgent:
         self.verbose = verbose
         self.dark_player = dark_player
         self.time_per_move = time_per_move
+        self.c_val = c_val
 
 
     def getNextBoardState(self, root_board_state):
@@ -314,5 +313,5 @@ class Node:
         Returns:
             float -- The calculated UCT value for the node.
         """
-        return (self.reward / self.visits) + C_VAL * \
+        return (self.reward / self.visits) + self.c_val * \
                     math.sqrt(math.log(self.parent.visits)/self.visits)

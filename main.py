@@ -6,6 +6,8 @@ import argparse
 import time
 import multiprocessing as mp
 import matplotlib.pyplot as plt
+import os 
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = 'hide'
 
 from Othello import Game
 
