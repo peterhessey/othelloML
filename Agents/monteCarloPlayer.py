@@ -158,7 +158,7 @@ class MCAgent:
         max_node = None
 
         for child in node.children:
-            child_UCT = child.getUCT()
+            child_UCT = child.getUCT(self.c_val)
             if child_UCT > max_UCT_value:
                 max_node = child
                 max_UCT_value = child_UCT
@@ -306,12 +306,12 @@ class Node:
                                                 not self.board.dark_turn)
             self.children.append(Node(child_node_board, self))
 
-    def getUCT(self):
+    def getUCT(self, c_val):
         """Returns the UCT value of this node based on it's parent's node 
         visits.
         
         Returns:
             float -- The calculated UCT value for the node.
         """
-        return (self.reward / self.visits) + self.c_val * \
+        return (self.reward / self.visits) + c_val * \
                     math.sqrt(math.log(self.parent.visits)/self.visits)
