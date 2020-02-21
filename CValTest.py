@@ -11,7 +11,7 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = 'hide'
 
 from Othello import Game
 
-NUM_OF_GAMES = 4
+NUM_OF_GAMES = 100
 
 def runSerialGames(black_player, white_player):
 
@@ -64,37 +64,34 @@ def parallelGame(queue, game_id, black_player, white_player):
 
 if __name__=='__main__':
     
-    parser = argparse.ArgumentParser(description='Testing env for othello agents')
-    parser.add_argument('-n', dest='number_of_games', action='store',
-                        nargs=1, default=['1'], help='The number of games to \
-                        run, used for analysis.')
-    parser.add_argument('-cD', dest='dark_c_val', type=str, default=str(math.sqrt(2)), 
-                        help='Type of player to use dark pieces.')
-    parser.add_argument('-cW', dest='white_c_val', type=str, default=str(math.sqrt(2)), 
-                        help='Type of player to use white pieces.')
+    for i in range(5, 26):
+        for j in range(2):
+            if j == 0:
+                black_c_val = math.sqrt(2)
+                white_c_val = float(i/10)
+            else:
+                black_c_val = float(i/10)
+                white_c_val = math.sqrt(2)
+            
+            black_player = 'Mc' + str(black_c_val)
+            white_player = 'Mc' + str(white_c_val)
 
-    args = parser.parse_args()
-    NUM_OF_GAMES = int(args.number_of_games[0])
-    dark_c_val = args.dark_c_val
-    white_c_val = args.white_c_val
-    
-    black_player = 'Mc' + dark_c_val
-    white_player = 'Mc' + white_c_val
+            # serial_time_start = time.time()
+            # serial_results = runSerialGames()
+            # serial_time_taken = time.time() - serial_time_start
 
-    # serial_time_start = time.time()
-    # serial_results = runSerialGames()
-    # serial_time_taken = time.time() - serial_time_start
+            parallel_time_start = time.time()
+            parallel_results = runParallelGames(black_player, white_player)
+            parallel_time_taken = time.time()- parallel_time_start
 
-    parallel_time_start = time.time()
-    parallel_results = runParallelGames(black_player, white_player)
-    parallel_time_taken = time.time()- parallel_time_start
-
-    print(
-        'Number of games: %s | Black c_val: %s | White c_val: %s \n\
-Parallel time: %d'\
-        % (NUM_OF_GAMES, black_player, white_player, parallel_time_taken)
-    )
-    print('\nResults:')
-    print('Black wins:', parallel_results[0])
-    print('White wins:', parallel_results[1])
-    print('Draws:', parallel_results[2])
+            print(
+                'Number of games: %s | Black c_val: %d | White c_val: %d \n Parallel time: %d'\
+                % (NUM_OF_GAMES, round(black_c_val, 5), round(white_c_val, 5),
+                   parallel_time_taken)
+            )
+            print('\nResults:')
+            print('Black wins:', parallel_results[0])
+            print('White wins:', parallel_results[1])
+            print('Draws:', parallel_results[2])
+        
+        print('--------------------------')
