@@ -1,0 +1,22 @@
+# List of tests to complete for diss
+
+- [ ] Vs Random 
+  - [x] Roxanne 87-11-2
+  - [x] MC10 100-0-0
+  - [x] MC30 100-0-0
+  - [x] CNN-6 92-8-0
+  - [ ] CNN-4 (maybe)
+  - [ ] CNN-6 with improved data
+  - [x] Wendy 100-0-0
+- [ ] MC30
+  - [x] Roxanne - 95-5-0
+  - [x] MC1 - 185-11-0
+  - [x] MC10 1319 - 664 - 17
+  - [ ] Iterated over various (5?) c-values
+- [ ] CNNs
+  - [ ] CNN-6 vs CNN-7(or 8)
+  - [ ] CNN-6 vs CNN-6 with improved data
+- [ ] Wendy
+  - [ ] Wendy vs CNN-6 (improved data maybe)
+  - [ ] Wendy vs MC30 (with tuned c-value)
+  - [ ] Wendy vs Wendy with various alpha values
