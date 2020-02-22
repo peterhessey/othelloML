@@ -11,7 +11,7 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = 'hide'
 
 from Othello import Game
 
-NUM_OF_GAMES = 100
+NUM_OF_GAMES = 250
 
 def runSerialGames(black_player, white_player):
 
@@ -86,7 +86,7 @@ if __name__=='__main__':
 
             print(
                 'Number of games: %s | Black c_val: %d | White c_val: %d \n Parallel time: %d'\
-                % (NUM_OF_GAMES, round(black_c_val, 5), round(white_c_val, 5),
+                % (NUM_OF_GAMES, black_c_val, white_c_val,
                    parallel_time_taken)
             )
             print('\nResults:')
