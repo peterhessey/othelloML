@@ -85,7 +85,7 @@ if __name__=='__main__':
             parallel_time_taken = time.time()- parallel_time_start
 
             print(
-                'Number of games: %s | Black c_val: %d | White c_val: %d \n Parallel time: %d'\
+                'Number of games: %s | Black c_val: %f | White c_val: %f \n Parallel time: %d'\
                 % (NUM_OF_GAMES, black_c_val, white_c_val,
                    parallel_time_taken)
             )
