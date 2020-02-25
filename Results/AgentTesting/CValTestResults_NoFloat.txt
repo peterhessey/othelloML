@@ -2,14 +2,14 @@ Unable to init server: Could not connect: Connection refused
 Unable to init server: Could not connect: Connection refused
 
 (CValTest.py:21484): Gdk-CRITICAL **: 16:33:10.136: gdk_cursor_new_for_display: assertion 'GDK_IS_DISPLAY (display)' failed
-Number of games: 250 | Black c_val: 1 | White c_val: 0 
+Number of games: 250 | Black c_val: 1 | White c_val: 0.5
  Parallel time: 1822
 
 Results:
 Black wins: 134
 White wins: 114
 Draws: 2
-Number of games: 250 | Black c_val: 0 | White c_val: 1 
+Number of games: 250 | Black c_val: 0.5 | White c_val: 1 
  Parallel time: 1821
 
 Results:
@@ -17,14 +17,14 @@ Black wins: 106
 White wins: 143
 Draws: 1
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 0 
+Number of games: 250 | Black c_val: 1 | White c_val: 0.6
  Parallel time: 1822
 
 Results:
 Black wins: 108
 White wins: 139
 Draws: 3
-Number of games: 250 | Black c_val: 0 | White c_val: 1 
+Number of games: 250 | Black c_val: 0.6 | White c_val: 1 
  Parallel time: 1822
 
 Results:
@@ -32,14 +32,14 @@ Black wins: 115
 White wins: 134
 Draws: 1
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 0 
+Number of games: 250 | Black c_val: 1 | White c_val: 0.7
  Parallel time: 1821
 
 Results:
 Black wins: 116
 White wins: 132
 Draws: 2
-Number of games: 250 | Black c_val: 0 | White c_val: 1 
+Number of games: 250 | Black c_val: 0.7 | White c_val: 1 
  Parallel time: 1822
 
 Results:
@@ -47,14 +47,14 @@ Black wins: 113
 White wins: 136
 Draws: 1
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 0 
+Number of games: 250 | Black c_val: 1 | White c_val: 0.8
  Parallel time: 1822
 
 Results:
 Black wins: 118
 White wins: 127
 Draws: 5
-Number of games: 250 | Black c_val: 0 | White c_val: 1 
+Number of games: 250 | Black c_val: 0.8 | White c_val: 1 
  Parallel time: 1822
 
 Results:
@@ -62,14 +62,14 @@ Black wins: 120
 White wins: 129
 Draws: 1
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 0 
+Number of games: 250 | Black c_val: 1 | White c_val: 0.9
  Parallel time: 1822
 
 Results:
 Black wins: 115
 White wins: 132
 Draws: 3
-Number of games: 250 | Black c_val: 0 | White c_val: 1 
+Number of games: 250 | Black c_val: 0.9 | White c_val: 1 
  Parallel time: 1822
 
 Results:
@@ -92,14 +92,14 @@ Black wins: 112
 White wins: 135
 Draws: 3
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1 | White c_val: 1.1
  Parallel time: 1821
 
 Results:
 Black wins: 114
 White wins: 134
 Draws: 2
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1.1 | White c_val: 1 
  Parallel time: 1822
 
 Results:
@@ -107,14 +107,14 @@ Black wins: 116
 White wins: 132
 Draws: 2
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1 | White c_val: 1.2
  Parallel time: 1822
 
 Results:
 Black wins: 111
 White wins: 138
 Draws: 1
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1.2 | White c_val: 1 
  Parallel time: 1822
 
 Results:
@@ -122,14 +122,14 @@ Black wins: 110
 White wins: 136
 Draws: 4
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1 | White c_val: 1.3 
  Parallel time: 1822
 
 Results:
 Black wins: 115
 White wins: 132
 Draws: 3
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1.3 | White c_val: 1 
  Parallel time: 1823
 
 Results:
@@ -137,14 +137,14 @@ Black wins: 116
 White wins: 133
 Draws: 1
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1 | White c_val: 1.4 
  Parallel time: 1822
 
 Results:
 Black wins: 127
 White wins: 120
 Draws: 3
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1.4 | White c_val: 1 
  Parallel time: 1824
 
 Results:
@@ -152,14 +152,14 @@ Black wins: 105
 White wins: 144
 Draws: 1
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1 | White c_val: 1.5 
  Parallel time: 1822
 
 Results:
 Black wins: 126
 White wins: 122
 Draws: 2
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1.5 | White c_val: 1 
  Parallel time: 1821
 
 Results:
@@ -167,14 +167,14 @@ Black wins: 112
 White wins: 138
 Draws: 0
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1 | White c_val: 1.6 
  Parallel time: 1822
 
 Results:
 Black wins: 104
 White wins: 146
 Draws: 0
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1.6 | White c_val: 1 
  Parallel time: 1822
 
 Results:
@@ -182,14 +182,14 @@ Black wins: 109
 White wins: 138
 Draws: 3
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1 | White c_val: 1.7
  Parallel time: 1823
 
 Results:
 Black wins: 122
 White wins: 126
 Draws: 2
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1.7 | White c_val: 1 
  Parallel time: 1823
 
 Results:
@@ -197,14 +197,14 @@ Black wins: 127
 White wins: 123
 Draws: 0
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1 | White c_val: 1.8
  Parallel time: 1822
 
 Results:
 Black wins: 128
 White wins: 122
 Draws: 0
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1.8 | White c_val: 1 
  Parallel time: 1822
 
 Results:
@@ -212,14 +212,14 @@ Black wins: 113
 White wins: 136
 Draws: 1
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1 | White c_val: 1.9
  Parallel time: 1822
 
 Results:
 Black wins: 124
 White wins: 125
 Draws: 1
-Number of games: 250 | Black c_val: 1 | White c_val: 1 
+Number of games: 250 | Black c_val: 1.9 | White c_val: 1 
  Parallel time: 1822
 
 Results:
@@ -227,14 +227,14 @@ Black wins: 124
 White wins: 126
 Draws: 0
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 2 
+Number of games: 250 | Black c_val: 1 | White c_val: 2.0
  Parallel time: 1822
 
 Results:
 Black wins: 122
 White wins: 128
 Draws: 0
-Number of games: 250 | Black c_val: 2 | White c_val: 1 
+Number of games: 250 | Black c_val: 2.0 | White c_val: 1 
  Parallel time: 1822
 
 Results:
@@ -242,14 +242,14 @@ Black wins: 116
 White wins: 133
 Draws: 1
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 2 
+Number of games: 250 | Black c_val: 1 | White c_val: 2.1
  Parallel time: 1823
 
 Results:
 Black wins: 110
 White wins: 136
 Draws: 4
-Number of games: 250 | Black c_val: 2 | White c_val: 1 
+Number of games: 250 | Black c_val: 2.1 | White c_val: 1 
  Parallel time: 1822
 
 Results:
@@ -257,14 +257,14 @@ Black wins: 120
 White wins: 130
 Draws: 0
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 2 
+Number of games: 250 | Black c_val: 1 | White c_val: 2.2
  Parallel time: 1822
 
 Results:
 Black wins: 104
 White wins: 144
 Draws: 2
-Number of games: 250 | Black c_val: 2 | White c_val: 1 
+Number of games: 250 | Black c_val: 2.2 | White c_val: 1 
  Parallel time: 1822
 
 Results:
@@ -272,14 +272,14 @@ Black wins: 125
 White wins: 125
 Draws: 0
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 2 
+Number of games: 250 | Black c_val: 1 | White c_val: 2.3
  Parallel time: 1823
 
 Results:
 Black wins: 127
 White wins: 123
 Draws: 0
-Number of games: 250 | Black c_val: 2 | White c_val: 1 
+Number of games: 250 | Black c_val: 2.3 | White c_val: 1 
  Parallel time: 1824
 
 Results:
@@ -287,14 +287,14 @@ Black wins: 124
 White wins: 125
 Draws: 1
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 2 
+Number of games: 250 | Black c_val: 1 | White c_val: 2.4
  Parallel time: 1823
 
 Results:
 Black wins: 130
 White wins: 120
 Draws: 0
-Number of games: 250 | Black c_val: 2 | White c_val: 1 
+Number of games: 250 | Black c_val: 2.4 | White c_val: 1 
  Parallel time: 1822
 
 Results:
@@ -302,14 +302,14 @@ Black wins: 123
 White wins: 127
 Draws: 0
 --------------------------
-Number of games: 250 | Black c_val: 1 | White c_val: 2 
+Number of games: 250 | Black c_val: 1 | White c_val: 2.5
  Parallel time: 1822
 
 Results:
 Black wins: 121
 White wins: 128
 Draws: 1
-Number of games: 250 | Black c_val: 2 | White c_val: 1 
+Number of games: 250 | Black c_val: 2.5 | White c_val: 1 
  Parallel time: 1822
 
 Results:
