@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -N 3
+#SBATCH -N 4
 #SBATCH -c 16
 #SBATCH -p cpu
 #SBATCH --qos=short
