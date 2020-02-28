@@ -58,7 +58,7 @@ class Game:
                 new_player = MCAgent(self.verbose, dark_player, time_per_move=10)
             elif player_strings[i][:2] == 'Mc':
                 c = float(player_strings[i][2:])
-                new_player = MCAgent(self.verbose, dark_player, time_per_move=30, c_val=c)
+                new_player = MCAgent(self.verbose, dark_player, c_val=c)
             elif player_strings[i] == 'C':
                 new_player = CNNPlayer(self.verbose, dark_player)
 
