@@ -11,7 +11,7 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = 'hide'
 
 from Othello import Game
 
-NUM_OF_GAMES = 250
+NUM_OF_GAMES = 5000
 
 def runSerialGames(black_player, white_player):
 
@@ -63,14 +63,18 @@ def parallelGame(queue, game_id, black_player, white_player):
     # print('Parallel completed game %s on process: %s' %(str(game_id), str(mp.current_process())))
 
 if __name__=='__main__':
-    
+
+    print('Running %s games per value for c-val testing' % str(NUM_OF_GAMES * 2))
+    results_dict = {}
     for i in range(5, 26):
+        c_val = float(i/10)
+        results_dict[c_val] = 0
         for j in range(2):
             if j == 0:
                 black_c_val = math.sqrt(2)
-                white_c_val = float(i/10)
+                white_c_val = c_val
             else:
-                black_c_val = float(i/10)
+                black_c_val = c_val
                 white_c_val = math.sqrt(2)
             
             black_player = 'Mc' + str(black_c_val)
@@ -82,16 +86,13 @@ if __name__=='__main__':
 
             parallel_time_start = time.time()
             parallel_results = runParallelGames(black_player, white_player)
-            parallel_time_taken = time.time()- parallel_time_start
+            parallel_time_taken = time.time()- parallel_time_start           
 
-            print(
-                'Number of games: %s | Black c_val: %f | White c_val: %f \n Parallel time: %d'\
-                % (NUM_OF_GAMES, black_c_val, white_c_val,
-                   parallel_time_taken)
-            )
-            print('\nResults:')
-            print('Black wins:', parallel_results[0])
-            print('White wins:', parallel_results[1])
-            print('Draws:', parallel_results[2])
-        
-        print('--------------------------')
+            if j==0:
+                results_dict[c_val] += parallel_results[1]
+            else:
+                results_dict[c_val] += parallel_results[0]
+
+        print('Games for c-val of %f complete' % c_val)
+
+    print(results_dict)
