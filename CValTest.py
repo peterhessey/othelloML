@@ -32,26 +32,34 @@ def runSerialGames(black_player, white_player):
     return results
 
 def runParallelGames(black_player, white_player):
-    queue = mp.Queue()
-    processes = [mp.Process(target=parallelGame,
-                            args=(queue, i+1, black_player, white_player))
-                             for i in range(NUM_OF_GAMES)]
 
-    for p in processes:
-        p.start()
-    
-    for p in processes:
-        p.join()
-
+    games_played = 0
+    games_per_loop = 250
     results = [0,0,0] # black, white, draw
-    for _ in range(NUM_OF_GAMES):
-        result = queue.get()
-        if result == 'd':
-            results[0] += 1
-        elif result == 'w':
-            results[1] += 1
-        else:
-            results[2] += 1   
+
+    while games_played < NUM_OF_GAMES:
+        queue = mp.Queue()
+        processes = [mp.Process(target=parallelGame,
+                                args=(queue, i+1, black_player, white_player))
+                                for i in range(games_per_loop)]
+
+        for p in processes:
+            p.start()
+        
+        for p in processes:
+            p.join()
+
+        
+        for _ in range(games_per_loop):
+            result = queue.get()
+            if result == 'd':
+                results[0] += 1
+            elif result == 'w':
+                results[1] += 1
+            else:
+                results[2] += 1   
+    
+        games_played += games_per_loop
 
     return results
 
