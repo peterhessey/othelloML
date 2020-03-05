@@ -74,7 +74,7 @@ if __name__=='__main__':
 
     lr = 0.01
     sgd_momentum = 0.95
-    batch_size = 100
+    batch_size = 32
     num_epochs = 25
 
     ## set up devices, NN and optimiser
