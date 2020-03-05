@@ -1,0 +1,6 @@
+Unable to init server: Could not connect: Connection refused
+Unable to init server: Could not connect: Connection refused
+
+(CValTest.py:32208): Gdk-CRITICAL **: 09:56:07.330: gdk_cursor_new_for_display: assertion 'GDK_IS_DISPLAY (display)' failed
+Running 10000 games per value for c-val testing
+slurmstepd-cpu1: error: *** JOB 38221 ON cpu1 CANCELLED AT 2020-03-02T09:56:23 ***

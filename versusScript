@@ -4,7 +4,7 @@
 #SBATCH -p cpu
 #SBATCH --qos=short
 #SBATCH --job-name=CValTester
-#SBATCH -o ./Results/AgentTesting/CValTestResults.txt
+#SBATCH -o ./Results/AgentTesting/CValMC1Results.txt
 
 source /etc/profile
 module load cuda/10.1
