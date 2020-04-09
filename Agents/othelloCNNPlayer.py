@@ -48,7 +48,7 @@ class CNNPlayer(Player):
         move_map = {}
         for i in range(8):
             for j in range(8):
-
+                # if not centre pieces
                 if not ((i == 3 or i == 4) and (j == 3 or j == 4)):
                     move_map[move_num] = (i, j)
                     move_num += 1
