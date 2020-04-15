@@ -9,7 +9,7 @@ import Othello as oth
 class Wendy(MCAgent, CNNPlayer):
 
     def __init__(self, verbose, dark_player, time_per_move=30):
-        self.alpha = 0.1
+        self.alpha = 0.75
         # set up CNN
         CNNPlayer.__init__(self, verbose, dark_player)
         
@@ -71,15 +71,34 @@ class Wendy(MCAgent, CNNPlayer):
             best_node_score = float('-inf')
             best_node = root    
 
+            # get max and min MCTS scores
+
+            min_mc_score = float('inf')
+            max_mc_score = float('-inf')
+
+            for move, child)node in move_board_pairs:
+                mc_score = float(child_node.reward / child_node.visits)
+                if mc_score < min_mc_score:
+                    min_mc_score = mc_score
+                
+                if mc_score > max_mc_score:
+                    max_mc_score = mc_score
+
+            
+
+            # move evaluation function            
             for move, child_node in move_board_pairs:
                 monte_carlo_score = float(child_node.reward \
                     / child_node.visits)
+
+                # map mc values to range [0,1]
+                mc_score_normalised = (monte_carlo_score - min_mc_score) / (max_mc_score - min_mc_score)
                 
                 # get the probability from the CNN using Wendy's move map
                 cnn_score = move_probabilities[self.move_map[move]]
 
                 # taken the weight sum of both scores
-                node_score = (1-self.alpha) * monte_carlo_score + \
+                node_score = (1-self.alpha) * mc_score_normalised + \
                              self.alpha * cnn_score
 
                 # print(

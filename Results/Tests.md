@@ -12,7 +12,7 @@
   - [x] Roxanne - 95-5-0
   - [x] MC1 - 185-11-0
   - [x] MC10 1319 - 664 - 17
-  - [ ] Iterated over various (5?) c-values
+  - [x] Iterated over various (5?) c-values
 - [ ] CNNs
   - [ ] CNN-6 vs CNN-7(or 8)
   - [ ] CNN-6 vs CNN-6 with improved data
