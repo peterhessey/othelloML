@@ -76,6 +76,8 @@ if __name__=='__main__':
     network = OthelloCNN4().to(device)
     optimiser = optim.SGD(network.parameters(), lr=lr, momentum=sgd_momentum)
 
+    print(network)
+
     ## prepare data
 
     boards_data, moves = WThorParser.loadTrainingData()
