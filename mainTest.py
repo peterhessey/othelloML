@@ -10,10 +10,6 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = 'hide'
 
 from Othello import Game
 
-NUM_OF_GAMES = 4
-BLACK_PLAYER = 'r'
-WHITE_PLAYER = 'r'
-
 def runSerialGames():
 
     results = [0,0,0] #black, white, draws
@@ -32,9 +28,9 @@ def runSerialGames():
 
     return results
 
-def runParallelGames():
+def runParallelGames(num_of_games, black_player, white_player):
     queue = mp.Queue()
-    processes = [mp.Process(target=parallelGame, args=(queue, i+1,)) for i in range(NUM_OF_GAMES)]
+    processes = [mp.Process(target=parallelGame, args=(queue, i+1, black_player, white_player,)) for i in range(num_of_games)]
 
     for p in processes:
         p.start()
@@ -43,7 +39,7 @@ def runParallelGames():
         p.join()
 
     results = [0,0,0] # black, white, draw
-    for _ in range(NUM_OF_GAMES):
+    for _ in range(num_of_games):
         result = queue.get()
         if result == 'd':
             results[0] += 1
@@ -54,9 +50,9 @@ def runParallelGames():
 
     return results
 
-def parallelGame(queue, game_id):
+def parallelGame(queue, game_id, black_player, white_player):
     
-    game = Game(False, 8, False, [BLACK_PLAYER, WHITE_PLAYER])
+    game = Game(False, 8, False, [black_player, white_player])
     winning_player = game.run()
     queue.put(winning_player)
     # print('Parallel completed game %s on process: %s' %(str(game_id), str(mp.current_process())))
@@ -73,23 +69,23 @@ if __name__=='__main__':
                         help='Type of player to use white pieces.')
 
     args = parser.parse_args()
-    NUM_OF_GAMES = int(args.number_of_games[0])
-    BLACK_PLAYER = args.dark_player
-    WHITE_PLAYER = args.white_player 
-    
+    num_of_games = int(args.number_of_games[0])
+    black_player = args.dark_player
+    white_player = args.white_player 
+
     
     # serial_time_start = time.time()
     # serial_results = runSerialGames()
     # serial_time_taken = time.time() - serial_time_start
 
     parallel_time_start = time.time()
-    parallel_results = runParallelGames()
+    parallel_results = runParallelGames(num_of_games, black_player, white_player)
     parallel_time_taken = time.time()- parallel_time_start
 
     print(
         'Number of games: %s | Black player: %s | White player: %s \n\
 Parallel time: %d'\
-        % (NUM_OF_GAMES, BLACK_PLAYER, WHITE_PLAYER, parallel_time_taken)
+        % (num_of_games, black_player, white_player, parallel_time_taken)
     )
     print('\nResults:')
     print('Black wins:', parallel_results[0])

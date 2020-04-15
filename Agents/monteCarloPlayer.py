@@ -29,7 +29,6 @@ class MCAgent:
         self.time_per_move = time_per_move
         self.c_val = c_val
 
-
     def getNextBoardState(self, root_board_state):
         """The main MCTS function. Takes an input board state and returns the 
         board state determined by the algorithm to be the best.
