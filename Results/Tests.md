@@ -16,7 +16,6 @@
 - [ ] CNNs
   - [ ] CNN-6 vs CNN-7(or 8)
   - [ ] CNN-6 vs CNN-6 with improved data
-- [ ] Wendy
   - [ ] Wendy vs CNN-6 (improved data maybe)
   - [ ] Wendy vs MC30 (with tuned c-value)
   - [ ] Wendy vs Wendy with various alpha values

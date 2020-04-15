@@ -63,6 +63,7 @@ class Wendy(MCAgent, CNNPlayer):
 
         # check if any valid moves available
         if bool(valid_moves):
+
             with torch.no_grad():
                 # extract the probability of selecting each move, put into list
                 move_probabilities = self.cnn(network_input).squeeze().tolist()
@@ -72,7 +73,6 @@ class Wendy(MCAgent, CNNPlayer):
             best_node = root    
 
             # get max and min MCTS scores
-
             min_mc_score = float('inf')
             max_mc_score = float('-inf')
 
@@ -88,17 +88,24 @@ class Wendy(MCAgent, CNNPlayer):
 
             # move evaluation function            
             for move, child_node in move_board_pairs:
-                monte_carlo_score = float(child_node.reward \
-                    / child_node.visits)
 
-                # map mc values to range [0,1]
-                mc_score_normalised = (monte_carlo_score - min_mc_score) / (max_mc_score - min_mc_score)
+                # should only be activated if there's just one move (unless all moves are valuated equally)
+                if max_mc_score - min_mc_score != 0:
+
+                    monte_carlo_score = float(child_node.reward \
+                        / child_node.visits)
+
+                    # map mc values to range [0,1]
+                    monte_carlo_score = (monte_carlo_score - min_mc_score) / (max_mc_score - min_mc_score)
                 
+                else:
+                    monte_carlo_score = 1
+
                 # get the probability from the CNN using Wendy's move map
                 cnn_score = move_probabilities[self.move_map[move]]
 
                 # taken the weight sum of both scores
-                node_score = (1-self.alpha) * mc_score_normalised + \
+                node_score = (1-self.alpha) * monte_carlo_score + \
                              self.alpha * cnn_score
 
                 # print(
