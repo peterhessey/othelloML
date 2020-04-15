@@ -76,7 +76,7 @@ class Wendy(MCAgent, CNNPlayer):
             min_mc_score = float('inf')
             max_mc_score = float('-inf')
 
-            for move, child)node in move_board_pairs:
+            for move, child_node in move_board_pairs:
                 mc_score = float(child_node.reward / child_node.visits)
                 if mc_score < min_mc_score:
                     min_mc_score = mc_score
