@@ -1,4 +1,4 @@
-slurmstepd-gpu3: error: Job 35644 exceeded memory limit (16304676 > 16289792), being killed
-slurmstepd-gpu3: error: Exceeded job memory limit
-slurmstepd-gpu3: error: *** JOB 35644 ON gpu3 CANCELLED AT 2020-02-21T12:50:55 ***
-slurmstepd-gpu3: error: Step 35644.4294967294 hit memory limit at least once during execution. This may or may not result in some failure.
+slurmstepd-gpu6: error: Job 39026 exceeded memory limit (24604964 > 24576000), being killed
+slurmstepd-gpu6: error: Exceeded job memory limit
+slurmstepd-gpu6: error: *** JOB 39026 ON gpu6 CANCELLED AT 2020-03-05T14:46:47 ***
+slurmstepd-gpu6: error: Step 39026.4294967294 hit memory limit at least once during execution. This may or may not result in some failure.

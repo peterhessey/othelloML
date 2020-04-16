@@ -5,9 +5,9 @@
 #SBATCH -p res-gpu-large
 #SBATCH --qos=short
 #SBATCH --job-name=OthelloCNN
-#SBATCH -o ./Results/CNN6modelGeneration.txt
+#SBATCH -o ./Results/CNN8modelGeneration.txt
 
 source /etc/profile
 module load cuda/10.1
 
-python3 ./DeepLearning/othelloCNN6.py
+python3 ./DeepLearning/othelloCNN8.py

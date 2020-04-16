@@ -4,9 +4,10 @@
 #SBATCH -p cpu
 #SBATCH --qos=short
 #SBATCH --job-name=Othello_VS_Tests
-#SBATCH -o ./Results/AgentTesting/WendyVsCNN6_Part2
+#SBATCH -o ./Results/AgentTesting/WendyVsCNN6
 
 source /etc/profile
 module load cuda/10.1
 
 python3 ./mainTest.py -n 128 -pD W -pW C
+python3 ./mainTest.py -n 64 -pD W -pW M30

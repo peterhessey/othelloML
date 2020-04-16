@@ -1,0 +1,11 @@
+Unable to init server: Could not connect: Connection refused
+Unable to init server: Could not connect: Connection refused
+
+(mainTest.py:4296): Gdk-CRITICAL **: 10:29:09.178: gdk_cursor_new_for_display: assertion 'GDK_IS_DISPLAY (display)' failed
+Number of games: 128 | Black player: W | White player: C 
+Parallel time: 1183
+
+Results:
+Black wins: 5
+White wins: 122
+Draws: 1
