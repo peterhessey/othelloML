@@ -1,13 +1,13 @@
 #!/bin/bash
-#SBATCH -N 4
+#SBATCH -N 2
 #SBATCH -c 16
 #SBATCH -p cpu
 #SBATCH --qos=short
 #SBATCH --job-name=Othello_VS_Tests
-#SBATCH -o ./Results/AgentTesting/CNN6vsM30
+#SBATCH -o ./Results/AgentTesting/CNN6vsRoxanne
 
 source /etc/profile
 module load cuda/10.1
 
-python3 ./mainTest.py -n 125 -pW C -pD M30
-python3 ./mainTest.py -n 125 -pD M30 -pW C
+python3 ./mainTest.py -n 125 -pW C -pD R
+python3 ./mainTest.py -n 125 -pD R -pW C

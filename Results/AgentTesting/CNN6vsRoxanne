@@ -1,0 +1,52 @@
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (98608816 > 32768000), being killed
+t connect: Connection refused
+
+(mainTest.py:1516): Gdk-CRITICAL **: 14:46:43.157: gdk_cursor_new_for_display: assertion 'GDK_IS_DISPLAY (display)' failed
+
+libgomp: Thread creation failed: Resource temporarily unavailable
+
+libgomp: Thread creation slurmstepd-cpu1: error: Job 46707 exceeded memory limit (98610780 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (98613472 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (98615332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (98321376 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (98323992 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (98324780 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (98178968 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (97884828 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (95083608 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (75303072 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570324 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+e temporarily unavailable
+
+libgomp: Thread creation failed: Resource temporarily unavailable
+
+libgomp: Thread creation failed:slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+vailable
+
+libgomp: Thread creation failed: Resource temporarily unavailable
+
+libgomp: Thread creation failed: Resource temporarily unavailable
+
+libgomp: Tslurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+libgomp: Thread creation failed: Rslurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
+slurmstepd-cpu1: error: Job 46707 exceeded memory limit (61570332 > 32768000), being killed
