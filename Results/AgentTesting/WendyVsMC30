@@ -1,0 +1,17 @@
+Unable to init server: Could not connect: Connection refused
+Unable to init server: Could not connect: Connection refused
+
+(mainTest.py:32475): Gdk-CRITICAL **: 18:23:12.103: gdk_cursor_new_for_display: assertion 'GDK_IS_DISPLAY (display)' failed
+Number of games: 125 | Black player: W | White player: M30 
+Parallel time: 1899
+
+Results:
+Black wins: 86
+White wins: 38
+Draws: 1
+Unable to init server: Could not connect: Connection refused
+Unable to init server: Could not connect: Connection refused
+
+(mainTest.py:13138): Gdk-CRITICAL **: 18:54:53.528: gdk_cursor_new_for_display: assertion 'GDK_IS_DISPLAY (display)' failed
+slurmstepd-cpu1: error: Job 46406 exceeded memory limit (32768232 > 32768000), being killed
+slurmstepd-cpu1: error: *** JOB 46406 ON cpu1 CANCELLED AT 2020-04-16T19:24:12 ***
