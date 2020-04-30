@@ -9,13 +9,13 @@
   - [ ] CNN-6 with improved data
   - [x] Wendy 100-0-0
 - [ ] MC30
-  - [x] Roxanne - 95-5-0
+  - [x] Roxanne - 100-0-0
   - [x] MC1 - 185-11-0
   - [x] MC10 1319 - 664 - 17
   - [x] Iterated over various (5?) c-values
 - [ ] CNNs
-  - [ ] CNN-6 vs CNN-7(or 8)
-  - [ ] CNN-6 vs CNN-6 with improved data
-  - [ ] Wendy vs CNN-6 (improved data maybe)
-  - [ ] Wendy vs MC30 (with tuned c-value)
+  - [ ] CNN-6 vs Roxanne
+  - [ ] CNN-6 vs MC30
+  - [x] Wendy vs CNN-6: 250 - 5 - 1
+  - [x] Wendy vs MC30 (with tuned c-value)
   - [ ] Wendy vs Wendy with various alpha values
